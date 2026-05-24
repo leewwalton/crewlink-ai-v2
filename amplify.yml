@@ -7,6 +7,7 @@ applications:
           commands:
             - cd $CODEBUILD_SRC_DIR/crewlink-ai-v2
             - npm ci --cache .npm --prefer-offline
+            - npm run build -w @crewlink/domain
             # Deploy backend via CDK (replaces ampx pipeline-deploy)
             - npx cdk deploy CrewLinkStack --require-approval never --outputs-file cdk-deploy-outputs.json
             - echo Generating amplify_outputs.json and cdk-outputs.json from CDK outputs

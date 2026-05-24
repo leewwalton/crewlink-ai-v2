@@ -1,3 +1,4 @@
+import * as path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as apigwv2 from "aws-cdk-lib/aws-apigatewayv2";
@@ -131,13 +132,19 @@ export class CrewLinkStack extends cdk.Stack {
         process.env.BEDROCK_MODEL_ID || "anthropic.claude-3-5-sonnet-20241022-v2:0",
     };
 
+    const domainEntry = path.join(__dirname, "../packages/domain/src/index.ts");
+
     const common = {
       runtime: lambda.Runtime.NODEJS_20_X,
       architecture: lambda.Architecture.ARM_64,
       timeout: cdk.Duration.seconds(20),
       memorySize: 256,
+      depsLockFilePath: path.join(__dirname, "../package-lock.json"),
       bundling: {
         externalModules: ["@aws-sdk/*"],
+        alias: {
+          "@crewlink/domain": domainEntry,
+        },
       },
       environment,
     };
