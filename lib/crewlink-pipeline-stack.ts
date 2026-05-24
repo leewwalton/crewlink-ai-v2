@@ -26,93 +26,127 @@ export class CrewLinkPipelineStack extends cdk.Stack {
 
     // ==========================
     // Cognito: User Pool, Client, Domain, Identity Pool (CDK-managed)
+    // Re-use existing auth when migrating from CrewLinkStack (domain prefix is account-wide).
     // ==========================
-    const userPool = new cognito.UserPool(this, "UserPool", {
-      userPoolName: "crewlink-user-pool",
-      selfSignUpEnabled: true,
-      signInAliases: { email: true },
-      standardAttributes: {
-        email: { required: true, mutable: true },
-      },
-      passwordPolicy: {
-        minLength: 10,
-        requireDigits: true,
-        requireLowercase: true,
-        requireUppercase: true,
-      },
-      removalPolicy: cdk.RemovalPolicy.RETAIN,
-    });
-
-    const callbackUrls = parseCsv(
-      process.env.COGNITO_CALLBACK_URLS,
-      [
-        "http://localhost:3000/dashboard",
-        "http://localhost:3000/",
-        "https://flycrewlink.com/dashboard",
-        "https://flycrewlink.com/",
-      ],
+    const existingAuth = loadExistingAuth();
+    const useExistingAuth = Boolean(
+      existingAuth.userPoolId && existingAuth.userPoolClientId,
     );
-    const logoutUrls = parseCsv(process.env.COGNITO_LOGOUT_URLS, [
-      "http://localhost:3000/",
-      "https://flycrewlink.com/",
-    ]);
 
-    const userPoolClient = new cognito.UserPoolClient(this, "UserPoolClient", {
-      userPool,
-      authFlows: {
-        userPassword: true,
-        userSrp: true,
-      },
-      oAuth: {
-        flows: { authorizationCodeGrant: true },
-        scopes: [
-          cognito.OAuthScope.EMAIL,
-          cognito.OAuthScope.OPENID,
-          cognito.OAuthScope.PROFILE,
+    let userPool: cognito.IUserPool;
+    let userPoolClient: cognito.IUserPoolClient;
+    let cognitoDomainName: string;
+    let identityPoolIdOutput: string;
+
+    if (useExistingAuth) {
+      userPool = cognito.UserPool.fromUserPoolId(
+        this,
+        "UserPool",
+        existingAuth.userPoolId!,
+      );
+      userPoolClient = cognito.UserPoolClient.fromUserPoolClientId(
+        this,
+        "UserPoolClient",
+        existingAuth.userPoolClientId!,
+      );
+      cognitoDomainName =
+        existingAuth.cognitoDomain || `crewlink-${this.account}`;
+      identityPoolIdOutput = existingAuth.identityPoolId || "";
+    } else {
+      const createdPool = new cognito.UserPool(this, "UserPool", {
+        userPoolName: "crewlink-user-pool",
+        selfSignUpEnabled: true,
+        signInAliases: { email: true },
+        standardAttributes: {
+          email: { required: true, mutable: true },
+        },
+        passwordPolicy: {
+          minLength: 10,
+          requireDigits: true,
+          requireLowercase: true,
+          requireUppercase: true,
+        },
+        removalPolicy: cdk.RemovalPolicy.RETAIN,
+      });
+      userPool = createdPool;
+
+      const callbackUrls = parseCsv(
+        process.env.COGNITO_CALLBACK_URLS,
+        [
+          "http://localhost:3000/dashboard",
+          "http://localhost:3000/",
+          "https://flycrewlink.com/dashboard",
+          "https://flycrewlink.com/",
         ],
-        callbackUrls,
-        logoutUrls,
-      },
-      generateSecret: false,
-    });
+      );
+      const logoutUrls = parseCsv(process.env.COGNITO_LOGOUT_URLS, [
+        "http://localhost:3000/",
+        "https://flycrewlink.com/",
+      ]);
 
-    const domainPrefix =
-      process.env.COGNITO_DOMAIN_PREFIX || `crewlink-${this.account}`;
-    const userPoolDomain = userPool.addDomain("UserPoolDomain", {
-      cognitoDomain: { domainPrefix },
-    });
-
-    const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
-      allowUnauthenticatedIdentities: false,
-      cognitoIdentityProviders: [
-        {
-          clientId: userPoolClient.userPoolClientId,
-          providerName: userPool.userPoolProviderName,
+      userPoolClient = new cognito.UserPoolClient(this, "UserPoolClient", {
+        userPool: createdPool,
+        authFlows: {
+          userPassword: true,
+          userSrp: true,
         },
-      ],
-    });
+        oAuth: {
+          flows: { authorizationCodeGrant: true },
+          scopes: [
+            cognito.OAuthScope.EMAIL,
+            cognito.OAuthScope.OPENID,
+            cognito.OAuthScope.PROFILE,
+          ],
+          callbackUrls,
+          logoutUrls,
+        },
+        generateSecret: false,
+      });
 
-    const authenticatedRole = new iam.Role(this, "CognitoAuthenticatedRole", {
-      assumedBy: new iam.FederatedPrincipal(
-        "cognito-identity.amazonaws.com",
-        {
-          StringEquals: {
-            "cognito-identity.amazonaws.com:aud": identityPool.ref,
+      const domainPrefix =
+        process.env.COGNITO_DOMAIN_PREFIX || `crewlink-${this.account}`;
+      const userPoolDomain = createdPool.addDomain("UserPoolDomain", {
+        cognitoDomain: { domainPrefix },
+      });
+      cognitoDomainName = userPoolDomain.domainName;
+
+      const identityPool = new cognito.CfnIdentityPool(this, "IdentityPool", {
+        allowUnauthenticatedIdentities: false,
+        cognitoIdentityProviders: [
+          {
+            clientId: userPoolClient.userPoolClientId,
+            providerName: createdPool.userPoolProviderName,
           },
-          "ForAnyValue:StringLike": {
-            "cognito-identity.amazonaws.com:amr": "authenticated",
+        ],
+      });
+      identityPoolIdOutput = identityPool.ref;
+
+      const authenticatedRole = new iam.Role(this, "CognitoAuthenticatedRole", {
+        assumedBy: new iam.FederatedPrincipal(
+          "cognito-identity.amazonaws.com",
+          {
+            StringEquals: {
+              "cognito-identity.amazonaws.com:aud": identityPool.ref,
+            },
+            "ForAnyValue:StringLike": {
+              "cognito-identity.amazonaws.com:amr": "authenticated",
+            },
+          },
+          "sts:AssumeRoleWithWebIdentity",
+        ),
+      });
+
+      new cognito.CfnIdentityPoolRoleAttachment(
+        this,
+        "IdentityPoolRoleAttachment",
+        {
+          identityPoolId: identityPool.ref,
+          roles: {
+            authenticated: authenticatedRole.roleArn,
           },
         },
-        "sts:AssumeRoleWithWebIdentity",
-      ),
-    });
-
-    new cognito.CfnIdentityPoolRoleAttachment(this, "IdentityPoolRoleAttachment", {
-      identityPoolId: identityPool.ref,
-      roles: {
-        authenticated: authenticatedRole.roleArn,
-      },
-    });
+      );
+    }
 
     // ==========================
     // DynamoDB tables
@@ -323,9 +357,11 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     // Stack outputs
     // ==========================
     new cdk.CfnOutput(this, "UserPoolId", { value: userPool.userPoolId });
-    new cdk.CfnOutput(this, "UserPoolClientId", { value: userPoolClient.userPoolClientId });
-    new cdk.CfnOutput(this, "IdentityPoolId", { value: identityPool.ref });
-    new cdk.CfnOutput(this, "CognitoDomain", { value: userPoolDomain.domainName });
+    new cdk.CfnOutput(this, "UserPoolClientId", {
+      value: userPoolClient.userPoolClientId,
+    });
+    new cdk.CfnOutput(this, "IdentityPoolId", { value: identityPoolIdOutput });
+    new cdk.CfnOutput(this, "CognitoDomain", { value: cognitoDomainName });
     new cdk.CfnOutput(this, "HttpApiUrl", { value: httpApi.apiEndpoint });
     new cdk.CfnOutput(this, "AwsRegion", { value: this.region });
   }
@@ -369,4 +405,48 @@ function corsOrigins(): string[] {
   const defaults = ["http://localhost:3000", "https://flycrewlink.com"];
   const extra = parseCsv(process.env.CORS_ORIGINS, []);
   return [...new Set([...defaults, ...extra])];
+}
+
+function loadExistingAuth(): {
+  userPoolId?: string;
+  userPoolClientId?: string;
+  identityPoolId?: string;
+  cognitoDomain?: string;
+} {
+  const fromEnv = {
+    userPoolId: process.env.COGNITO_USER_POOL_ID,
+    userPoolClientId: process.env.COGNITO_USER_POOL_CLIENT_ID,
+    identityPoolId: process.env.COGNITO_IDENTITY_POOL_ID,
+    cognitoDomain: process.env.COGNITO_DOMAIN,
+  };
+  if (fromEnv.userPoolId && fromEnv.userPoolClientId) {
+    return fromEnv;
+  }
+
+  const fs = require("fs") as typeof import("fs");
+  for (const file of ["amplify_outputs.json", "cdk-outputs.json"]) {
+    const configPath = path.join(__dirname, "..", file);
+    if (!fs.existsSync(configPath)) continue;
+    try {
+      const data = JSON.parse(fs.readFileSync(configPath, "utf8")) as {
+        auth?: {
+          user_pool_id?: string;
+          user_pool_client_id?: string;
+          identity_pool_id?: string;
+        };
+        custom?: { cognitoDomain?: string };
+      };
+      const auth = data.auth;
+      if (auth?.user_pool_id && auth.user_pool_client_id) {
+        return {
+          userPoolId: auth.user_pool_id,
+          userPoolClientId: auth.user_pool_client_id,
+          identityPoolId: auth.identity_pool_id,
+          cognitoDomain: data.custom?.cognitoDomain ?? fromEnv.cognitoDomain,
+        };
+      }
+    } catch {}
+  }
+
+  return {};
 }
