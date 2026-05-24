@@ -5,32 +5,39 @@ applications:
       phases:
         build:
           commands:
-            - echo "Infrastructure deploys in frontend preBuild from monorepo root"
+            - cd $CODEBUILD_SRC_DIR/crewlink-ai-v2
+            - npm ci --cache .npm --prefer-offline
+            # Deploy backend via CDK (replaces ampx pipeline-deploy)
+            - npx cdk deploy CrewLinkStack --require-approval never --outputs-file cdk-deploy-outputs.json
+            - echo Generating amplify_outputs.json and cdk-outputs.json from CDK outputs
+            - node scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json
+            - echo Verifying outputs
+            - test -f amplify_outputs.json || (echo "ERROR amplify_outputs.json not generated" && exit 1)
+            - test -f cdk-outputs.json || (echo "ERROR cdk-outputs.json not generated" && exit 1)
 
     frontend:
+      buildPath: apps/web
       phases:
         preBuild:
           commands:
-            # Each command runs in its own shell; cd + install/deploy in one block.
-            # Do not use buildPath: / here — it breaks npm ci lockfile resolution.
+            - cd $CODEBUILD_SRC_DIR/crewlink-ai-v2
             - |
-              set -eo pipefail
-              cd "$CODEBUILD_SRC_DIR"
-              npm ci --cache .npm --prefer-offline
-              npx cdk deploy CrewLinkStack --require-approval never --outputs-file cdk-deploy-outputs.json
-              node apps/web/scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json
-              test -f amplify_outputs.json || (echo "ERROR amplify_outputs.json not generated" && exit 1)
-              test -f cdk-outputs.json || (echo "ERROR cdk-outputs.json not generated" && exit 1)
+              if [ ! -f amplify_outputs.json ]; then
+                echo "amplify_outputs.json not found; fetching from stack outputs"
+                node scripts/generate-outputs-from-cdk.js || true
+              fi
+            - cd $CODEBUILD_SRC_DIR/crewlink-ai-v2/apps/web
+            - npm ci --cache $CODEBUILD_SRC_DIR/crewlink-ai-v2/.npm --prefer-offline
         build:
           commands:
-            - cd "$CODEBUILD_SRC_DIR" && npm run build
+            - npm run build
       artifacts:
         baseDirectory: .next
         files:
           - "**/*"
       cache:
         paths:
-          - ../../.npm/**/*
-          - ../../node_modules/**/*
           - .next/cache/**/*
-          - ../../packages/domain/dist/**/*
+          - $CODEBUILD_SRC_DIR/crewlink-ai-v2/.npm/**/*
+          - node_modules/**/*
+          - $CODEBUILD_SRC_DIR/crewlink-ai-v2/node_modules/**/*
