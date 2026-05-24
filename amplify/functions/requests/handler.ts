@@ -1,7 +1,7 @@
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
-import { requests, type StaffingRequest } from "@crewlink/domain";
+import { requests, type StaffingRequest } from "../../../packages/domain/src";
 import { json, parseBody } from "../_shared/response";
 
 const ddb = DynamoDBDocumentClient.from(new DynamoDBClient({}));

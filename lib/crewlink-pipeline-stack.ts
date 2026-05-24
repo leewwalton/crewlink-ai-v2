@@ -10,14 +10,9 @@ import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambdaNode from "aws-cdk-lib/aws-lambda-nodejs";
 
-const DOMAIN_ENTRY = path.join(__dirname, "../packages/domain/src/index.ts");
-
 const LAMBDA_BUNDLING = {
   forceDockerBundling: false,
   externalModules: ["@aws-sdk/*"],
-  alias: {
-    "@crewlink/domain": DOMAIN_ENTRY,
-  },
 };
 
 export class CrewLinkPipelineStack extends cdk.Stack {

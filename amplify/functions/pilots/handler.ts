@@ -1,5 +1,5 @@
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
-import { pilots, searchPilots } from "@crewlink/domain";
+import { pilots, searchPilots } from "../../../packages/domain/src";
 import { json } from "../_shared/response";
 
 export const handler: APIGatewayProxyHandlerV2 = async (event) => {

@@ -14,7 +14,7 @@ import {
   type CreateConversationInput,
   type Message,
   type SendMessageInput,
-} from "@crewlink/domain";
+} from "../../../packages/domain/src";
 import { getAuthEmail, getAuthUserId } from "../_shared/auth";
 import { json, parseBody } from "../_shared/response";
 

@@ -1,6 +1,6 @@
 import type { APIGatewayProxyHandlerV2 } from "aws-lambda";
 import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
-import { pilots, rankPilotsForRequest, requests } from "@crewlink/domain";
+import { pilots, rankPilotsForRequest, requests } from "../../../packages/domain/src";
 import { json } from "../_shared/response";
 
 const bedrock = new BedrockRuntimeClient({});
