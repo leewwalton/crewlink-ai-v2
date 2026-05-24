@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Generates amplify_outputs.json and cdk-outputs.json from CrewLinkStack CDK outputs.
+ * Generates amplify_outputs.json and cdk-outputs.json from CrewLinkPipelineStack CDK outputs.
  *
  * Run after:
- *   npx cdk deploy CrewLinkStack --outputs-file cdk-deploy-outputs.json --require-approval never
+ *   npx cdk deploy CrewLinkPipelineStack --outputs-file cdk-deploy-outputs.json --require-approval never
  *
  * Or fetch from CloudFormation:
  *   node scripts/generate-outputs-from-cdk.js
@@ -13,7 +13,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const STACK_NAME = "CrewLinkStack";
+const STACK_NAME = "CrewLinkPipelineStack";
 const ROOT = path.join(__dirname, "..");
 
 function getOutputValue(outputs, key) {
@@ -31,7 +31,7 @@ async function fetchStackOutputs() {
     return JSON.parse(result);
   } catch (e) {
     console.error(
-      "Failed to fetch stack outputs. Ensure AWS CLI is configured and CrewLinkStack exists.",
+      "Failed to fetch stack outputs. Ensure AWS CLI is configured and CrewLinkPipelineStack exists.",
     );
     throw e;
   }

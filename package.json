@@ -13,7 +13,7 @@
     "lint": "npm run lint -w web",
     "test": "npm run test -w @crewlink/domain",
     "cdk": "npx cdk",
-    "cdk:deploy": "npx cdk deploy CrewLinkStack --require-approval never --outputs-file cdk-deploy-outputs.json && node scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json",
+    "cdk:deploy": "npx cdk deploy CrewLinkPipelineStack --require-approval never --outputs-file cdk-deploy-outputs.json && node scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json",
     "cdk:synth": "npx cdk synth",
     "cdk:diff": "npx cdk diff",
     "generate:outputs": "node scripts/generate-outputs-from-cdk.js"

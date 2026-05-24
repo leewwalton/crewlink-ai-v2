@@ -2,19 +2,33 @@ import * as path from "path";
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as apigwv2 from "aws-cdk-lib/aws-apigatewayv2";
-import * as integrations from "aws-cdk-lib/aws-apigatewayv2-integrations";
-import * as authorizers from "aws-cdk-lib/aws-apigatewayv2-authorizers";
+import * as apigwv2Integrations from "aws-cdk-lib/aws-apigatewayv2-integrations";
+import * as apigwv2Auth from "aws-cdk-lib/aws-apigatewayv2-authorizers";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as nodejs from "aws-cdk-lib/aws-lambda-nodejs";
+import * as lambdaNode from "aws-cdk-lib/aws-lambda-nodejs";
 
-export class CrewLinkStack extends cdk.Stack {
+const DOMAIN_ENTRY = path.join(__dirname, "../packages/domain/src/index.ts");
+
+const LAMBDA_BUNDLING = {
+  forceDockerBundling: false,
+  externalModules: ["@aws-sdk/*"],
+  alias: {
+    "@crewlink/domain": DOMAIN_ENTRY,
+  },
+};
+
+export class CrewLinkPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
+    // ==========================
+    // Cognito: User Pool, Client, Domain, Identity Pool (CDK-managed)
+    // ==========================
     const userPool = new cognito.UserPool(this, "UserPool", {
+      userPoolName: "crewlink-user-pool",
       selfSignUpEnabled: true,
       signInAliases: { email: true },
       standardAttributes: {
@@ -100,6 +114,9 @@ export class CrewLinkStack extends cdk.Stack {
       },
     });
 
+    // ==========================
+    // DynamoDB tables
+    // ==========================
     const tables = {
       users: this.table("Users"),
       pilotProfiles: this.table("PilotProfiles"),
@@ -114,7 +131,7 @@ export class CrewLinkStack extends cdk.Stack {
       userConversations: this.userConversationsTable("UserConversations"),
     };
 
-    const environment = {
+    const lambdaEnvironment = {
       USERS_TABLE: tables.users.tableName,
       PILOT_PROFILES_TABLE: tables.pilotProfiles.tableName,
       OPERATOR_PROFILES_TABLE: tables.operatorProfiles.tableName,
@@ -132,47 +149,67 @@ export class CrewLinkStack extends cdk.Stack {
         process.env.BEDROCK_MODEL_ID || "anthropic.claude-3-5-sonnet-20241022-v2:0",
     };
 
-    const domainEntry = path.join(__dirname, "../packages/domain/src/index.ts");
-
-    const common = {
+    // ==========================
+    // Lambdas
+    // ==========================
+    const contactFn = new lambdaNode.NodejsFunction(this, "ContactFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
-      architecture: lambda.Architecture.ARM_64,
+      entry: "amplify/functions/contact/handler.ts",
+      handler: "handler",
+      environment: lambdaEnvironment,
       timeout: cdk.Duration.seconds(20),
       memorySize: 256,
-      depsLockFilePath: path.join(__dirname, "../package-lock.json"),
-      bundling: {
-        externalModules: ["@aws-sdk/*"],
-        alias: {
-          "@crewlink/domain": domainEntry,
-        },
-      },
-      environment,
-    };
+      bundling: LAMBDA_BUNDLING,
+    });
 
-    const contactFn = new nodejs.NodejsFunction(this, "ContactFunction", {
-      ...common,
-      entry: "amplify/functions/contact/handler.ts",
-    });
-    const pilotsFn = new nodejs.NodejsFunction(this, "PilotsFunction", {
-      ...common,
+    const pilotsFn = new lambdaNode.NodejsFunction(this, "PilotsFn", {
+      runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/pilots/handler.ts",
+      handler: "handler",
+      environment: lambdaEnvironment,
+      timeout: cdk.Duration.seconds(20),
+      memorySize: 256,
+      bundling: LAMBDA_BUNDLING,
     });
-    const requestsFn = new nodejs.NodejsFunction(this, "RequestsFunction", {
-      ...common,
+
+    const requestsFn = new lambdaNode.NodejsFunction(this, "RequestsFn", {
+      runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/requests/handler.ts",
+      handler: "handler",
+      environment: lambdaEnvironment,
+      timeout: cdk.Duration.seconds(20),
+      memorySize: 256,
+      bundling: LAMBDA_BUNDLING,
     });
-    const matchesFn = new nodejs.NodejsFunction(this, "MatchesFunction", {
-      ...common,
+
+    const matchesFn = new lambdaNode.NodejsFunction(this, "MatchesFn", {
+      runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/matches/handler.ts",
+      handler: "handler",
+      environment: lambdaEnvironment,
       timeout: cdk.Duration.seconds(30),
+      memorySize: 256,
+      bundling: LAMBDA_BUNDLING,
     });
-    const mapFn = new nodejs.NodejsFunction(this, "MapFunction", {
-      ...common,
+
+    const mapFn = new lambdaNode.NodejsFunction(this, "MapFn", {
+      runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/map/handler.ts",
+      handler: "handler",
+      environment: lambdaEnvironment,
+      timeout: cdk.Duration.seconds(20),
+      memorySize: 256,
+      bundling: LAMBDA_BUNDLING,
     });
-    const messagesFn = new nodejs.NodejsFunction(this, "MessagesFunction", {
-      ...common,
+
+    const messagesFn = new lambdaNode.NodejsFunction(this, "MessagesFn", {
+      runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/messages/handler.ts",
+      handler: "handler",
+      environment: lambdaEnvironment,
+      timeout: cdk.Duration.seconds(20),
+      memorySize: 256,
+      bundling: LAMBDA_BUNDLING,
     });
 
     Object.values(tables).forEach((table) => {
@@ -198,7 +235,10 @@ export class CrewLinkStack extends cdk.Stack {
       }),
     );
 
-    const httpApi = new apigwv2.HttpApi(this, "HttpApi", {
+    // ==========================
+    // HTTP API
+    // ==========================
+    const httpApi = new apigwv2.HttpApi(this, "CrewLinkHttpApi", {
       corsPreflight: {
         allowHeaders: ["Authorization", "Content-Type"],
         allowMethods: [
@@ -210,7 +250,7 @@ export class CrewLinkStack extends cdk.Stack {
       },
     });
 
-    const jwtAuthorizer = new authorizers.HttpUserPoolAuthorizer(
+    const jwtAuthorizer = new apigwv2Auth.HttpUserPoolAuthorizer(
       "CrewLinkJwtAuthorizer",
       userPool,
       { userPoolClients: [userPoolClient] },
@@ -218,46 +258,70 @@ export class CrewLinkStack extends cdk.Stack {
 
     httpApi.addRoutes({
       path: "/contact",
-      methods: [apigwv2.HttpMethod.POST],
-      integration: new integrations.HttpLambdaIntegration("ContactIntegration", contactFn),
+      methods: [apigwv2.HttpMethod.POST, apigwv2.HttpMethod.OPTIONS],
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "ContactIntegration",
+        contactFn,
+      ),
     });
     httpApi.addRoutes({
       path: "/pilots",
       methods: [apigwv2.HttpMethod.GET],
-      integration: new integrations.HttpLambdaIntegration("PilotsIntegration", pilotsFn),
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "PilotsIntegration",
+        pilotsFn,
+      ),
       authorizer: jwtAuthorizer,
     });
     httpApi.addRoutes({
       path: "/requests",
       methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.POST],
-      integration: new integrations.HttpLambdaIntegration("RequestsIntegration", requestsFn),
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "RequestsIntegration",
+        requestsFn,
+      ),
       authorizer: jwtAuthorizer,
     });
     httpApi.addRoutes({
       path: "/matches",
       methods: [apigwv2.HttpMethod.GET],
-      integration: new integrations.HttpLambdaIntegration("MatchesIntegration", matchesFn),
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "MatchesIntegration",
+        matchesFn,
+      ),
       authorizer: jwtAuthorizer,
     });
     httpApi.addRoutes({
       path: "/map",
       methods: [apigwv2.HttpMethod.GET],
-      integration: new integrations.HttpLambdaIntegration("MapIntegration", mapFn),
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "MapIntegration",
+        mapFn,
+      ),
       authorizer: jwtAuthorizer,
     });
     httpApi.addRoutes({
       path: "/conversations",
       methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.POST],
-      integration: new integrations.HttpLambdaIntegration("ConversationsIntegration", messagesFn),
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "ConversationsIntegration",
+        messagesFn,
+      ),
       authorizer: jwtAuthorizer,
     });
     httpApi.addRoutes({
       path: "/messages",
       methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.POST],
-      integration: new integrations.HttpLambdaIntegration("MessagesIntegration", messagesFn),
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "MessagesIntegration",
+        messagesFn,
+      ),
       authorizer: jwtAuthorizer,
     });
 
+    // ==========================
+    // Stack outputs
+    // ==========================
     new cdk.CfnOutput(this, "UserPoolId", { value: userPool.userPoolId });
     new cdk.CfnOutput(this, "UserPoolClientId", { value: userPoolClient.userPoolClientId });
     new cdk.CfnOutput(this, "IdentityPoolId", { value: identityPool.ref });

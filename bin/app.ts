@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 import * as cdk from "aws-cdk-lib";
-import { CrewLinkStack } from "../lib/crew-link-stack";
+import { CrewLinkPipelineStack } from "../lib/crewlink-pipeline-stack";
 
 const app = new cdk.App();
-
-new CrewLinkStack(app, "CrewLinkStack", {
+new CrewLinkPipelineStack(app, "CrewLinkPipelineStack", {
   env: {
     account: process.env.CDK_DEFAULT_ACCOUNT,
-    region: process.env.CDK_DEFAULT_REGION || "us-west-2",
+    region: "us-west-2",
   },
 });
