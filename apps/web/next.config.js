@@ -6,6 +6,7 @@ const nextConfig = {
   pageExtensions: ["tsx", "ts", "jsx", "js"],
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: false },
+  transpilePackages: ["@crewlink/domain"],
   webpack: (config, { dev }) => {
     if (dev) {
       config.watchOptions = {
@@ -30,6 +31,7 @@ const nextConfig = {
 
     config.resolve.alias = {
       ...config.resolve.alias,
+      "@crewlink/domain": path.join(root, "packages/domain/src"),
       "@root": root,
       "@root/cdk-outputs.json": cdkOutputsPath,
       "@root/amplify_outputs.json": amplifyOutputsPath,
