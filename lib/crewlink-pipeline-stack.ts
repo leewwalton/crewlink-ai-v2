@@ -160,73 +160,88 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       userConversations: this.userConversationsTable("UserConversations"),
     };
 
-    const lambdaEnvironment = {
-      USERS_TABLE: tables.users.tableName,
-      PILOT_PROFILES_TABLE: tables.pilotProfiles.tableName,
-      OPERATOR_PROFILES_TABLE: tables.operatorProfiles.tableName,
-      STAFFING_REQUESTS_TABLE: tables.staffingRequests.tableName,
-      MATCHES_TABLE: tables.matches.tableName,
-      AVAILABILITY_TABLE: tables.availability.tableName,
-      LOCATIONS_TABLE: tables.locations.tableName,
-      CONTACT_LEADS_TABLE: tables.contactLeads.tableName,
-      CONVERSATIONS_TABLE: tables.conversations.tableName,
-      MESSAGES_TABLE: tables.messages.tableName,
-      USER_CONVERSATIONS_TABLE: tables.userConversations.tableName,
-      CONTACT_TO_EMAIL: process.env.CONTACT_TO_EMAIL || "",
-      CONTACT_FROM_EMAIL: process.env.CONTACT_FROM_EMAIL || "",
-      BEDROCK_MODEL_ID:
-        process.env.BEDROCK_MODEL_ID || "anthropic.claude-3-5-sonnet-20241022-v2:0",
+    const contactNotifyEmail = process.env.CONTACT_NOTIFY_EMAIL ?? process.env.CONTACT_TO_EMAIL ?? "";
+    const contactFromEmail =
+      process.env.CONTACT_FROM_EMAIL ?? process.env.CONTACT_NOTIFY_EMAIL ?? process.env.CONTACT_TO_EMAIL ?? "";
+    const contactSesSourceArn = process.env.CONTACT_SES_SOURCE_ARN ?? "";
+    const bedrockModelId =
+      process.env.BEDROCK_MODEL_ID || "anthropic.claude-3-5-sonnet-20241022-v2:0";
+
+    const messagingEnvironment = {
+      CONVERSATIONS_TABLE_NAME: tables.conversations.tableName,
+      MESSAGES_TABLE_NAME: tables.messages.tableName,
+      USER_CONVERSATIONS_TABLE_NAME: tables.userConversations.tableName,
     };
 
     // ==========================
     // Lambdas
     // ==========================
-    const contactFn = new lambdaNode.NodejsFunction(this, "ContactFn", {
+    const contactSubmitFn = new lambdaNode.NodejsFunction(this, "ContactSubmitFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/contact/handler.ts",
+      entry: "amplify/functions/contact-submit/handler.ts",
       handler: "handler",
-      environment: lambdaEnvironment,
-      timeout: cdk.Duration.seconds(20),
+      environment: {
+        CONTACT_LEADS_TABLE_NAME: tables.contactLeads.tableName,
+        CONTACT_NOTIFY_EMAIL: contactNotifyEmail,
+        CONTACT_FROM_EMAIL: contactFromEmail,
+        CONTACT_SES_SOURCE_ARN: contactSesSourceArn,
+      },
+      timeout: cdk.Duration.seconds(15),
       memorySize: 256,
       bundling: LAMBDA_BUNDLING,
     });
 
-    const pilotsFn = new lambdaNode.NodejsFunction(this, "PilotsFn", {
+    const pilotsGetFn = new lambdaNode.NodejsFunction(this, "PilotsGetFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/pilots/handler.ts",
+      entry: "amplify/functions/pilots-get/handler.ts",
       handler: "handler",
-      environment: lambdaEnvironment,
-      timeout: cdk.Duration.seconds(20),
+      environment: {},
+      timeout: cdk.Duration.seconds(10),
       memorySize: 256,
       bundling: LAMBDA_BUNDLING,
     });
 
-    const requestsFn = new lambdaNode.NodejsFunction(this, "RequestsFn", {
+    const staffingRequestsFn = new lambdaNode.NodejsFunction(this, "StaffingRequestsFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/requests/handler.ts",
+      entry: "amplify/functions/staffing-requests/handler.ts",
       handler: "handler",
-      environment: lambdaEnvironment,
-      timeout: cdk.Duration.seconds(20),
+      environment: {
+        STAFFING_REQUESTS_TABLE_NAME: tables.staffingRequests.tableName,
+      },
+      timeout: cdk.Duration.seconds(15),
       memorySize: 256,
       bundling: LAMBDA_BUNDLING,
     });
 
-    const matchesFn = new lambdaNode.NodejsFunction(this, "MatchesFn", {
+    const matchesGetFn = new lambdaNode.NodejsFunction(this, "MatchesGetFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/matches/handler.ts",
+      entry: "amplify/functions/matches-get/handler.ts",
       handler: "handler",
-      environment: lambdaEnvironment,
+      environment: {
+        BEDROCK_MODEL_ID: bedrockModelId,
+        DISABLE_BEDROCK: process.env.DISABLE_BEDROCK ?? "",
+      },
       timeout: cdk.Duration.seconds(30),
       memorySize: 256,
       bundling: LAMBDA_BUNDLING,
     });
 
-    const mapFn = new lambdaNode.NodejsFunction(this, "MapFn", {
+    const mapGetFn = new lambdaNode.NodejsFunction(this, "MapGetFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/map/handler.ts",
+      entry: "amplify/functions/map-get/handler.ts",
       handler: "handler",
-      environment: lambdaEnvironment,
-      timeout: cdk.Duration.seconds(20),
+      environment: {},
+      timeout: cdk.Duration.seconds(10),
+      memorySize: 256,
+      bundling: LAMBDA_BUNDLING,
+    });
+
+    const conversationsFn = new lambdaNode.NodejsFunction(this, "ConversationsFn", {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      entry: "amplify/functions/conversations/handler.ts",
+      handler: "handler",
+      environment: messagingEnvironment,
+      timeout: cdk.Duration.seconds(15),
       memorySize: 256,
       bundling: LAMBDA_BUNDLING,
     });
@@ -235,29 +250,28 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/messages/handler.ts",
       handler: "handler",
-      environment: lambdaEnvironment,
-      timeout: cdk.Duration.seconds(20),
+      environment: messagingEnvironment,
+      timeout: cdk.Duration.seconds(15),
       memorySize: 256,
       bundling: LAMBDA_BUNDLING,
     });
 
-    Object.values(tables).forEach((table) => {
-      table.grantReadWriteData(contactFn);
-      table.grantReadWriteData(pilotsFn);
-      table.grantReadWriteData(requestsFn);
-      table.grantReadWriteData(matchesFn);
-      table.grantReadWriteData(mapFn);
-      table.grantReadWriteData(messagesFn);
-    });
+    tables.contactLeads.grantReadWriteData(contactSubmitFn);
+    tables.staffingRequests.grantReadWriteData(staffingRequestsFn);
+    for (const fn of [conversationsFn, messagesFn]) {
+      tables.conversations.grantReadWriteData(fn);
+      tables.messages.grantReadWriteData(fn);
+      tables.userConversations.grantReadWriteData(fn);
+    }
 
-    contactFn.addToRolePolicy(
+    contactSubmitFn.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["ses:SendEmail", "ses:SendRawEmail"],
         resources: ["*"],
       }),
     );
 
-    matchesFn.addToRolePolicy(
+    matchesGetFn.addToRolePolicy(
       new iam.PolicyStatement({
         actions: ["bedrock:InvokeModel"],
         resources: ["*"],
@@ -290,7 +304,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.POST, apigwv2.HttpMethod.OPTIONS],
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "ContactIntegration",
-        contactFn,
+        contactSubmitFn,
       ),
     });
     httpApi.addRoutes({
@@ -298,7 +312,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.GET],
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "PilotsIntegration",
-        pilotsFn,
+        pilotsGetFn,
       ),
       authorizer: jwtAuthorizer,
     });
@@ -307,7 +321,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.POST],
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "RequestsIntegration",
-        requestsFn,
+        staffingRequestsFn,
       ),
       authorizer: jwtAuthorizer,
     });
@@ -316,7 +330,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.GET],
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "MatchesIntegration",
-        matchesFn,
+        matchesGetFn,
       ),
       authorizer: jwtAuthorizer,
     });
@@ -325,7 +339,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.GET],
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "MapIntegration",
-        mapFn,
+        mapGetFn,
       ),
       authorizer: jwtAuthorizer,
     });
@@ -334,7 +348,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.POST],
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "ConversationsIntegration",
-        messagesFn,
+        conversationsFn,
       ),
       authorizer: jwtAuthorizer,
     });

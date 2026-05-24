@@ -2,17 +2,15 @@ import {
   getCognitoEmailFromEvent,
   getCognitoSubFromEvent,
 } from "../shared/get-cognito-sub";
-import { conversationGet } from "../shared/dynamodb-client";
 import { httpMethod, json, safeParseBody } from "../shared/http";
 import {
-  listMessages,
-  parseSendMessageInput,
+  createConversation,
+  listConversationsForUser,
+  parseCreateConversationInput,
   resolveUserProfile,
-  sendMessage,
 } from "../shared/messaging";
-import type { Conversation } from "../../../packages/domain/src";
 
-const LOG_PREFIX = "[MESSAGES]";
+const LOG_PREFIX = "[CONVERSATIONS]";
 
 export const handler = async (event: any) => {
   const method = httpMethod(event);
@@ -32,20 +30,9 @@ export const handler = async (event: any) => {
   const currentUser = resolveUserProfile(userId, email);
 
   if (method === "GET") {
-    const conversationId = event.queryStringParameters?.conversationId;
-    if (!conversationId) {
-      return json(400, { message: "conversationId is required." });
-    }
-
     try {
-      const conversationRow = await conversationGet(conversationId);
-      const conversation = conversationRow as Conversation | null;
-      if (!conversation || !conversation.participantIds.includes(currentUser.id)) {
-        return json(403, { message: "You are not a participant in this conversation." });
-      }
-
-      const messages = await listMessages(conversationId);
-      return json(200, { conversation, messages, currentUser });
+      const conversations = await listConversationsForUser(currentUser.id);
+      return json(200, { conversations, currentUser });
     } catch (err: any) {
       console.error(`${LOG_PREFIX} GET failed`, { error: err?.message });
       return json(500, { message: "Internal server error" });
@@ -53,18 +40,19 @@ export const handler = async (event: any) => {
   }
 
   if (method === "POST") {
-    const input = parseSendMessageInput(safeParseBody(event.body));
+    const input = parseCreateConversationInput(safeParseBody(event.body));
     if (!input) {
-      return json(400, { message: "conversationId and body are required." });
+      return json(400, { message: "recipientId and recipientName are required." });
     }
 
     try {
-      const message = await sendMessage(currentUser, input);
-      return json(201, { message });
+      const result = await createConversation(currentUser, input);
+      return json(result.created ? 201 : 200, {
+        conversation: result.conversation,
+        messages: result.messages,
+        created: result.created,
+      });
     } catch (err: any) {
-      if (err?.message === "FORBIDDEN") {
-        return json(403, { message: "You are not a participant in this conversation." });
-      }
       console.error(`${LOG_PREFIX} POST failed`, { error: err?.message });
       return json(500, { message: "Internal server error" });
     }
