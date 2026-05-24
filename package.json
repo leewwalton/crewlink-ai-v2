@@ -1,0 +1,37 @@
+{
+  "name": "crew-link-v2",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "cd apps/web && npm run dev",
+    "build": "npm run build -w @crewlink/domain && npm run build -w web",
+    "start": "npm run start -w web",
+    "lint": "npm run lint -w web",
+    "test": "npm run test -w @crewlink/domain",
+    "cdk": "npx cdk",
+    "cdk:deploy": "npx cdk deploy CrewLinkStack --require-approval never --outputs-file cdk-deploy-outputs.json && node scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json",
+    "cdk:synth": "npx cdk synth",
+    "cdk:diff": "npx cdk diff",
+    "generate:outputs": "node scripts/generate-outputs-from-cdk.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-bedrock-runtime": "^3.958.0",
+    "@aws-sdk/client-dynamodb": "^3.958.0",
+    "@aws-sdk/client-ses": "^3.1037.0",
+    "@aws-sdk/lib-dynamodb": "^3.971.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.147",
+    "@types/node": "^20",
+    "aws-cdk": "^2.1106.1",
+    "aws-cdk-lib": "^2",
+    "constructs": "^10.3.0",
+    "esbuild": "^0.23.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.2"
+  }
+}

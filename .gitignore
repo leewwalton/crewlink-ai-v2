@@ -1,0 +1,8 @@
+node_modules
+apps/web/.next
+apps/web/node_modules
+packages/domain/dist
+cdk.out
+cdk-deploy-outputs.json
+amplify_outputs.json
+cdk-outputs.json

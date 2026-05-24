@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "auth": {
+    "user_pool_id": "",
+    "user_pool_client_id": "",
+    "identity_pool_id": "",
+    "aws_region": "us-west-2"
+  },
+  "custom": {
+    "httpApiUrl": ""
+  }
+}

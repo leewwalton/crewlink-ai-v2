@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --brand-bg-0: #08111f;
+  --brand-bg-1: #0b1320;
+  --brand-bg-2: #14263d;
+  --brand-panel: rgba(9, 24, 42, 0.76);
+  --brand-panel-solid: #0d1a2a;
+  --brand-text: #f4f8fc;
+  --brand-muted: rgba(216, 228, 238, 0.76);
+  --brand-soft: rgba(216, 228, 238, 0.12);
+  --brand-line: rgba(216, 228, 238, 0.16);
+  --brand-cyan: #1ea5f0;
+  --brand-cyan-2: #6ec7ff;
+  --brand-green: #24c47e;
+  --brand-amber: #f5a524;
+  --brand-red: #ff5c67;
+  --brand-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+  --brand-bg-end: #07101c;
+  --app-header-bg: rgba(8, 17, 31, 0.82);
+  --aviation-blue: var(--brand-cyan);
+  --ai-green: var(--brand-green);
+  --data-teal: var(--brand-cyan-2);
+  --bg-0: var(--brand-bg-0);
+  --bg-1: var(--brand-panel);
+  --bg-2: rgba(216, 228, 238, 0.08);
+  --card: var(--brand-soft);
+  --line: var(--brand-line);
+  --text: var(--brand-text);
+  --muted: var(--brand-muted);
+  --shadow: var(--brand-shadow);
+  --shadow-sm: 0 15px 35px rgba(0, 0, 0, 0.24);
+  --radius: 20px;
+  --max: 1140px;
+  --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+}
+
+[data-theme="light"] {
+  --brand-bg-0: #eef7fd;
+  --brand-bg-1: #f8fbff;
+  --brand-bg-2: #dcecf8;
+  --brand-panel: rgba(255, 255, 255, 0.82);
+  --brand-panel-solid: #ffffff;
+  --brand-text: #081827;
+  --brand-muted: rgba(8, 24, 39, 0.68);
+  --brand-soft: rgba(8, 24, 39, 0.06);
+  --brand-line: rgba(8, 24, 39, 0.13);
+  --brand-cyan: #0d8bd7;
+  --brand-cyan-2: #096ca8;
+  --brand-green: #159a62;
+  --brand-amber: #b7791f;
+  --brand-red: #c93a45;
+  --brand-shadow: 0 24px 60px rgba(8, 24, 39, 0.13);
+  --brand-bg-end: #edf6fc;
+  --app-header-bg: rgba(248, 251, 255, 0.86);
+  --aviation-blue: var(--brand-cyan);
+  --ai-green: var(--brand-green);
+  --data-teal: var(--brand-cyan-2);
+  --bg-0: var(--brand-bg-0);
+  --bg-1: var(--brand-panel);
+  --bg-2: rgba(8, 24, 39, 0.05);
+  --card: var(--brand-soft);
+  --line: var(--brand-line);
+  --text: var(--brand-text);
+  --muted: var(--brand-muted);
+  --shadow: var(--brand-shadow);
+  --shadow-sm: 0 15px 35px rgba(8, 24, 39, 0.1);
+}
+
+[data-theme="dark"] {
+  --brand-bg-0: #07101c;
+  --brand-bg-1: #0a121f;
+  --brand-bg-2: #12243a;
+  --brand-panel: rgba(8, 20, 36, 0.82);
+  --brand-panel-solid: #0b1727;
+  --brand-text: #f4f8fc;
+  --brand-muted: rgba(216, 228, 238, 0.78);
+  --brand-soft: rgba(216, 228, 238, 0.1);
+  --brand-line: rgba(216, 228, 238, 0.15);
+  --brand-cyan: #1ea5f0;
+  --brand-cyan-2: #6ec7ff;
+  --brand-green: #24c47e;
+  --brand-amber: #f5a524;
+  --brand-red: #ff5c67;
+  --brand-shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+  --brand-bg-end: #07101c;
+  --app-header-bg: rgba(8, 17, 31, 0.82);
+  --aviation-blue: var(--brand-cyan);
+  --ai-green: var(--brand-green);
+  --data-teal: var(--brand-cyan-2);
+  --bg-0: var(--brand-bg-0);
+  --bg-1: var(--brand-panel);
+  --bg-2: rgba(216, 228, 238, 0.08);
+  --card: var(--brand-soft);
+  --line: var(--brand-line);
+  --text: var(--brand-text);
+  --muted: var(--brand-muted);
+  --shadow: var(--brand-shadow);
+  --shadow-sm: 0 15px 35px rgba(0, 0, 0, 0.26);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  height: -webkit-fill-available;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background:
+    radial-gradient(900px 600px at 10% 5%, rgba(30, 165, 240, 0.18), transparent 58%),
+    radial-gradient(900px 620px at 85% 18%, rgba(36, 196, 126, 0.12), transparent 58%),
+    linear-gradient(180deg, var(--brand-bg-0), var(--brand-bg-1) 48%, var(--brand-bg-end));
+  background-attachment: fixed;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+  color: var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+    env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: rgba(30, 165, 240, 0.28);
+  color: var(--brand-text);
+}
+
+@media (max-width: 768px) {
+  body {
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  button {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}

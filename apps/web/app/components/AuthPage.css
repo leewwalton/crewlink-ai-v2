@@ -1,0 +1,127 @@
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 450px;
+  background: var(--bg-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.auth-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.auth-header h1 {
+  color: var(--text);
+  font-size: 2rem;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  font-family: "Inter", sans-serif;
+  letter-spacing: -0.04em;
+}
+
+.auth-tagline {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.auth-page [data-amplify-authenticator] {
+  --amplify-colors-background-primary: rgba(30, 165, 240, 0.12);
+  --amplify-colors-background-secondary: rgba(216, 228, 238, 0.08);
+  --amplify-colors-border-primary: rgba(216, 228, 238, 0.16);
+  --amplify-colors-font-primary: var(--text);
+  --amplify-colors-font-secondary: var(--muted);
+  --amplify-colors-brand-primary-60: var(--brand-cyan);
+  --amplify-colors-brand-primary-80: #1596df;
+  --amplify-colors-brand-primary-100: #0d6efd;
+}
+
+.auth-page [data-amplify-container],
+.auth-page [data-amplify-form] {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.auth-page input[data-amplify-input] {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+  color: var(--text);
+  border-radius: 12px;
+}
+
+.auth-page input[data-amplify-input]:focus {
+  border-color: rgba(30, 165, 240, 0.58);
+  box-shadow: 0 0 0 2px rgba(30, 165, 240, 0.2);
+}
+
+.auth-page button[data-amplify-button] {
+  background: linear-gradient(135deg, #0d6efd, var(--brand-cyan));
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.auth-page button[data-amplify-button]:hover {
+  background: linear-gradient(135deg, #0b62e5, #1596df);
+}
+
+.auth-page a[data-amplify-link] {
+  color: var(--brand-cyan-2);
+}
+
+.auth-page a[data-amplify-link]:hover {
+  color: var(--brand-green);
+}
+
+.auth-footer {
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .auth-page {
+    padding: 1rem;
+    align-items: flex-start;
+  }
+
+  .auth-container {
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .auth-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .auth-page input[data-amplify-input] {
+    font-size: 16px;
+    min-height: 44px;
+  }
+
+  .auth-page button[data-amplify-button] {
+    min-height: 48px;
+    font-size: 16px;
+  }
+}
