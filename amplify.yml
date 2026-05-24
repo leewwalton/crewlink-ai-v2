@@ -5,14 +5,14 @@ applications:
       phases:
         build:
           commands:
-            - echo "CDK deploy runs in frontend preBuild from monorepo root (buildPath /)"
+            - echo "Infrastructure deploys in frontend preBuild from monorepo root"
 
     frontend:
-      buildPath: /
       phases:
         preBuild:
           commands:
-            # buildPath / + single shell block: full monorepo root, fail fast on errors.
+            # Each command runs in its own shell; cd + install/deploy in one block.
+            # Do not use buildPath: / here — it breaks npm ci lockfile resolution.
             - |
               set -eo pipefail
               cd "$CODEBUILD_SRC_DIR"
@@ -25,13 +25,12 @@ applications:
           commands:
             - cd "$CODEBUILD_SRC_DIR" && npm run build
       artifacts:
-        baseDirectory: apps/web/.next
+        baseDirectory: .next
         files:
           - "**/*"
       cache:
         paths:
-          - .npm/**/*
-          - node_modules/**/*
-          - apps/web/.next/cache/**/*
-          - apps/web/node_modules/**/*
-          - packages/domain/dist/**/*
+          - ../../.npm/**/*
+          - ../../node_modules/**/*
+          - .next/cache/**/*
+          - ../../packages/domain/dist/**/*
