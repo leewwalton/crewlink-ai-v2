@@ -6,7 +6,8 @@ import { httpMethod, json, safeParseBody } from "../shared/http";
 const ses = new SESClient({ region: process.env.AWS_REGION ?? "us-west-2" });
 
 const CONTACT_NOTIFY_EMAIL = process.env.CONTACT_NOTIFY_EMAIL || "";
-const CONTACT_FROM_EMAIL = process.env.CONTACT_FROM_EMAIL || process.env.CONTACT_NOTIFY_EMAIL || "";
+const CONTACT_FROM_EMAIL =
+  process.env.CONTACT_FROM_EMAIL || process.env.CONTACT_NOTIFY_EMAIL || "";
 const CONTACT_SES_SOURCE_ARN = process.env.CONTACT_SES_SOURCE_ARN || "";
 
 const LOG_PREFIX = "[CONTACT-SUBMIT]";
@@ -31,12 +32,14 @@ export const handler = async (event: any) => {
   }
 
   const body = safeParseBody(event.body);
-  const source = body?.source != null ? String(body.source).trim().toLowerCase() : "contact";
+  const source =
+    body?.source != null ? String(body.source).trim().toLowerCase() : "contact";
   const isNewsletter = source === "newsletter";
 
   let name = body?.name != null ? String(body.name).trim() : "";
   const email = body?.email != null ? String(body.email).trim() : "";
-  const organization = body?.organization != null ? String(body.organization).trim() : null;
+  const organization =
+    body?.organization != null ? String(body.organization).trim() : null;
   let message = body?.message != null ? String(body.message).trim() : null;
 
   if (!email) {
@@ -46,7 +49,7 @@ export const handler = async (event: any) => {
 
   if (isNewsletter) {
     if (!name) name = "Newsletter subscriber";
-    if (!message) message = "Newsletter signup from flycrewlink.com";
+    if (!message) message = "Newsletter signup from crewlink-ai.com";
   } else if (!name) {
     console.warn(`${LOG_PREFIX} Validation failed: missing name`);
     return json(400, { message: "name and email are required" });
@@ -70,7 +73,10 @@ export const handler = async (event: any) => {
     await contactLeadPut(item);
     console.log(`${LOG_PREFIX} DynamoDB put succeeded id=${id}`);
   } catch (err: any) {
-    console.error(`${LOG_PREFIX} DynamoDB put failed`, { id, error: err?.message });
+    console.error(`${LOG_PREFIX} DynamoDB put failed`, {
+      id,
+      error: err?.message,
+    });
     return json(500, { message: "Failed to save contact" });
   }
 
@@ -79,7 +85,9 @@ export const handler = async (event: any) => {
       await ses.send(
         new SendEmailCommand({
           Source: CONTACT_FROM_EMAIL,
-          ...(CONTACT_SES_SOURCE_ARN ? { SourceArn: CONTACT_SES_SOURCE_ARN } : {}),
+          ...(CONTACT_SES_SOURCE_ARN
+            ? { SourceArn: CONTACT_SES_SOURCE_ARN }
+            : {}),
           Destination: { ToAddresses: [CONTACT_NOTIFY_EMAIL] },
           ReplyToAddresses: [email],
           Message: {
@@ -91,7 +99,9 @@ export const handler = async (event: any) => {
             Body: {
               Text: {
                 Data: [
-                  isNewsletter ? "New newsletter signup" : "New contact form submission",
+                  isNewsletter
+                    ? "New newsletter signup"
+                    : "New contact form submission",
                   "",
                   `Name: ${name}`,
                   `Email: ${email}`,
@@ -108,7 +118,10 @@ export const handler = async (event: any) => {
       );
       console.log(`${LOG_PREFIX} SES send succeeded id=${id}`);
     } catch (err: any) {
-      console.error(`${LOG_PREFIX} SES send failed (contact saved)`, { id, error: err?.message });
+      console.error(`${LOG_PREFIX} SES send failed (contact saved)`, {
+        id,
+        error: err?.message,
+      });
     }
   }
 

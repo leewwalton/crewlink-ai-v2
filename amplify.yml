@@ -13,6 +13,7 @@ applications:
             - echo Verifying outputs
             - test -f amplify_outputs.json || (echo "ERROR amplify_outputs.json not generated" && exit 1)
             - test -f cdk-outputs.json || (echo "ERROR cdk-outputs.json not generated" && exit 1)
+            - echo "Auth user_pool_id=$(node -p "require('./amplify_outputs.json').auth.user_pool_id")"
 
     frontend:
       buildPath: apps/web

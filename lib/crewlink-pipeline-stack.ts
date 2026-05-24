@@ -65,18 +65,18 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       });
       userPool = createdPool;
 
-      const callbackUrls = parseCsv(
-        process.env.COGNITO_CALLBACK_URLS,
-        [
-          "http://localhost:3000/dashboard",
-          "http://localhost:3000/",
-          "https://flycrewlink.com/dashboard",
-          "https://flycrewlink.com/",
-        ],
-      );
+      const callbackUrls = parseCsv(process.env.COGNITO_CALLBACK_URLS, [
+        "http://localhost:3000/dashboard",
+        "http://localhost:3000/",
+        "https://crewlink-ai.com/dashboard",
+        "https://crewlink-ai.com/",
+        "https://d1vpvwi7yc942a.amplifyapp.com/dashboard",
+        "https://d1vpvwi7yc942a.amplifyapp.com/",
+      ]);
       const logoutUrls = parseCsv(process.env.COGNITO_LOGOUT_URLS, [
         "http://localhost:3000/",
-        "https://flycrewlink.com/",
+        "https://crewlink-ai.com/",
+        "https://d1vpvwi7yc942a.amplifyapp.com/",
       ]);
 
       userPoolClient = new cognito.UserPoolClient(this, "UserPoolClient", {
@@ -160,12 +160,17 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       userConversations: this.userConversationsTable("UserConversations"),
     };
 
-    const contactNotifyEmail = process.env.CONTACT_NOTIFY_EMAIL ?? process.env.CONTACT_TO_EMAIL ?? "";
+    const contactNotifyEmail =
+      process.env.CONTACT_NOTIFY_EMAIL ?? process.env.CONTACT_TO_EMAIL ?? "";
     const contactFromEmail =
-      process.env.CONTACT_FROM_EMAIL ?? process.env.CONTACT_NOTIFY_EMAIL ?? process.env.CONTACT_TO_EMAIL ?? "";
+      process.env.CONTACT_FROM_EMAIL ??
+      process.env.CONTACT_NOTIFY_EMAIL ??
+      process.env.CONTACT_TO_EMAIL ??
+      "";
     const contactSesSourceArn = process.env.CONTACT_SES_SOURCE_ARN ?? "";
     const bedrockModelId =
-      process.env.BEDROCK_MODEL_ID || "anthropic.claude-3-5-sonnet-20241022-v2:0";
+      process.env.BEDROCK_MODEL_ID ||
+      "anthropic.claude-3-5-sonnet-20241022-v2:0";
 
     const messagingEnvironment = {
       CONVERSATIONS_TABLE_NAME: tables.conversations.tableName,
@@ -176,20 +181,24 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     // ==========================
     // Lambdas
     // ==========================
-    const contactSubmitFn = new lambdaNode.NodejsFunction(this, "ContactSubmitFn", {
-      runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/contact-submit/handler.ts",
-      handler: "handler",
-      environment: {
-        CONTACT_LEADS_TABLE_NAME: tables.contactLeads.tableName,
-        CONTACT_NOTIFY_EMAIL: contactNotifyEmail,
-        CONTACT_FROM_EMAIL: contactFromEmail,
-        CONTACT_SES_SOURCE_ARN: contactSesSourceArn,
+    const contactSubmitFn = new lambdaNode.NodejsFunction(
+      this,
+      "ContactSubmitFn",
+      {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: "amplify/functions/contact-submit/handler.ts",
+        handler: "handler",
+        environment: {
+          CONTACT_LEADS_TABLE_NAME: tables.contactLeads.tableName,
+          CONTACT_NOTIFY_EMAIL: contactNotifyEmail,
+          CONTACT_FROM_EMAIL: contactFromEmail,
+          CONTACT_SES_SOURCE_ARN: contactSesSourceArn,
+        },
+        timeout: cdk.Duration.seconds(15),
+        memorySize: 256,
+        bundling: LAMBDA_BUNDLING,
       },
-      timeout: cdk.Duration.seconds(15),
-      memorySize: 256,
-      bundling: LAMBDA_BUNDLING,
-    });
+    );
 
     const pilotsGetFn = new lambdaNode.NodejsFunction(this, "PilotsGetFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
@@ -201,17 +210,21 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       bundling: LAMBDA_BUNDLING,
     });
 
-    const staffingRequestsFn = new lambdaNode.NodejsFunction(this, "StaffingRequestsFn", {
-      runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/staffing-requests/handler.ts",
-      handler: "handler",
-      environment: {
-        STAFFING_REQUESTS_TABLE_NAME: tables.staffingRequests.tableName,
+    const staffingRequestsFn = new lambdaNode.NodejsFunction(
+      this,
+      "StaffingRequestsFn",
+      {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: "amplify/functions/staffing-requests/handler.ts",
+        handler: "handler",
+        environment: {
+          STAFFING_REQUESTS_TABLE_NAME: tables.staffingRequests.tableName,
+        },
+        timeout: cdk.Duration.seconds(15),
+        memorySize: 256,
+        bundling: LAMBDA_BUNDLING,
       },
-      timeout: cdk.Duration.seconds(15),
-      memorySize: 256,
-      bundling: LAMBDA_BUNDLING,
-    });
+    );
 
     const matchesGetFn = new lambdaNode.NodejsFunction(this, "MatchesGetFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
@@ -236,15 +249,19 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       bundling: LAMBDA_BUNDLING,
     });
 
-    const conversationsFn = new lambdaNode.NodejsFunction(this, "ConversationsFn", {
-      runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/conversations/handler.ts",
-      handler: "handler",
-      environment: messagingEnvironment,
-      timeout: cdk.Duration.seconds(15),
-      memorySize: 256,
-      bundling: LAMBDA_BUNDLING,
-    });
+    const conversationsFn = new lambdaNode.NodejsFunction(
+      this,
+      "ConversationsFn",
+      {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: "amplify/functions/conversations/handler.ts",
+        handler: "handler",
+        environment: messagingEnvironment,
+        timeout: cdk.Duration.seconds(15),
+        memorySize: 256,
+        bundling: LAMBDA_BUNDLING,
+      },
+    );
 
     const messagesFn = new lambdaNode.NodejsFunction(this, "MessagesFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
@@ -385,7 +402,10 @@ export class CrewLinkPipelineStack extends cdk.Stack {
 
   private messagesTable(id: string) {
     return new dynamodb.Table(this, id, {
-      partitionKey: { name: "conversationId", type: dynamodb.AttributeType.STRING },
+      partitionKey: {
+        name: "conversationId",
+        type: dynamodb.AttributeType.STRING,
+      },
       sortKey: { name: "id", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
@@ -411,7 +431,11 @@ function parseCsv(value: string | undefined, defaults: string[]): string[] {
 }
 
 function corsOrigins(): string[] {
-  const defaults = ["http://localhost:3000", "https://flycrewlink.com"];
+  const defaults = [
+    "http://localhost:3000",
+    "https://crewlink-ai.com",
+    "https://d1vpvwi7yc942a.amplifyapp.com",
+  ];
   const extra = parseCsv(process.env.CORS_ORIGINS, []);
   return [...new Set([...defaults, ...extra])];
 }
@@ -422,40 +446,18 @@ function loadExistingAuth(): {
   identityPoolId?: string;
   cognitoDomain?: string;
 } {
-  const fromEnv = {
-    userPoolId: process.env.COGNITO_USER_POOL_ID,
-    userPoolClientId: process.env.COGNITO_USER_POOL_CLIENT_ID,
+  // Only honor explicit env vars. Do not read amplify_outputs.json/cdk-outputs.json here:
+  // stale local files caused CDK to import a different pool than the deployed stack.
+  const userPoolId = process.env.COGNITO_USER_POOL_ID;
+  const userPoolClientId = process.env.COGNITO_USER_POOL_CLIENT_ID;
+  if (!userPoolId || !userPoolClientId) {
+    return {};
+  }
+
+  return {
+    userPoolId,
+    userPoolClientId,
     identityPoolId: process.env.COGNITO_IDENTITY_POOL_ID,
     cognitoDomain: process.env.COGNITO_DOMAIN,
   };
-  if (fromEnv.userPoolId && fromEnv.userPoolClientId) {
-    return fromEnv;
-  }
-
-  const fs = require("fs") as typeof import("fs");
-  for (const file of ["amplify_outputs.json", "cdk-outputs.json"]) {
-    const configPath = path.join(__dirname, "..", file);
-    if (!fs.existsSync(configPath)) continue;
-    try {
-      const data = JSON.parse(fs.readFileSync(configPath, "utf8")) as {
-        auth?: {
-          user_pool_id?: string;
-          user_pool_client_id?: string;
-          identity_pool_id?: string;
-        };
-        custom?: { cognitoDomain?: string };
-      };
-      const auth = data.auth;
-      if (auth?.user_pool_id && auth.user_pool_client_id) {
-        return {
-          userPoolId: auth.user_pool_id,
-          userPoolClientId: auth.user_pool_client_id,
-          identityPoolId: auth.identity_pool_id,
-          cognitoDomain: data.custom?.cognitoDomain ?? fromEnv.cognitoDomain,
-        };
-      }
-    } catch {}
-  }
-
-  return {};
 }

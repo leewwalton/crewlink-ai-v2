@@ -42,7 +42,10 @@ function buildAmplifyOutputs(outputs) {
   const userPoolClientId = getOutputValue(outputs, "UserPoolClientId");
   const identityPoolId = getOutputValue(outputs, "IdentityPoolId");
   const cognitoDomain = getOutputValue(outputs, "CognitoDomain");
-  const region = getOutputValue(outputs, "AwsRegion") || process.env.AWS_REGION || "us-west-2";
+  const region =
+    getOutputValue(outputs, "AwsRegion") ||
+    process.env.AWS_REGION ||
+    "us-west-2";
 
   const auth = {
     user_pool_id: userPoolId,
@@ -58,8 +61,8 @@ function buildAmplifyOutputs(outputs) {
     auth.oauth = {
       domain: domain.replace(/\/$/, ""),
       scopes: ["email", "openid", "profile"],
-      redirect_sign_in_uri: "https://flycrewlink.com/dashboard",
-      redirect_sign_out_uri: "https://flycrewlink.com/",
+      redirect_sign_in_uri: "https://crewlink-ai.com/dashboard",
+      redirect_sign_out_uri: "https://crewlink-ai.com/",
       response_type: "code",
     };
   }
@@ -74,7 +77,10 @@ function buildAmplifyOutputs(outputs) {
 }
 
 function buildCdkOutputs(outputs) {
-  const region = getOutputValue(outputs, "AwsRegion") || process.env.AWS_REGION || "us-west-2";
+  const region =
+    getOutputValue(outputs, "AwsRegion") ||
+    process.env.AWS_REGION ||
+    "us-west-2";
   const cognitoDomainRaw = getOutputValue(outputs, "CognitoDomain");
   const cognitoDomain = cognitoDomainRaw
     ? cognitoDomainRaw.replace(/^https?:\/\//, "").replace(/\/$/, "")
@@ -98,7 +104,10 @@ function normalizeOutputs(data) {
   const raw = data[STACK_NAME] ?? data;
   if (Array.isArray(raw)) return raw;
   if (raw && typeof raw === "object" && !raw.OutputKey) {
-    return Object.entries(raw).map(([k, v]) => ({ OutputKey: k, OutputValue: v }));
+    return Object.entries(raw).map(([k, v]) => ({
+      OutputKey: k,
+      OutputValue: v,
+    }));
   }
   return raw?.Outputs ?? [];
 }
@@ -106,14 +115,14 @@ function normalizeOutputs(data) {
 async function main() {
   let outputs = [];
 
-  const outputsPath = process.argv[2] || path.join(ROOT, "cdk-deploy-outputs.json");
-  if (fs.existsSync(outputsPath)) {
+  const outputsPath = process.argv[2];
+  if (outputsPath && fs.existsSync(outputsPath)) {
     const data = JSON.parse(fs.readFileSync(outputsPath, "utf8"));
     outputs = normalizeOutputs(data);
   }
 
   if (!outputs || outputs.length === 0) {
-    console.log("No local outputs file found, fetching from CloudFormation...");
+    console.log("Fetching outputs from CloudFormation stack", STACK_NAME);
     outputs = await fetchStackOutputs();
   }
 
