@@ -5,30 +5,22 @@ applications:
       phases:
         build:
           commands:
-            # Each YAML command runs in a separate shell; keep repo-root steps in one block.
-            - |
-              cd "$CODEBUILD_SRC_DIR"
-              npm ci --cache .npm --prefer-offline
-              # Deploy backend via CDK (Cognito, DynamoDB, HTTP API, Lambdas)
-              npx cdk deploy CrewLinkStack --require-approval never --outputs-file cdk-deploy-outputs.json
-              echo Generating amplify_outputs.json and cdk-outputs.json from CDK outputs
-              node scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json
-              echo Verifying outputs
-              test -f amplify_outputs.json || (echo "ERROR amplify_outputs.json not generated" && exit 1)
-              test -f cdk-outputs.json || (echo "ERROR cdk-outputs.json not generated" && exit 1)
+            - echo "CDK deploy runs in frontend preBuild from monorepo root (buildPath /)"
 
     frontend:
       buildPath: /
       phases:
         preBuild:
           commands:
+            # buildPath / + single shell block: full monorepo root, fail fast on errors.
             - |
+              set -euo pipefail
               cd "$CODEBUILD_SRC_DIR"
-              if [ ! -f cdk-outputs.json ]; then
-                echo "cdk-outputs.json not found; fetching from stack outputs"
-                node scripts/generate-outputs-from-cdk.js || true
-              fi
               npm ci --cache .npm --prefer-offline
+              npx cdk deploy CrewLinkStack --require-approval never --outputs-file cdk-deploy-outputs.json
+              node apps/web/scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json
+              test -f amplify_outputs.json || (echo "ERROR amplify_outputs.json not generated" && exit 1)
+              test -f cdk-outputs.json || (echo "ERROR cdk-outputs.json not generated" && exit 1)
         build:
           commands:
             - cd "$CODEBUILD_SRC_DIR" && npm run build

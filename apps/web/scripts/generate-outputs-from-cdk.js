@@ -7,14 +7,14 @@
  *   npx cdk deploy CrewLinkStack --outputs-file cdk-deploy-outputs.json --require-approval never
  *
  * Or fetch from CloudFormation:
- *   node scripts/generate-outputs-from-cdk.js
+ *   node apps/web/scripts/generate-outputs-from-cdk.js
  */
 
 const fs = require("fs");
 const path = require("path");
 
 const STACK_NAME = "CrewLinkStack";
-const ROOT = path.join(__dirname, "..");
+const ROOT = path.join(__dirname, "../..");
 
 function getOutputValue(outputs, key) {
   const o = outputs.find((x) => x.OutputKey === key);
