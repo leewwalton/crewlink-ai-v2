@@ -9,17 +9,17 @@
         "ssm:GetParameters",
         "ssm:GetParametersByPath"
       ],
-      "Resource": "arn:aws:ssm:us-west-2:395333095307:parameter/cdk-bootstrap/*"
+      "Resource": "arn:aws:ssm:us-west-2:450545962167:parameter/cdk-bootstrap/*"
     },
     {
       "Sid": "CdkAssumeBootstrapRoles",
       "Effect": "Allow",
       "Action": "sts:AssumeRole",
       "Resource": [
-        "arn:aws:iam::395333095307:role/cdk-hnb659fds-deploy-role-395333095307-us-west-2",
-        "arn:aws:iam::395333095307:role/cdk-hnb659fds-file-publishing-role-395333095307-us-west-2",
-        "arn:aws:iam::395333095307:role/cdk-hnb659fds-image-publishing-role-395333095307-us-west-2",
-        "arn:aws:iam::395333095307:role/cdk-hnb659fds-lookup-role-395333095307-us-west-2"
+        "arn:aws:iam::450545962167:role/cdk-hnb659fds-deploy-role-450545962167-us-west-2",
+        "arn:aws:iam::450545962167:role/cdk-hnb659fds-file-publishing-role-450545962167-us-west-2",
+        "arn:aws:iam::450545962167:role/cdk-hnb659fds-image-publishing-role-450545962167-us-west-2",
+        "arn:aws:iam::450545962167:role/cdk-hnb659fds-lookup-role-450545962167-us-west-2"
       ]
     },
     {
@@ -27,10 +27,10 @@
       "Effect": "Allow",
       "Action": "iam:PassRole",
       "Resource": [
-        "arn:aws:iam::395333095307:role/cdk-hnb659fds-cfn-exec-role-395333095307-us-west-2",
-        "arn:aws:iam::395333095307:role/cdk-hnb659fds-deploy-role-395333095307-us-west-2",
-        "arn:aws:iam::395333095307:role/cdk-hnb659fds-file-publishing-role-395333095307-us-west-2",
-        "arn:aws:iam::395333095307:role/cdk-hnb659fds-image-publishing-role-395333095307-us-west-2"
+        "arn:aws:iam::450545962167:role/cdk-hnb659fds-cfn-exec-role-450545962167-us-west-2",
+        "arn:aws:iam::450545962167:role/cdk-hnb659fds-deploy-role-450545962167-us-west-2",
+        "arn:aws:iam::450545962167:role/cdk-hnb659fds-file-publishing-role-450545962167-us-west-2",
+        "arn:aws:iam::450545962167:role/cdk-hnb659fds-image-publishing-role-450545962167-us-west-2"
       ]
     },
     {
@@ -38,8 +38,8 @@
       "Effect": "Allow",
       "Action": ["s3:GetObject", "s3:PutObject", "s3:ListBucket", "s3:GetBucketLocation"],
       "Resource": [
-        "arn:aws:s3:::cdk-hnb659fds-assets-395333095307-us-west-2",
-        "arn:aws:s3:::cdk-hnb659fds-assets-395333095307-us-west-2/*"
+        "arn:aws:s3:::cdk-hnb659fds-assets-450545962167-us-west-2",
+        "arn:aws:s3:::cdk-hnb659fds-assets-450545962167-us-west-2/*"
       ]
     },
     {
@@ -63,8 +63,8 @@
         "cloudformation:ValidateTemplate"
       ],
       "Resource": [
-        "arn:aws:cloudformation:us-west-2:395333095307:stack/CrewLinkPipelineStack/*",
-        "arn:aws:cloudformation:us-west-2:395333095307:stack/CDKToolkit/*"
+        "arn:aws:cloudformation:us-west-2:450545962167:stack/CrewLinkPipelineStack/*",
+        "arn:aws:cloudformation:us-west-2:450545962167:stack/CDKToolkit/*"
       ]
     }
   ]
