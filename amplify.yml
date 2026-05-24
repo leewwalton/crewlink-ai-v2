@@ -14,7 +14,7 @@ applications:
           commands:
             # buildPath / + single shell block: full monorepo root, fail fast on errors.
             - |
-              set -euo pipefail
+              set -eo pipefail
               cd "$CODEBUILD_SRC_DIR"
               npm ci --cache .npm --prefer-offline
               npx cdk deploy CrewLinkStack --require-approval never --outputs-file cdk-deploy-outputs.json
