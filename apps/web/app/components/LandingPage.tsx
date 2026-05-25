@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { createContact, subscribeNewsletter } from "../utils/api-client";
-import { CREWLINK_AI_LEGAL_NAME } from "../utils/legal";
+import { CREWLINK_AI_LEGAL_NAME, AVIATION_AI_SOLUTIONS_URL } from "../utils/legal";
 import "./LandingPage.css";
 
 type Persona = "operator" | "pilot";
@@ -161,6 +161,7 @@ export default function LandingPage() {
           <nav aria-label="Primary navigation">
             <Logo />
             <div className="menu">
+              <a href={AVIATION_AI_SOLUTIONS_URL}>Aviation AI Solutions</a>
               <a href="#workflow">Workflow</a>
               <a href="#features">Features</a>
               <a href="#newsletter">Newsletter</a>
@@ -435,7 +436,12 @@ export default function LandingPage() {
           <p className="fineprint">
             © {new Date().getFullYear()} {CREWLINK_AI_LEGAL_NAME}. All rights
             reserved.
-            <br />A product of Aviation AI Solutions — {CREWLINK_AI_LEGAL_NAME}.
+            <br />
+            A product of{" "}
+            <a className="parent-link" href={AVIATION_AI_SOLUTIONS_URL}>
+              Aviation AI Solutions
+            </a>{" "}
+            — {CREWLINK_AI_LEGAL_NAME}.
           </p>
         </div>
       </footer>

@@ -377,6 +377,19 @@
   letter-spacing: 0.04em;
 }
 
+.landing-page .parent-link {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgba(30, 165, 240, 0.45);
+  text-underline-offset: 3px;
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+
+.landing-page .parent-link:hover {
+  color: var(--brand-accent, #1ea5f0);
+  text-decoration-color: currentColor;
+}
+
 @media (max-width: 980px) {
   .hero-grid,
   .contact-grid,
