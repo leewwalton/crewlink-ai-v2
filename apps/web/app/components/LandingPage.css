@@ -98,8 +98,8 @@
 
 .landing-page h1 {
   max-width: 720px;
-  font-size: clamp(44px, 7vw, 76px);
-  line-height: 0.92;
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 0.95;
   letter-spacing: -0.06em;
   color: var(--text);
   text-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);

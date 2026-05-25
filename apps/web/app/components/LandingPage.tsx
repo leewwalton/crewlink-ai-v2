@@ -166,7 +166,7 @@ export default function LandingPage() {
               <a href="#newsletter">Newsletter</a>
               <a href="#contact">Demo</a>
               <ThemeToggle />
-              <button className="btn primary" type="button" onClick={() => router.push("/auth")}>
+              <button className="btn primary" type="button" disabled aria-disabled="true">
                 Sign in
               </button>
             </div>
