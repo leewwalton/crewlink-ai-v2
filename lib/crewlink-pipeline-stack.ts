@@ -150,7 +150,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       users: this.table("Users"),
       pilotProfiles: this.table("PilotProfiles"),
       operatorProfiles: this.table("OperatorProfiles"),
-      staffingRequests: this.table("StaffingRequests"),
+      staffingRequests: this.staffingRequestsTable("StaffingRequests"),
       matches: this.table("Matches"),
       availability: this.table("Availability"),
       locations: this.table("Locations"),
@@ -226,11 +226,28 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       },
     );
 
+    const operatorProfileFn = new lambdaNode.NodejsFunction(
+      this,
+      "OperatorProfileFn",
+      {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: "amplify/functions/operator-profile/handler.ts",
+        handler: "handler",
+        environment: {
+          OPERATOR_PROFILES_TABLE_NAME: tables.operatorProfiles.tableName,
+        },
+        timeout: cdk.Duration.seconds(15),
+        memorySize: 256,
+        bundling: LAMBDA_BUNDLING,
+      },
+    );
+
     const matchesGetFn = new lambdaNode.NodejsFunction(this, "MatchesGetFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/matches-get/handler.ts",
       handler: "handler",
       environment: {
+        STAFFING_REQUESTS_TABLE_NAME: tables.staffingRequests.tableName,
         BEDROCK_MODEL_ID: bedrockModelId,
         DISABLE_BEDROCK: process.env.DISABLE_BEDROCK ?? "",
       },
@@ -275,6 +292,8 @@ export class CrewLinkPipelineStack extends cdk.Stack {
 
     tables.contactLeads.grantReadWriteData(contactSubmitFn);
     tables.staffingRequests.grantReadWriteData(staffingRequestsFn);
+    tables.staffingRequests.grantReadData(matchesGetFn);
+    tables.operatorProfiles.grantReadWriteData(operatorProfileFn);
     for (const fn of [conversationsFn, messagesFn]) {
       tables.conversations.grantReadWriteData(fn);
       tables.messages.grantReadWriteData(fn);
@@ -304,6 +323,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
         allowMethods: [
           apigwv2.CorsHttpMethod.GET,
           apigwv2.CorsHttpMethod.POST,
+          apigwv2.CorsHttpMethod.PUT,
           apigwv2.CorsHttpMethod.OPTIONS,
         ],
         allowOrigins: corsOrigins(),
@@ -339,6 +359,15 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "RequestsIntegration",
         staffingRequestsFn,
+      ),
+      authorizer: jwtAuthorizer,
+    });
+    httpApi.addRoutes({
+      path: "/operator-profile",
+      methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.PUT],
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "OperatorProfileIntegration",
+        operatorProfileFn,
       ),
       authorizer: jwtAuthorizer,
     });
@@ -398,6 +427,20 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
+  }
+
+  private staffingRequestsTable(id: string) {
+    const table = new dynamodb.Table(this, id, {
+      partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
+      billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
+      removalPolicy: cdk.RemovalPolicy.RETAIN,
+    });
+    table.addGlobalSecondaryIndex({
+      indexName: "byOperator",
+      partitionKey: { name: "operatorId", type: dynamodb.AttributeType.STRING },
+      sortKey: { name: "startDate", type: dynamodb.AttributeType.STRING },
+    });
+    return table;
   }
 
   private messagesTable(id: string) {

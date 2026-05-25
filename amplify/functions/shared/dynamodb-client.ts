@@ -23,6 +23,27 @@ export async function contactLeadPut(item: Record<string, unknown>): Promise<voi
   );
 }
 
+export async function operatorProfileGet(
+  id: string,
+): Promise<Record<string, unknown> | null> {
+  const res = await doc.send(
+    new GetCommand({
+      TableName: table("OPERATOR_PROFILES_TABLE_NAME"),
+      Key: { id },
+    }),
+  );
+  return (res.Item as Record<string, unknown> | undefined) ?? null;
+}
+
+export async function operatorProfilePut(item: Record<string, unknown>): Promise<void> {
+  await doc.send(
+    new PutCommand({
+      TableName: table("OPERATOR_PROFILES_TABLE_NAME"),
+      Item: item,
+    }),
+  );
+}
+
 export async function staffingRequestPut(item: Record<string, unknown>): Promise<void> {
   await doc.send(
     new PutCommand({
@@ -30,6 +51,33 @@ export async function staffingRequestPut(item: Record<string, unknown>): Promise
       Item: item,
     }),
   );
+}
+
+export async function staffingRequestGet(
+  id: string,
+): Promise<Record<string, unknown> | null> {
+  const res = await doc.send(
+    new GetCommand({
+      TableName: table("STAFFING_REQUESTS_TABLE_NAME"),
+      Key: { id },
+    }),
+  );
+  return (res.Item as Record<string, unknown> | undefined) ?? null;
+}
+
+export async function staffingRequestsByOperator(
+  operatorId: string,
+): Promise<Record<string, unknown>[]> {
+  const res = await doc.send(
+    new QueryCommand({
+      TableName: table("STAFFING_REQUESTS_TABLE_NAME"),
+      IndexName: "byOperator",
+      KeyConditionExpression: "operatorId = :operatorId",
+      ExpressionAttributeValues: { ":operatorId": operatorId },
+      ScanIndexForward: false,
+    }),
+  );
+  return (res.Items as Record<string, unknown>[] | undefined) ?? [];
 }
 
 export async function conversationGet(id: string): Promise<Record<string, unknown> | null> {

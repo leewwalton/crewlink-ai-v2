@@ -1,5 +1,6 @@
 import { fetchAuthSession } from "aws-amplify/auth";
 import type {
+  OperatorProfile,
   PilotMatch,
   PilotProfile,
   StaffingRequest,
@@ -81,6 +82,28 @@ export function listRequests() {
   return requestJson<{ requests: StaffingRequest[] }>("requests");
 }
 
+export async function loadOperatorProfile(): Promise<OperatorProfile | null> {
+  const baseUrl = getApiBaseUrl();
+  if (!baseUrl) throw new Error("CrewLinkAI API URL is not configured.");
+
+  const headers = await authHeaders();
+  const response = await fetch(`${baseUrl}operator-profile`, { headers });
+  if (response.status === 404) return null;
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error((data as { message?: string }).message || response.statusText);
+  }
+  return (data as { profile: OperatorProfile }).profile;
+}
+
+export function saveOperatorProfile(input: Partial<OperatorProfile>) {
+  return requestJson<{ profile: OperatorProfile }>("operator-profile", {
+    method: "PUT",
+    body: JSON.stringify(input),
+  });
+}
+
 export function createStaffingRequest(input: Partial<StaffingRequest>) {
   return requestJson<{ request: StaffingRequest }>("requests", {
     method: "POST",
@@ -89,7 +112,7 @@ export function createStaffingRequest(input: Partial<StaffingRequest>) {
 }
 
 export function getMatches(requestId: string) {
-  return requestJson<{ matches: PilotMatch[] }>(
+  return requestJson<{ request: StaffingRequest; matches: PilotMatch[] }>(
     `matches?requestId=${encodeURIComponent(requestId)}`,
   );
 }

@@ -1,5 +1,7 @@
 import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
-import { pilots, rankPilotsForRequest, requests } from "../../../packages/domain/src";
+import { pilots, rankPilotsForRequest, type StaffingRequest } from "../../../packages/domain/src";
+import { staffingRequestGet } from "../shared/dynamodb-client";
+import { getCognitoSubFromEvent } from "../shared/get-cognito-sub";
 import { httpMethod, json } from "../shared/http";
 
 const bedrock = new BedrockRuntimeClient({ region: process.env.AWS_REGION ?? "us-west-2" });
@@ -40,16 +42,33 @@ export const handler = async (event: any) => {
     return json(405, { message: "Method Not Allowed" });
   }
 
-  try {
-    const requestId = event.queryStringParameters?.requestId || requests[0].id;
-    const request = requests.find((candidate) => candidate.id === requestId) || requests[0];
-    const matches = rankPilotsForRequest(request, pilots);
+  const operatorId = getCognitoSubFromEvent(event);
+  if (!operatorId) {
+    return json(401, { message: "Authentication required." });
+  }
 
-    const aiSummary = await explainWithBedrock(
-      `Summarize the top CrewLinkAI staffing match for ${request.title}: ${matches[0].explanation}`,
-    );
+  const requestId = event.queryStringParameters?.requestId;
+  if (!requestId) {
+    return json(400, { message: "requestId is required." });
+  }
+
+  try {
+    const requestRow = await staffingRequestGet(requestId);
+    const request = requestRow as StaffingRequest | null;
+    if (!request || request.operatorId !== operatorId) {
+      return json(404, { message: "Staffing request not found." });
+    }
+
+    const matches = rankPilotsForRequest(request, pilots);
+    const aiSummary =
+      matches.length > 0
+        ? await explainWithBedrock(
+            `Summarize the top CrewLinkAI staffing match for ${request.title}: ${matches[0].explanation}`,
+          )
+        : null;
 
     return json(200, {
+      request,
       matches: aiSummary
         ? matches.map((match, index) =>
             index === 0 ? { ...match, explanation: aiSummary } : match,
