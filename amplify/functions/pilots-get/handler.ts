@@ -1,4 +1,5 @@
 import { pilots, searchPilots } from "../../../packages/domain/src";
+import { loadMarketplacePilots } from "../shared/marketplace-pilots";
 import { httpMethod, json } from "../shared/http";
 
 const LOG_PREFIX = "[PILOTS-GET]";
@@ -17,7 +18,8 @@ export const handler = async (event: any) => {
 
   try {
     const qs = event.queryStringParameters ?? {};
-    const filtered = searchPilots(pilots, {
+    const allPilots = await loadMarketplacePilots();
+    const filtered = searchPilots(allPilots, {
       aircraftType: qs.aircraftType || undefined,
       rating: qs.rating || undefined,
       certificate: qs.certificate || undefined,

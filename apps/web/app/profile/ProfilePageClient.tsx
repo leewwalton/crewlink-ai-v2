@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { OperatorProfile } from "@crewlink/domain";
 import { fetchUserAttributes } from "aws-amplify/auth";
 import AppNav from "../components/AppNav";
+import RequireAuth from "../components/RequireAuth";
 import { loadOperatorProfile, saveOperatorProfile } from "../utils/api-client";
 
 type FormState = {
@@ -113,7 +114,8 @@ export default function ProfilePageClient() {
   }
 
   return (
-    <div className="app-shell">
+    <RequireAuth loadingMessage="Sign in to manage your operator profile.">
+      <div className="app-shell">
       <AppNav />
       <main className="app-main">
         <div className="container">
@@ -212,6 +214,7 @@ export default function ProfilePageClient() {
           )}
         </div>
       </main>
-    </div>
+      </div>
+    </RequireAuth>
   );
 }

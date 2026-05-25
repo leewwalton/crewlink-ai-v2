@@ -1,15 +1,20 @@
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 
-const links = [
+const sharedLinks = [
   ["Dashboard", "/dashboard"],
   ["Pilots", "/pilots"],
   ["Map", "/map"],
+  ["Messages", "/messages"],
+] as const;
+
+const operatorLinks = [
   ["Requests", "/requests"],
   ["Matches", "/matches"],
-  ["Messages", "/messages"],
-  ["Profile", "/profile"],
+  ["Operator", "/profile"],
 ] as const;
+
+const pilotLinks = [["Pilot", "/pilot/profile"]] as const;
 
 export default function AppNav() {
   return (
@@ -18,8 +23,18 @@ export default function AppNav() {
         <nav className="nav" aria-label="Application navigation">
           <Logo />
           <div className="menu">
-            {links.map(([label, href]) => (
+            {sharedLinks.map(([label, href]) => (
               <a href={href} key={href}>
+                {label}
+              </a>
+            ))}
+            {operatorLinks.map(([label, href]) => (
+              <a href={href} key={href} className="nav-link-operator">
+                {label}
+              </a>
+            ))}
+            {pilotLinks.map(([label, href]) => (
+              <a href={href} key={href} className="nav-link-pilot">
                 {label}
               </a>
             ))}

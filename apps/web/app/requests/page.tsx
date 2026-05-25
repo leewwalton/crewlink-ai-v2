@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import type { OperatorProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
 import DatePickerField from "../components/DatePickerField";
+import IcaoLookupField from "../components/IcaoLookupField";
 import {
   createStaffingRequest,
   listRequests,
@@ -17,6 +18,9 @@ export default function RequestsPage() {
   const [submitting, setSubmitting] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [aircraftType, setAircraftType] = useState("");
+  const [departureAirport, setDepartureAirport] = useState("");
+  const [arrivalAirport, setArrivalAirport] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -120,6 +124,10 @@ export default function RequestsPage() {
                   setError("Start and end dates are required.");
                   return;
                 }
+                if (!aircraftType.trim() || !departureAirport.trim()) {
+                  setError("Aircraft type and departure airport are required.");
+                  return;
+                }
 
                 setSubmitting(true);
                 setError("");
@@ -129,9 +137,9 @@ export default function RequestsPage() {
                 try {
                   const result = await createStaffingRequest({
                     title: String(data.get("title") || ""),
-                    aircraftType: String(data.get("aircraftType") || ""),
-                    departureAirport: String(data.get("departureAirport") || ""),
-                    arrivalAirport: String(data.get("arrivalAirport") || "") || undefined,
+                    aircraftType: aircraftType.trim(),
+                    departureAirport: departureAirport.trim(),
+                    arrivalAirport: arrivalAirport.trim() || undefined,
                     startDate,
                     endDate,
                     requiredRole: String(data.get("requiredRole") || "PIC") as StaffingRequest["requiredRole"],
@@ -149,6 +157,9 @@ export default function RequestsPage() {
                   event.currentTarget.reset();
                   setStartDate("");
                   setEndDate("");
+                  setAircraftType("");
+                  setDepartureAirport("");
+                  setArrivalAirport("");
                 } catch (err) {
                   setError(err instanceof Error ? err.message : "Failed to save request.");
                 } finally {
@@ -160,9 +171,35 @@ export default function RequestsPage() {
                 <h2 style={{ margin: 0 }}>Create request</h2>
               </div>
               <input name="title" required placeholder="Trip title" disabled={!profile || submitting} />
-              <input name="aircraftType" required placeholder="Aircraft type" disabled={!profile || submitting} />
-              <input name="departureAirport" required placeholder="Departure airport" disabled={!profile || submitting} />
-              <input name="arrivalAirport" placeholder="Arrival airport" disabled={!profile || submitting} />
+              <IcaoLookupField
+                kind="aircraft"
+                name="aircraftType"
+                value={aircraftType}
+                onChange={setAircraftType}
+                placeholder="Aircraft type (e.g. G650, C172)"
+                aria-label="Aircraft type"
+                disabled={!profile || submitting}
+                required
+              />
+              <IcaoLookupField
+                kind="airport"
+                name="departureAirport"
+                value={departureAirport}
+                onChange={setDepartureAirport}
+                placeholder="Departure airport (e.g. KIAH)"
+                aria-label="Departure airport"
+                disabled={!profile || submitting}
+                required
+              />
+              <IcaoLookupField
+                kind="airport"
+                name="arrivalAirport"
+                value={arrivalAirport}
+                onChange={setArrivalAirport}
+                placeholder="Arrival airport (e.g. KJFK)"
+                aria-label="Arrival airport"
+                disabled={!profile || submitting}
+              />
               <DatePickerField
                 name="startDate"
                 value={startDate}

@@ -1,0 +1,2956 @@
+[
+  {
+    "id": "BE200",
+    "title": "BE200 - Beechcraft Super King Air 200",
+    "content": "ICAO Aircraft Type Designator: BE200\nManufacturer: Beechcraft\nModel: Super King Air 200\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code BE200 identifies the Beechcraft Super King Air 200, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "BE200",
+      "manufacturer": "Beechcraft",
+      "model": "Super King Air 200",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE300",
+    "title": "BE300 - Beechcraft Super King Air 300",
+    "content": "ICAO Aircraft Type Designator: BE300\nManufacturer: Beechcraft\nModel: Super King Air 300\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code BE300 identifies the Beechcraft Super King Air 300, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "BE300",
+      "manufacturer": "Beechcraft",
+      "model": "Super King Air 300",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE350",
+    "title": "BE350 - Beechcraft Super King Air 350",
+    "content": "ICAO Aircraft Type Designator: BE350\nManufacturer: Beechcraft\nModel: Super King Air 350\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code BE350 identifies the Beechcraft Super King Air 350, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "BE350",
+      "manufacturer": "Beechcraft",
+      "model": "Super King Air 350",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE1900",
+    "title": "BE1900 - Beechcraft 1900 Airliner",
+    "content": "ICAO Aircraft Type Designator: BE1900\nManufacturer: Beechcraft\nModel: 1900 Airliner\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code BE1900 identifies the Beechcraft 1900 Airliner, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "BE1900",
+      "manufacturer": "Beechcraft",
+      "model": "1900 Airliner",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE58",
+    "title": "BE58 - Beechcraft Baron 58",
+    "content": "ICAO Aircraft Type Designator: BE58\nManufacturer: Beechcraft\nModel: Baron 58\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code BE58 identifies the Beechcraft Baron 58, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "BE58",
+      "manufacturer": "Beechcraft",
+      "model": "Baron 58",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE36",
+    "title": "BE36 - Beechcraft Bonanza A36",
+    "content": "ICAO Aircraft Type Designator: BE36\nManufacturer: Beechcraft\nModel: Bonanza A36\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code BE36 identifies the Beechcraft Bonanza A36, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "BE36",
+      "manufacturer": "Beechcraft",
+      "model": "Bonanza A36",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE33",
+    "title": "BE33 - Beechcraft Bonanza F33",
+    "content": "ICAO Aircraft Type Designator: BE33\nManufacturer: Beechcraft\nModel: Bonanza F33\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code BE33 identifies the Beechcraft Bonanza F33, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "BE33",
+      "manufacturer": "Beechcraft",
+      "model": "Bonanza F33",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE23",
+    "title": "BE23 - Beechcraft Musketeer",
+    "content": "ICAO Aircraft Type Designator: BE23\nManufacturer: Beechcraft\nModel: Musketeer\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code BE23 identifies the Beechcraft Musketeer, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "BE23",
+      "manufacturer": "Beechcraft",
+      "model": "Musketeer",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE76",
+    "title": "BE76 - Beechcraft Duchess 76",
+    "content": "ICAO Aircraft Type Designator: BE76\nManufacturer: Beechcraft\nModel: Duchess 76\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code BE76 identifies the Beechcraft Duchess 76, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "BE76",
+      "manufacturer": "Beechcraft",
+      "model": "Duchess 76",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "BE77",
+    "title": "BE77 - Beechcraft Skipper",
+    "content": "ICAO Aircraft Type Designator: BE77\nManufacturer: Beechcraft\nModel: Skipper\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code BE77 identifies the Beechcraft Skipper, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "BE77",
+      "manufacturer": "Beechcraft",
+      "model": "Skipper",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE550",
+    "title": "CE550 - Cessna Citation II",
+    "content": "ICAO Aircraft Type Designator: CE550\nManufacturer: Cessna\nModel: Citation II\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code CE550 identifies the Cessna Citation II, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "CE550",
+      "manufacturer": "Cessna",
+      "model": "Citation II",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE560",
+    "title": "CE560 - Cessna Citation V/Ultra",
+    "content": "ICAO Aircraft Type Designator: CE560\nManufacturer: Cessna\nModel: Citation V/Ultra\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code CE560 identifies the Cessna Citation V/Ultra, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "CE560",
+      "manufacturer": "Cessna",
+      "model": "Citation V/Ultra",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE650",
+    "title": "CE650 - Cessna Citation III/VI/VII",
+    "content": "ICAO Aircraft Type Designator: CE650\nManufacturer: Cessna\nModel: Citation III/VI/VII\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code CE650 identifies the Cessna Citation III/VI/VII, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "CE650",
+      "manufacturer": "Cessna",
+      "model": "Citation III/VI/VII",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE750",
+    "title": "CE750 - Cessna Citation X",
+    "content": "ICAO Aircraft Type Designator: CE750\nManufacturer: Cessna\nModel: Citation X\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code CE750 identifies the Cessna Citation X, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "CE750",
+      "manufacturer": "Cessna",
+      "model": "Citation X",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE208",
+    "title": "CE208 - Cessna Caravan",
+    "content": "ICAO Aircraft Type Designator: CE208\nManufacturer: Cessna\nModel: Caravan\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code CE208 identifies the Cessna Caravan, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "CE208",
+      "manufacturer": "Cessna",
+      "model": "Caravan",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE210",
+    "title": "CE210 - Cessna Centurion",
+    "content": "ICAO Aircraft Type Designator: CE210\nManufacturer: Cessna\nModel: Centurion\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code CE210 identifies the Cessna Centurion, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "CE210",
+      "manufacturer": "Cessna",
+      "model": "Centurion",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE172",
+    "title": "CE172 - Cessna Skyhawk",
+    "content": "ICAO Aircraft Type Designator: CE172\nManufacturer: Cessna\nModel: Skyhawk\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code CE172 identifies the Cessna Skyhawk, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "CE172",
+      "manufacturer": "Cessna",
+      "model": "Skyhawk",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE182",
+    "title": "CE182 - Cessna Skylane",
+    "content": "ICAO Aircraft Type Designator: CE182\nManufacturer: Cessna\nModel: Skylane\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code CE182 identifies the Cessna Skylane, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "CE182",
+      "manufacturer": "Cessna",
+      "model": "Skylane",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE206",
+    "title": "CE206 - Cessna Stationair",
+    "content": "ICAO Aircraft Type Designator: CE206\nManufacturer: Cessna\nModel: Stationair\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code CE206 identifies the Cessna Stationair, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "CE206",
+      "manufacturer": "Cessna",
+      "model": "Stationair",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE152",
+    "title": "CE152 - Cessna Aerobat",
+    "content": "ICAO Aircraft Type Designator: CE152\nManufacturer: Cessna\nModel: Aerobat\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code CE152 identifies the Cessna Aerobat, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "CE152",
+      "manufacturer": "Cessna",
+      "model": "Aerobat",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE150",
+    "title": "CE150 - Cessna Commuter",
+    "content": "ICAO Aircraft Type Designator: CE150\nManufacturer: Cessna\nModel: Commuter\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code CE150 identifies the Cessna Commuter, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "CE150",
+      "manufacturer": "Cessna",
+      "model": "Commuter",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE177",
+    "title": "CE177 - Cessna Cardinal",
+    "content": "ICAO Aircraft Type Designator: CE177\nManufacturer: Cessna\nModel: Cardinal\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code CE177 identifies the Cessna Cardinal, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "CE177",
+      "manufacturer": "Cessna",
+      "model": "Cardinal",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE185",
+    "title": "CE185 - Cessna Skywagon",
+    "content": "ICAO Aircraft Type Designator: CE185\nManufacturer: Cessna\nModel: Skywagon\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code CE185 identifies the Cessna Skywagon, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "CE185",
+      "manufacturer": "Cessna",
+      "model": "Skywagon",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE310",
+    "title": "CE310 - Cessna 310",
+    "content": "ICAO Aircraft Type Designator: CE310\nManufacturer: Cessna\nModel: 310\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code CE310 identifies the Cessna 310, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "CE310",
+      "manufacturer": "Cessna",
+      "model": "310",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE337",
+    "title": "CE337 - Cessna Skymaster",
+    "content": "ICAO Aircraft Type Designator: CE337\nManufacturer: Cessna\nModel: Skymaster\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code CE337 identifies the Cessna Skymaster, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "CE337",
+      "manufacturer": "Cessna",
+      "model": "Skymaster",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE402",
+    "title": "CE402 - Cessna Businessliner",
+    "content": "ICAO Aircraft Type Designator: CE402\nManufacturer: Cessna\nModel: Businessliner\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code CE402 identifies the Cessna Businessliner, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "CE402",
+      "manufacturer": "Cessna",
+      "model": "Businessliner",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE414",
+    "title": "CE414 - Cessna Chancellor",
+    "content": "ICAO Aircraft Type Designator: CE414\nManufacturer: Cessna\nModel: Chancellor\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code CE414 identifies the Cessna Chancellor, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "CE414",
+      "manufacturer": "Cessna",
+      "model": "Chancellor",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE421",
+    "title": "CE421 - Cessna Golden Eagle",
+    "content": "ICAO Aircraft Type Designator: CE421\nManufacturer: Cessna\nModel: Golden Eagle\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code CE421 identifies the Cessna Golden Eagle, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "CE421",
+      "manufacturer": "Cessna",
+      "model": "Golden Eagle",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE425",
+    "title": "CE425 - Cessna Corsair",
+    "content": "ICAO Aircraft Type Designator: CE425\nManufacturer: Cessna\nModel: Corsair\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code CE425 identifies the Cessna Corsair, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "CE425",
+      "manufacturer": "Cessna",
+      "model": "Corsair",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CE441",
+    "title": "CE441 - Cessna Conquest II",
+    "content": "ICAO Aircraft Type Designator: CE441\nManufacturer: Cessna\nModel: Conquest II\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code CE441 identifies the Cessna Conquest II, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "CE441",
+      "manufacturer": "Cessna",
+      "model": "Conquest II",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA28",
+    "title": "PA28 - Piper Cherokee/Archer/Warrior",
+    "content": "ICAO Aircraft Type Designator: PA28\nManufacturer: Piper\nModel: Cherokee/Archer/Warrior\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code PA28 identifies the Piper Cherokee/Archer/Warrior, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "PA28",
+      "manufacturer": "Piper",
+      "model": "Cherokee/Archer/Warrior",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA32",
+    "title": "PA32 - Piper Saratoga/Lance",
+    "content": "ICAO Aircraft Type Designator: PA32\nManufacturer: Piper\nModel: Saratoga/Lance\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code PA32 identifies the Piper Saratoga/Lance, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "PA32",
+      "manufacturer": "Piper",
+      "model": "Saratoga/Lance",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA34",
+    "title": "PA34 - Piper Seneca",
+    "content": "ICAO Aircraft Type Designator: PA34\nManufacturer: Piper\nModel: Seneca\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code PA34 identifies the Piper Seneca, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "PA34",
+      "manufacturer": "Piper",
+      "model": "Seneca",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA44",
+    "title": "PA44 - Piper Seminole",
+    "content": "ICAO Aircraft Type Designator: PA44\nManufacturer: Piper\nModel: Seminole\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code PA44 identifies the Piper Seminole, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "PA44",
+      "manufacturer": "Piper",
+      "model": "Seminole",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA46",
+    "title": "PA46 - Piper Malibu/Mirage",
+    "content": "ICAO Aircraft Type Designator: PA46\nManufacturer: Piper\nModel: Malibu/Mirage\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code PA46 identifies the Piper Malibu/Mirage, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "PA46",
+      "manufacturer": "Piper",
+      "model": "Malibu/Mirage",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA31",
+    "title": "PA31 - Piper Navajo/Chieftain",
+    "content": "ICAO Aircraft Type Designator: PA31\nManufacturer: Piper\nModel: Navajo/Chieftain\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code PA31 identifies the Piper Navajo/Chieftain, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "PA31",
+      "manufacturer": "Piper",
+      "model": "Navajo/Chieftain",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA23",
+    "title": "PA23 - Piper Apache/Aztec",
+    "content": "ICAO Aircraft Type Designator: PA23\nManufacturer: Piper\nModel: Apache/Aztec\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code PA23 identifies the Piper Apache/Aztec, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "PA23",
+      "manufacturer": "Piper",
+      "model": "Apache/Aztec",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA24",
+    "title": "PA24 - Piper Comanche",
+    "content": "ICAO Aircraft Type Designator: PA24\nManufacturer: Piper\nModel: Comanche\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code PA24 identifies the Piper Comanche, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "PA24",
+      "manufacturer": "Piper",
+      "model": "Comanche",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA18",
+    "title": "PA18 - Piper Super Cub",
+    "content": "ICAO Aircraft Type Designator: PA18\nManufacturer: Piper\nModel: Super Cub\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code PA18 identifies the Piper Super Cub, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "PA18",
+      "manufacturer": "Piper",
+      "model": "Super Cub",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PA38",
+    "title": "PA38 - Piper Tomahawk",
+    "content": "ICAO Aircraft Type Designator: PA38\nManufacturer: Piper\nModel: Tomahawk\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code PA38 identifies the Piper Tomahawk, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "PA38",
+      "manufacturer": "Piper",
+      "model": "Tomahawk",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20P",
+    "title": "M20P - Mooney M20J/MSE",
+    "content": "ICAO Aircraft Type Designator: M20P\nManufacturer: Mooney\nModel: M20J/MSE\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20P identifies the Mooney M20J/MSE, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20P",
+      "manufacturer": "Mooney",
+      "model": "M20J/MSE",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20R",
+    "title": "M20R - Mooney M20R Ovation",
+    "content": "ICAO Aircraft Type Designator: M20R\nManufacturer: Mooney\nModel: M20R Ovation\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20R identifies the Mooney M20R Ovation, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20R",
+      "manufacturer": "Mooney",
+      "model": "M20R Ovation",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20T",
+    "title": "M20T - Mooney M20T Acclaim",
+    "content": "ICAO Aircraft Type Designator: M20T\nManufacturer: Mooney\nModel: M20T Acclaim\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20T identifies the Mooney M20T Acclaim, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20T",
+      "manufacturer": "Mooney",
+      "model": "M20T Acclaim",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20C",
+    "title": "M20C - Mooney M20C Ranger",
+    "content": "ICAO Aircraft Type Designator: M20C\nManufacturer: Mooney\nModel: M20C Ranger\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20C identifies the Mooney M20C Ranger, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20C",
+      "manufacturer": "Mooney",
+      "model": "M20C Ranger",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20E",
+    "title": "M20E - Mooney M20E Super 21",
+    "content": "ICAO Aircraft Type Designator: M20E\nManufacturer: Mooney\nModel: M20E Super 21\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20E identifies the Mooney M20E Super 21, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20E",
+      "manufacturer": "Mooney",
+      "model": "M20E Super 21",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20F",
+    "title": "M20F - Mooney M20F Executive",
+    "content": "ICAO Aircraft Type Designator: M20F\nManufacturer: Mooney\nModel: M20F Executive\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20F identifies the Mooney M20F Executive, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20F",
+      "manufacturer": "Mooney",
+      "model": "M20F Executive",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20G",
+    "title": "M20G - Mooney M20G Statesman",
+    "content": "ICAO Aircraft Type Designator: M20G\nManufacturer: Mooney\nModel: M20G Statesman\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20G identifies the Mooney M20G Statesman, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20G",
+      "manufacturer": "Mooney",
+      "model": "M20G Statesman",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20K",
+    "title": "M20K - Mooney M20K 231/252",
+    "content": "ICAO Aircraft Type Designator: M20K\nManufacturer: Mooney\nModel: M20K 231/252\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20K identifies the Mooney M20K 231/252, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20K",
+      "manufacturer": "Mooney",
+      "model": "M20K 231/252",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20L",
+    "title": "M20L - Mooney M20L PFM",
+    "content": "ICAO Aircraft Type Designator: M20L\nManufacturer: Mooney\nModel: M20L PFM\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20L identifies the Mooney M20L PFM, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20L",
+      "manufacturer": "Mooney",
+      "model": "M20L PFM",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20M",
+    "title": "M20M - Mooney M20M TLS/Bravo",
+    "content": "ICAO Aircraft Type Designator: M20M\nManufacturer: Mooney\nModel: M20M TLS/Bravo\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20M identifies the Mooney M20M TLS/Bravo, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20M",
+      "manufacturer": "Mooney",
+      "model": "M20M TLS/Bravo",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20S",
+    "title": "M20S - Mooney M20S Eagle",
+    "content": "ICAO Aircraft Type Designator: M20S\nManufacturer: Mooney\nModel: M20S Eagle\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20S identifies the Mooney M20S Eagle, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20S",
+      "manufacturer": "Mooney",
+      "model": "M20S Eagle",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20U",
+    "title": "M20U - Mooney M20U Ovation Ultra",
+    "content": "ICAO Aircraft Type Designator: M20U\nManufacturer: Mooney\nModel: M20U Ovation Ultra\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20U identifies the Mooney M20U Ovation Ultra, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20U",
+      "manufacturer": "Mooney",
+      "model": "M20U Ovation Ultra",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "M20V",
+    "title": "M20V - Mooney M20V Acclaim Ultra",
+    "content": "ICAO Aircraft Type Designator: M20V\nManufacturer: Mooney\nModel: M20V Acclaim Ultra\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code M20V identifies the Mooney M20V Acclaim Ultra, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "M20V",
+      "manufacturer": "Mooney",
+      "model": "M20V Acclaim Ultra",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "SR20",
+    "title": "SR20 - Cirrus SR20",
+    "content": "ICAO Aircraft Type Designator: SR20\nManufacturer: Cirrus\nModel: SR20\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code SR20 identifies the Cirrus SR20, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "SR20",
+      "manufacturer": "Cirrus",
+      "model": "SR20",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "SR22",
+    "title": "SR22 - Cirrus SR22",
+    "content": "ICAO Aircraft Type Designator: SR22\nManufacturer: Cirrus\nModel: SR22\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code SR22 identifies the Cirrus SR22, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "SR22",
+      "manufacturer": "Cirrus",
+      "model": "SR22",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "SR22T",
+    "title": "SR22T - Cirrus SR22T",
+    "content": "ICAO Aircraft Type Designator: SR22T\nManufacturer: Cirrus\nModel: SR22T\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code SR22T identifies the Cirrus SR22T, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "SR22T",
+      "manufacturer": "Cirrus",
+      "model": "SR22T",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "SF50",
+    "title": "SF50 - Cirrus Vision Jet",
+    "content": "ICAO Aircraft Type Designator: SF50\nManufacturer: Cirrus\nModel: Vision Jet\nEngine count: Single engine\nEngine type: Turbojet\nAircraft type: Single engine turbojet\n\nThe ICAO code SF50 identifies the Cirrus Vision Jet, which is a Single engine turbojet aircraft.",
+    "metadata": {
+      "code": "SF50",
+      "manufacturer": "Cirrus",
+      "model": "Vision Jet",
+      "type": "Turbojet",
+      "engineCount": "Single engine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "DA20",
+    "title": "DA20 - Diamond Katana",
+    "content": "ICAO Aircraft Type Designator: DA20\nManufacturer: Diamond\nModel: Katana\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code DA20 identifies the Diamond Katana, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "DA20",
+      "manufacturer": "Diamond",
+      "model": "Katana",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "DA40",
+    "title": "DA40 - Diamond Diamond Star",
+    "content": "ICAO Aircraft Type Designator: DA40\nManufacturer: Diamond\nModel: Diamond Star\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code DA40 identifies the Diamond Diamond Star, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "DA40",
+      "manufacturer": "Diamond",
+      "model": "Diamond Star",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "DA42",
+    "title": "DA42 - Diamond Twin Star",
+    "content": "ICAO Aircraft Type Designator: DA42\nManufacturer: Diamond\nModel: Twin Star\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code DA42 identifies the Diamond Twin Star, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "DA42",
+      "manufacturer": "Diamond",
+      "model": "Twin Star",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "DA62",
+    "title": "DA62 - Diamond DA62",
+    "content": "ICAO Aircraft Type Designator: DA62\nManufacturer: Diamond\nModel: DA62\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code DA62 identifies the Diamond DA62, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "DA62",
+      "manufacturer": "Diamond",
+      "model": "DA62",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "GLF4",
+    "title": "GLF4 - Gulfstream Gulfstream IV",
+    "content": "ICAO Aircraft Type Designator: GLF4\nManufacturer: Gulfstream\nModel: Gulfstream IV\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code GLF4 identifies the Gulfstream Gulfstream IV, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "GLF4",
+      "manufacturer": "Gulfstream",
+      "model": "Gulfstream IV",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "GLF5",
+    "title": "GLF5 - Bombardier Global 5000",
+    "content": "ICAO Aircraft Type Designator: GLF5\nManufacturer: Bombardier\nModel: Global 5000\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code GLF5 identifies the Bombardier Global 5000, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "GLF5",
+      "manufacturer": "Bombardier",
+      "model": "Global 5000",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "GLF6",
+    "title": "GLF6 - Bombardier Global 6000",
+    "content": "ICAO Aircraft Type Designator: GLF6\nManufacturer: Bombardier\nModel: Global 6000\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code GLF6 identifies the Bombardier Global 6000, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "GLF6",
+      "manufacturer": "Bombardier",
+      "model": "Global 6000",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G150",
+    "title": "G150 - Gulfstream G150",
+    "content": "ICAO Aircraft Type Designator: G150\nManufacturer: Gulfstream\nModel: G150\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G150 identifies the Gulfstream G150, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G150",
+      "manufacturer": "Gulfstream",
+      "model": "G150",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G200",
+    "title": "G200 - Gulfstream G200",
+    "content": "ICAO Aircraft Type Designator: G200\nManufacturer: Gulfstream\nModel: G200\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G200 identifies the Gulfstream G200, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G200",
+      "manufacturer": "Gulfstream",
+      "model": "G200",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G280",
+    "title": "G280 - Gulfstream G280",
+    "content": "ICAO Aircraft Type Designator: G280\nManufacturer: Gulfstream\nModel: G280\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G280 identifies the Gulfstream G280, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G280",
+      "manufacturer": "Gulfstream",
+      "model": "G280",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G350",
+    "title": "G350 - Gulfstream G350",
+    "content": "ICAO Aircraft Type Designator: G350\nManufacturer: Gulfstream\nModel: G350\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G350 identifies the Gulfstream G350, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G350",
+      "manufacturer": "Gulfstream",
+      "model": "G350",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G450",
+    "title": "G450 - Gulfstream G450",
+    "content": "ICAO Aircraft Type Designator: G450\nManufacturer: Gulfstream\nModel: G450\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G450 identifies the Gulfstream G450, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G450",
+      "manufacturer": "Gulfstream",
+      "model": "G450",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G500",
+    "title": "G500 - Gulfstream G500",
+    "content": "ICAO Aircraft Type Designator: G500\nManufacturer: Gulfstream\nModel: G500\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G500 identifies the Gulfstream G500, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G500",
+      "manufacturer": "Gulfstream",
+      "model": "G500",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G550",
+    "title": "G550 - Gulfstream G550",
+    "content": "ICAO Aircraft Type Designator: G550\nManufacturer: Gulfstream\nModel: G550\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G550 identifies the Gulfstream G550, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G550",
+      "manufacturer": "Gulfstream",
+      "model": "G550",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G600",
+    "title": "G600 - Gulfstream G600",
+    "content": "ICAO Aircraft Type Designator: G600\nManufacturer: Gulfstream\nModel: G600\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G600 identifies the Gulfstream G600, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G600",
+      "manufacturer": "Gulfstream",
+      "model": "G600",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "G650",
+    "title": "G650 - Gulfstream G650",
+    "content": "ICAO Aircraft Type Designator: G650\nManufacturer: Gulfstream\nModel: G650\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code G650 identifies the Gulfstream G650, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "G650",
+      "manufacturer": "Gulfstream",
+      "model": "G650",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CL30",
+    "title": "CL30 - Bombardier Challenger 300",
+    "content": "ICAO Aircraft Type Designator: CL30\nManufacturer: Bombardier\nModel: Challenger 300\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code CL30 identifies the Bombardier Challenger 300, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "CL30",
+      "manufacturer": "Bombardier",
+      "model": "Challenger 300",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CL60",
+    "title": "CL60 - Bombardier Challenger 600/601/604/605",
+    "content": "ICAO Aircraft Type Designator: CL60\nManufacturer: Bombardier\nModel: Challenger 600/601/604/605\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code CL60 identifies the Bombardier Challenger 600/601/604/605, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "CL60",
+      "manufacturer": "Bombardier",
+      "model": "Challenger 600/601/604/605",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CL65",
+    "title": "CL65 - Bombardier Challenger 650",
+    "content": "ICAO Aircraft Type Designator: CL65\nManufacturer: Bombardier\nModel: Challenger 650\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code CL65 identifies the Bombardier Challenger 650, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "CL65",
+      "manufacturer": "Bombardier",
+      "model": "Challenger 650",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "CL85",
+    "title": "CL85 - Bombardier Challenger 850",
+    "content": "ICAO Aircraft Type Designator: CL85\nManufacturer: Bombardier\nModel: Challenger 850\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code CL85 identifies the Bombardier Challenger 850, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "CL85",
+      "manufacturer": "Bombardier",
+      "model": "Challenger 850",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "GL5T",
+    "title": "GL5T - Bombardier Global 5000",
+    "content": "ICAO Aircraft Type Designator: GL5T\nManufacturer: Bombardier\nModel: Global 5000\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code GL5T identifies the Bombardier Global 5000, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "GL5T",
+      "manufacturer": "Bombardier",
+      "model": "Global 5000",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "GL7T",
+    "title": "GL7T - Bombardier Global 7000",
+    "content": "ICAO Aircraft Type Designator: GL7T\nManufacturer: Bombardier\nModel: Global 7000\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code GL7T identifies the Bombardier Global 7000, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "GL7T",
+      "manufacturer": "Bombardier",
+      "model": "Global 7000",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "FA7X",
+    "title": "FA7X - Dassault Falcon 7X",
+    "content": "ICAO Aircraft Type Designator: FA7X\nManufacturer: Dassault\nModel: Falcon 7X\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code FA7X identifies the Dassault Falcon 7X, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "FA7X",
+      "manufacturer": "Dassault",
+      "model": "Falcon 7X",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "FA8X",
+    "title": "FA8X - Dassault Falcon 8X",
+    "content": "ICAO Aircraft Type Designator: FA8X\nManufacturer: Dassault\nModel: Falcon 8X\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code FA8X identifies the Dassault Falcon 8X, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "FA8X",
+      "manufacturer": "Dassault",
+      "model": "Falcon 8X",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "FA50",
+    "title": "FA50 - Dassault Falcon 50",
+    "content": "ICAO Aircraft Type Designator: FA50\nManufacturer: Dassault\nModel: Falcon 50\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code FA50 identifies the Dassault Falcon 50, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "FA50",
+      "manufacturer": "Dassault",
+      "model": "Falcon 50",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "FA10",
+    "title": "FA10 - Dassault Falcon 10",
+    "content": "ICAO Aircraft Type Designator: FA10\nManufacturer: Dassault\nModel: Falcon 10\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code FA10 identifies the Dassault Falcon 10, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "FA10",
+      "manufacturer": "Dassault",
+      "model": "Falcon 10",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "FA20",
+    "title": "FA20 - Dassault Falcon 20",
+    "content": "ICAO Aircraft Type Designator: FA20\nManufacturer: Dassault\nModel: Falcon 20\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code FA20 identifies the Dassault Falcon 20, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "FA20",
+      "manufacturer": "Dassault",
+      "model": "Falcon 20",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "FA200",
+    "title": "FA200 - Dassault Falcon 2000",
+    "content": "ICAO Aircraft Type Designator: FA200\nManufacturer: Dassault\nModel: Falcon 2000\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code FA200 identifies the Dassault Falcon 2000, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "FA200",
+      "manufacturer": "Dassault",
+      "model": "Falcon 2000",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "FA900",
+    "title": "FA900 - Dassault Falcon 900",
+    "content": "ICAO Aircraft Type Designator: FA900\nManufacturer: Dassault\nModel: Falcon 900\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code FA900 identifies the Dassault Falcon 900, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "FA900",
+      "manufacturer": "Dassault",
+      "model": "Falcon 900",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E135",
+    "title": "E135 - Embraer ERJ-135",
+    "content": "ICAO Aircraft Type Designator: E135\nManufacturer: Embraer\nModel: ERJ-135\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E135 identifies the Embraer ERJ-135, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E135",
+      "manufacturer": "Embraer",
+      "model": "ERJ-135",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E145",
+    "title": "E145 - Embraer ERJ-145",
+    "content": "ICAO Aircraft Type Designator: E145\nManufacturer: Embraer\nModel: ERJ-145\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E145 identifies the Embraer ERJ-145, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E145",
+      "manufacturer": "Embraer",
+      "model": "ERJ-145",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E170",
+    "title": "E170 - Embraer ERJ-170",
+    "content": "ICAO Aircraft Type Designator: E170\nManufacturer: Embraer\nModel: ERJ-170\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E170 identifies the Embraer ERJ-170, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E170",
+      "manufacturer": "Embraer",
+      "model": "ERJ-170",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E175",
+    "title": "E175 - Embraer ERJ-175",
+    "content": "ICAO Aircraft Type Designator: E175\nManufacturer: Embraer\nModel: ERJ-175\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E175 identifies the Embraer ERJ-175, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E175",
+      "manufacturer": "Embraer",
+      "model": "ERJ-175",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E190",
+    "title": "E190 - Embraer ERJ-190",
+    "content": "ICAO Aircraft Type Designator: E190\nManufacturer: Embraer\nModel: ERJ-190\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E190 identifies the Embraer ERJ-190, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E190",
+      "manufacturer": "Embraer",
+      "model": "ERJ-190",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E195",
+    "title": "E195 - Embraer ERJ-195",
+    "content": "ICAO Aircraft Type Designator: E195\nManufacturer: Embraer\nModel: ERJ-195\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E195 identifies the Embraer ERJ-195, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E195",
+      "manufacturer": "Embraer",
+      "model": "ERJ-195",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E50P",
+    "title": "E50P - Embraer Phenom 100",
+    "content": "ICAO Aircraft Type Designator: E50P\nManufacturer: Embraer\nModel: Phenom 100\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E50P identifies the Embraer Phenom 100, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E50P",
+      "manufacturer": "Embraer",
+      "model": "Phenom 100",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E55P",
+    "title": "E55P - Embraer Phenom 300",
+    "content": "ICAO Aircraft Type Designator: E55P\nManufacturer: Embraer\nModel: Phenom 300\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E55P identifies the Embraer Phenom 300, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E55P",
+      "manufacturer": "Embraer",
+      "model": "Phenom 300",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E500",
+    "title": "E500 - Embraer Legacy 500",
+    "content": "ICAO Aircraft Type Designator: E500\nManufacturer: Embraer\nModel: Legacy 500\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E500 identifies the Embraer Legacy 500, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E500",
+      "manufacturer": "Embraer",
+      "model": "Legacy 500",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E545",
+    "title": "E545 - Embraer Legacy 450",
+    "content": "ICAO Aircraft Type Designator: E545\nManufacturer: Embraer\nModel: Legacy 450\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E545 identifies the Embraer Legacy 450, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E545",
+      "manufacturer": "Embraer",
+      "model": "Legacy 450",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E550",
+    "title": "E550 - Embraer Legacy 500",
+    "content": "ICAO Aircraft Type Designator: E550\nManufacturer: Embraer\nModel: Legacy 500\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E550 identifies the Embraer Legacy 500, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E550",
+      "manufacturer": "Embraer",
+      "model": "Legacy 500",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E600",
+    "title": "E600 - Embraer Legacy 600",
+    "content": "ICAO Aircraft Type Designator: E600\nManufacturer: Embraer\nModel: Legacy 600\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E600 identifies the Embraer Legacy 600, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E600",
+      "manufacturer": "Embraer",
+      "model": "Legacy 600",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "E650",
+    "title": "E650 - Embraer Legacy 650",
+    "content": "ICAO Aircraft Type Designator: E650\nManufacturer: Embraer\nModel: Legacy 650\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code E650 identifies the Embraer Legacy 650, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "E650",
+      "manufacturer": "Embraer",
+      "model": "Legacy 650",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "H25B",
+    "title": "H25B - Hawker Hawker 800",
+    "content": "ICAO Aircraft Type Designator: H25B\nManufacturer: Hawker\nModel: Hawker 800\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code H25B identifies the Hawker Hawker 800, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "H25B",
+      "manufacturer": "Hawker",
+      "model": "Hawker 800",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "H25C",
+    "title": "H25C - Hawker Hawker 800XP",
+    "content": "ICAO Aircraft Type Designator: H25C\nManufacturer: Hawker\nModel: Hawker 800XP\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code H25C identifies the Hawker Hawker 800XP, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "H25C",
+      "manufacturer": "Hawker",
+      "model": "Hawker 800XP",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "H25M",
+    "title": "H25M - Hawker Hawker 800A",
+    "content": "ICAO Aircraft Type Designator: H25M\nManufacturer: Hawker\nModel: Hawker 800A\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code H25M identifies the Hawker Hawker 800A, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "H25M",
+      "manufacturer": "Hawker",
+      "model": "Hawker 800A",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "H400",
+    "title": "H400 - Hawker Hawker 4000",
+    "content": "ICAO Aircraft Type Designator: H400\nManufacturer: Hawker\nModel: Hawker 4000\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code H400 identifies the Hawker Hawker 4000, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "H400",
+      "manufacturer": "Hawker",
+      "model": "Hawker 4000",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ24",
+    "title": "LJ24 - Learjet Learjet 24",
+    "content": "ICAO Aircraft Type Designator: LJ24\nManufacturer: Learjet\nModel: Learjet 24\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ24 identifies the Learjet Learjet 24, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ24",
+      "manufacturer": "Learjet",
+      "model": "Learjet 24",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ25",
+    "title": "LJ25 - Learjet Learjet 25",
+    "content": "ICAO Aircraft Type Designator: LJ25\nManufacturer: Learjet\nModel: Learjet 25\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ25 identifies the Learjet Learjet 25, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ25",
+      "manufacturer": "Learjet",
+      "model": "Learjet 25",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ31",
+    "title": "LJ31 - Learjet Learjet 31",
+    "content": "ICAO Aircraft Type Designator: LJ31\nManufacturer: Learjet\nModel: Learjet 31\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ31 identifies the Learjet Learjet 31, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ31",
+      "manufacturer": "Learjet",
+      "model": "Learjet 31",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ35",
+    "title": "LJ35 - Learjet Learjet 35",
+    "content": "ICAO Aircraft Type Designator: LJ35\nManufacturer: Learjet\nModel: Learjet 35\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ35 identifies the Learjet Learjet 35, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ35",
+      "manufacturer": "Learjet",
+      "model": "Learjet 35",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ40",
+    "title": "LJ40 - Learjet Learjet 40",
+    "content": "ICAO Aircraft Type Designator: LJ40\nManufacturer: Learjet\nModel: Learjet 40\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ40 identifies the Learjet Learjet 40, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ40",
+      "manufacturer": "Learjet",
+      "model": "Learjet 40",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ45",
+    "title": "LJ45 - Learjet Learjet 45",
+    "content": "ICAO Aircraft Type Designator: LJ45\nManufacturer: Learjet\nModel: Learjet 45\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ45 identifies the Learjet Learjet 45, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ45",
+      "manufacturer": "Learjet",
+      "model": "Learjet 45",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ55",
+    "title": "LJ55 - Learjet Learjet 55",
+    "content": "ICAO Aircraft Type Designator: LJ55\nManufacturer: Learjet\nModel: Learjet 55\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ55 identifies the Learjet Learjet 55, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ55",
+      "manufacturer": "Learjet",
+      "model": "Learjet 55",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ60",
+    "title": "LJ60 - Learjet Learjet 60",
+    "content": "ICAO Aircraft Type Designator: LJ60\nManufacturer: Learjet\nModel: Learjet 60\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ60 identifies the Learjet Learjet 60, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ60",
+      "manufacturer": "Learjet",
+      "model": "Learjet 60",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ70",
+    "title": "LJ70 - Learjet Learjet 70",
+    "content": "ICAO Aircraft Type Designator: LJ70\nManufacturer: Learjet\nModel: Learjet 70\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ70 identifies the Learjet Learjet 70, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ70",
+      "manufacturer": "Learjet",
+      "model": "Learjet 70",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "LJ75",
+    "title": "LJ75 - Learjet Learjet 75",
+    "content": "ICAO Aircraft Type Designator: LJ75\nManufacturer: Learjet\nModel: Learjet 75\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code LJ75 identifies the Learjet Learjet 75, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "LJ75",
+      "manufacturer": "Learjet",
+      "model": "Learjet 75",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PC12",
+    "title": "PC12 - Pilatus PC-12",
+    "content": "ICAO Aircraft Type Designator: PC12\nManufacturer: Pilatus\nModel: PC-12\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code PC12 identifies the Pilatus PC-12, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "PC12",
+      "manufacturer": "Pilatus",
+      "model": "PC-12",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PC24",
+    "title": "PC24 - Pilatus PC-24",
+    "content": "ICAO Aircraft Type Designator: PC24\nManufacturer: Pilatus\nModel: PC-24\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code PC24 identifies the Pilatus PC-24, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "PC24",
+      "manufacturer": "Pilatus",
+      "model": "PC-24",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PC6",
+    "title": "PC6 - Pilatus PC-6 Porter",
+    "content": "ICAO Aircraft Type Designator: PC6\nManufacturer: Pilatus\nModel: PC-6 Porter\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code PC6 identifies the Pilatus PC-6 Porter, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "PC6",
+      "manufacturer": "Pilatus",
+      "model": "PC-6 Porter",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PC7",
+    "title": "PC7 - Pilatus PC-7",
+    "content": "ICAO Aircraft Type Designator: PC7\nManufacturer: Pilatus\nModel: PC-7\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code PC7 identifies the Pilatus PC-7, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "PC7",
+      "manufacturer": "Pilatus",
+      "model": "PC-7",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "PC9",
+    "title": "PC9 - Pilatus PC-9",
+    "content": "ICAO Aircraft Type Designator: PC9\nManufacturer: Pilatus\nModel: PC-9\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code PC9 identifies the Pilatus PC-9, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "PC9",
+      "manufacturer": "Pilatus",
+      "model": "PC-9",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "TBM7",
+    "title": "TBM7 - Socata TBM 700",
+    "content": "ICAO Aircraft Type Designator: TBM7\nManufacturer: Socata\nModel: TBM 700\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code TBM7 identifies the Socata TBM 700, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "TBM7",
+      "manufacturer": "Socata",
+      "model": "TBM 700",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "TBM8",
+    "title": "TBM8 - Socata TBM 850",
+    "content": "ICAO Aircraft Type Designator: TBM8\nManufacturer: Socata\nModel: TBM 850\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code TBM8 identifies the Socata TBM 850, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "TBM8",
+      "manufacturer": "Socata",
+      "model": "TBM 850",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "TBM9",
+    "title": "TBM9 - Socata TBM 940",
+    "content": "ICAO Aircraft Type Designator: TBM9\nManufacturer: Socata\nModel: TBM 940\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code TBM9 identifies the Socata TBM 940, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "TBM9",
+      "manufacturer": "Socata",
+      "model": "TBM 940",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C208",
+    "title": "C208 - Cessna Caravan",
+    "content": "ICAO Aircraft Type Designator: C208\nManufacturer: Cessna\nModel: Caravan\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code C208 identifies the Cessna Caravan, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "C208",
+      "manufacturer": "Cessna",
+      "model": "Caravan",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C208B",
+    "title": "C208B - Cessna Caravan II",
+    "content": "ICAO Aircraft Type Designator: C208B\nManufacturer: Cessna\nModel: Caravan II\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code C208B identifies the Cessna Caravan II, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "C208B",
+      "manufacturer": "Cessna",
+      "model": "Caravan II",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C208C",
+    "title": "C208C - Cessna Caravan III",
+    "content": "ICAO Aircraft Type Designator: C208C\nManufacturer: Cessna\nModel: Caravan III\nEngine count: Single engine\nEngine type: Turboprop\nAircraft type: Single engine turboprop\n\nThe ICAO code C208C identifies the Cessna Caravan III, which is a Single engine turboprop aircraft.",
+    "metadata": {
+      "code": "C208C",
+      "manufacturer": "Cessna",
+      "model": "Caravan III",
+      "type": "Turboprop",
+      "engineCount": "Single engine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "DHC6",
+    "title": "DHC6 - De Havilland Twin Otter",
+    "content": "ICAO Aircraft Type Designator: DHC6\nManufacturer: De Havilland\nModel: Twin Otter\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code DHC6 identifies the De Havilland Twin Otter, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "DHC6",
+      "manufacturer": "De Havilland",
+      "model": "Twin Otter",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "DHC8",
+    "title": "DHC8 - De Havilland Dash 8",
+    "content": "ICAO Aircraft Type Designator: DHC8\nManufacturer: De Havilland\nModel: Dash 8\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code DHC8 identifies the De Havilland Dash 8, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "DHC8",
+      "manufacturer": "De Havilland",
+      "model": "Dash 8",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "DHC2",
+    "title": "DHC2 - De Havilland Beaver",
+    "content": "ICAO Aircraft Type Designator: DHC2\nManufacturer: De Havilland\nModel: Beaver\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code DHC2 identifies the De Havilland Beaver, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "DHC2",
+      "manufacturer": "De Havilland",
+      "model": "Beaver",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "DHC3",
+    "title": "DHC3 - De Havilland Otter",
+    "content": "ICAO Aircraft Type Designator: DHC3\nManufacturer: De Havilland\nModel: Otter\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code DHC3 identifies the De Havilland Otter, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "DHC3",
+      "manufacturer": "De Havilland",
+      "model": "Otter",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "AT42",
+    "title": "AT42 - ATR ATR 42",
+    "content": "ICAO Aircraft Type Designator: AT42\nManufacturer: ATR\nModel: ATR 42\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code AT42 identifies the ATR ATR 42, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "AT42",
+      "manufacturer": "ATR",
+      "model": "ATR 42",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "AT72",
+    "title": "AT72 - ATR ATR 72",
+    "content": "ICAO Aircraft Type Designator: AT72\nManufacturer: ATR\nModel: ATR 72\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code AT72 identifies the ATR ATR 72, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "AT72",
+      "manufacturer": "ATR",
+      "model": "ATR 72",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B712",
+    "title": "B712 - Boeing 717",
+    "content": "ICAO Aircraft Type Designator: B712\nManufacturer: Boeing\nModel: 717\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B712 identifies the Boeing 717, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B712",
+      "manufacturer": "Boeing",
+      "model": "717",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B737",
+    "title": "B737 - Boeing 737",
+    "content": "ICAO Aircraft Type Designator: B737\nManufacturer: Boeing\nModel: 737\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B737 identifies the Boeing 737, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B737",
+      "manufacturer": "Boeing",
+      "model": "737",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B738",
+    "title": "B738 - Boeing 737-800",
+    "content": "ICAO Aircraft Type Designator: B738\nManufacturer: Boeing\nModel: 737-800\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B738 identifies the Boeing 737-800, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B738",
+      "manufacturer": "Boeing",
+      "model": "737-800",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B739",
+    "title": "B739 - Boeing 737-900",
+    "content": "ICAO Aircraft Type Designator: B739\nManufacturer: Boeing\nModel: 737-900\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B739 identifies the Boeing 737-900, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B739",
+      "manufacturer": "Boeing",
+      "model": "737-900",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B744",
+    "title": "B744 - Boeing 747-400",
+    "content": "ICAO Aircraft Type Designator: B744\nManufacturer: Boeing\nModel: 747-400\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B744 identifies the Boeing 747-400, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B744",
+      "manufacturer": "Boeing",
+      "model": "747-400",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B748",
+    "title": "B748 - Boeing 747-8",
+    "content": "ICAO Aircraft Type Designator: B748\nManufacturer: Boeing\nModel: 747-8\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B748 identifies the Boeing 747-8, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B748",
+      "manufacturer": "Boeing",
+      "model": "747-8",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B752",
+    "title": "B752 - Boeing 757-200",
+    "content": "ICAO Aircraft Type Designator: B752\nManufacturer: Boeing\nModel: 757-200\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B752 identifies the Boeing 757-200, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B752",
+      "manufacturer": "Boeing",
+      "model": "757-200",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B753",
+    "title": "B753 - Boeing 757-300",
+    "content": "ICAO Aircraft Type Designator: B753\nManufacturer: Boeing\nModel: 757-300\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B753 identifies the Boeing 757-300, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B753",
+      "manufacturer": "Boeing",
+      "model": "757-300",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B762",
+    "title": "B762 - Boeing 767-200",
+    "content": "ICAO Aircraft Type Designator: B762\nManufacturer: Boeing\nModel: 767-200\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B762 identifies the Boeing 767-200, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B762",
+      "manufacturer": "Boeing",
+      "model": "767-200",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B763",
+    "title": "B763 - Boeing 767-300",
+    "content": "ICAO Aircraft Type Designator: B763\nManufacturer: Boeing\nModel: 767-300\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B763 identifies the Boeing 767-300, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B763",
+      "manufacturer": "Boeing",
+      "model": "767-300",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B772",
+    "title": "B772 - Boeing 777-200",
+    "content": "ICAO Aircraft Type Designator: B772\nManufacturer: Boeing\nModel: 777-200\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B772 identifies the Boeing 777-200, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B772",
+      "manufacturer": "Boeing",
+      "model": "777-200",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B773",
+    "title": "B773 - Boeing 777-300",
+    "content": "ICAO Aircraft Type Designator: B773\nManufacturer: Boeing\nModel: 777-300\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B773 identifies the Boeing 777-300, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B773",
+      "manufacturer": "Boeing",
+      "model": "777-300",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B778",
+    "title": "B778 - Boeing 777-8",
+    "content": "ICAO Aircraft Type Designator: B778\nManufacturer: Boeing\nModel: 777-8\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B778 identifies the Boeing 777-8, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B778",
+      "manufacturer": "Boeing",
+      "model": "777-8",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B779",
+    "title": "B779 - Boeing 777-9",
+    "content": "ICAO Aircraft Type Designator: B779\nManufacturer: Boeing\nModel: 777-9\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B779 identifies the Boeing 777-9, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B779",
+      "manufacturer": "Boeing",
+      "model": "777-9",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B788",
+    "title": "B788 - Boeing 787-8",
+    "content": "ICAO Aircraft Type Designator: B788\nManufacturer: Boeing\nModel: 787-8\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B788 identifies the Boeing 787-8, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B788",
+      "manufacturer": "Boeing",
+      "model": "787-8",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B789",
+    "title": "B789 - Boeing 787-9",
+    "content": "ICAO Aircraft Type Designator: B789\nManufacturer: Boeing\nModel: 787-9\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B789 identifies the Boeing 787-9, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B789",
+      "manufacturer": "Boeing",
+      "model": "787-9",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B78X",
+    "title": "B78X - Boeing 787-10",
+    "content": "ICAO Aircraft Type Designator: B78X\nManufacturer: Boeing\nModel: 787-10\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code B78X identifies the Boeing 787-10, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "B78X",
+      "manufacturer": "Boeing",
+      "model": "787-10",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A318",
+    "title": "A318 - Airbus A318",
+    "content": "ICAO Aircraft Type Designator: A318\nManufacturer: Airbus\nModel: A318\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A318 identifies the Airbus A318, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A318",
+      "manufacturer": "Airbus",
+      "model": "A318",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A319",
+    "title": "A319 - Airbus A319",
+    "content": "ICAO Aircraft Type Designator: A319\nManufacturer: Airbus\nModel: A319\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A319 identifies the Airbus A319, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A319",
+      "manufacturer": "Airbus",
+      "model": "A319",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A320",
+    "title": "A320 - Airbus A320",
+    "content": "ICAO Aircraft Type Designator: A320\nManufacturer: Airbus\nModel: A320\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A320 identifies the Airbus A320, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A320",
+      "manufacturer": "Airbus",
+      "model": "A320",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A321",
+    "title": "A321 - Airbus A321",
+    "content": "ICAO Aircraft Type Designator: A321\nManufacturer: Airbus\nModel: A321\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A321 identifies the Airbus A321, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A321",
+      "manufacturer": "Airbus",
+      "model": "A321",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A330",
+    "title": "A330 - Airbus A330",
+    "content": "ICAO Aircraft Type Designator: A330\nManufacturer: Airbus\nModel: A330\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A330 identifies the Airbus A330, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A330",
+      "manufacturer": "Airbus",
+      "model": "A330",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A332",
+    "title": "A332 - Airbus A330-200",
+    "content": "ICAO Aircraft Type Designator: A332\nManufacturer: Airbus\nModel: A330-200\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A332 identifies the Airbus A330-200, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A332",
+      "manufacturer": "Airbus",
+      "model": "A330-200",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A333",
+    "title": "A333 - Airbus A330-300",
+    "content": "ICAO Aircraft Type Designator: A333\nManufacturer: Airbus\nModel: A330-300\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A333 identifies the Airbus A330-300, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A333",
+      "manufacturer": "Airbus",
+      "model": "A330-300",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A340",
+    "title": "A340 - Airbus A340",
+    "content": "ICAO Aircraft Type Designator: A340\nManufacturer: Airbus\nModel: A340\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A340 identifies the Airbus A340, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A340",
+      "manufacturer": "Airbus",
+      "model": "A340",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A342",
+    "title": "A342 - Airbus A340-200",
+    "content": "ICAO Aircraft Type Designator: A342\nManufacturer: Airbus\nModel: A340-200\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A342 identifies the Airbus A340-200, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A342",
+      "manufacturer": "Airbus",
+      "model": "A340-200",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A343",
+    "title": "A343 - Airbus A340-300",
+    "content": "ICAO Aircraft Type Designator: A343\nManufacturer: Airbus\nModel: A340-300\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A343 identifies the Airbus A340-300, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A343",
+      "manufacturer": "Airbus",
+      "model": "A340-300",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A345",
+    "title": "A345 - Airbus A340-500",
+    "content": "ICAO Aircraft Type Designator: A345\nManufacturer: Airbus\nModel: A340-500\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A345 identifies the Airbus A340-500, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A345",
+      "manufacturer": "Airbus",
+      "model": "A340-500",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A346",
+    "title": "A346 - Airbus A340-600",
+    "content": "ICAO Aircraft Type Designator: A346\nManufacturer: Airbus\nModel: A340-600\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A346 identifies the Airbus A340-600, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A346",
+      "manufacturer": "Airbus",
+      "model": "A340-600",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A350",
+    "title": "A350 - Airbus A350",
+    "content": "ICAO Aircraft Type Designator: A350\nManufacturer: Airbus\nModel: A350\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A350 identifies the Airbus A350, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A350",
+      "manufacturer": "Airbus",
+      "model": "A350",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A351",
+    "title": "A351 - Airbus A350-1000",
+    "content": "ICAO Aircraft Type Designator: A351\nManufacturer: Airbus\nModel: A350-1000\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A351 identifies the Airbus A350-1000, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A351",
+      "manufacturer": "Airbus",
+      "model": "A350-1000",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A359",
+    "title": "A359 - Airbus A350-900",
+    "content": "ICAO Aircraft Type Designator: A359\nManufacturer: Airbus\nModel: A350-900\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A359 identifies the Airbus A350-900, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A359",
+      "manufacturer": "Airbus",
+      "model": "A350-900",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A380",
+    "title": "A380 - Airbus A380",
+    "content": "ICAO Aircraft Type Designator: A380\nManufacturer: Airbus\nModel: A380\nEngine count: Multiengine\nEngine type: Turbojet\nAircraft type: Multiengine turbojet\n\nThe ICAO code A380 identifies the Airbus A380, which is a Multiengine turbojet aircraft.",
+    "metadata": {
+      "code": "A380",
+      "manufacturer": "Airbus",
+      "model": "A380",
+      "type": "Turbojet",
+      "engineCount": "Multiengine",
+      "engineType": "Turbojet",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "R22",
+    "title": "R22 - Robinson R22",
+    "content": "ICAO Aircraft Type Designator: R22\nManufacturer: Robinson\nModel: R22\nEngine count: Single engine\nEngine type: Helicopter\nAircraft type: Single engine helicopter\n\nThe ICAO code R22 identifies the Robinson R22, which is a Single engine helicopter aircraft.",
+    "metadata": {
+      "code": "R22",
+      "manufacturer": "Robinson",
+      "model": "R22",
+      "type": "Helicopter",
+      "engineCount": "Single engine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "R44",
+    "title": "R44 - Robinson R44",
+    "content": "ICAO Aircraft Type Designator: R44\nManufacturer: Robinson\nModel: R44\nEngine count: Single engine\nEngine type: Helicopter\nAircraft type: Single engine helicopter\n\nThe ICAO code R44 identifies the Robinson R44, which is a Single engine helicopter aircraft.",
+    "metadata": {
+      "code": "R44",
+      "manufacturer": "Robinson",
+      "model": "R44",
+      "type": "Helicopter",
+      "engineCount": "Single engine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "R66",
+    "title": "R66 - Robinson R66",
+    "content": "ICAO Aircraft Type Designator: R66\nManufacturer: Robinson\nModel: R66\nEngine count: Single engine\nEngine type: Helicopter\nAircraft type: Single engine helicopter\n\nThe ICAO code R66 identifies the Robinson R66, which is a Single engine helicopter aircraft.",
+    "metadata": {
+      "code": "R66",
+      "manufacturer": "Robinson",
+      "model": "R66",
+      "type": "Helicopter",
+      "engineCount": "Single engine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B206",
+    "title": "B206 - Bell 206 JetRanger",
+    "content": "ICAO Aircraft Type Designator: B206\nManufacturer: Bell\nModel: 206 JetRanger\nEngine count: Single engine\nEngine type: Helicopter\nAircraft type: Single engine helicopter\n\nThe ICAO code B206 identifies the Bell 206 JetRanger, which is a Single engine helicopter aircraft.",
+    "metadata": {
+      "code": "B206",
+      "manufacturer": "Bell",
+      "model": "206 JetRanger",
+      "type": "Helicopter",
+      "engineCount": "Single engine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B407",
+    "title": "B407 - Bell 407",
+    "content": "ICAO Aircraft Type Designator: B407\nManufacturer: Bell\nModel: 407\nEngine count: Single engine\nEngine type: Helicopter\nAircraft type: Single engine helicopter\n\nThe ICAO code B407 identifies the Bell 407, which is a Single engine helicopter aircraft.",
+    "metadata": {
+      "code": "B407",
+      "manufacturer": "Bell",
+      "model": "407",
+      "type": "Helicopter",
+      "engineCount": "Single engine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B412",
+    "title": "B412 - Bell 412",
+    "content": "ICAO Aircraft Type Designator: B412\nManufacturer: Bell\nModel: 412\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code B412 identifies the Bell 412, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "B412",
+      "manufacturer": "Bell",
+      "model": "412",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B429",
+    "title": "B429 - Bell 429",
+    "content": "ICAO Aircraft Type Designator: B429\nManufacturer: Bell\nModel: 429\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code B429 identifies the Bell 429, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "B429",
+      "manufacturer": "Bell",
+      "model": "429",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B430",
+    "title": "B430 - Bell 430",
+    "content": "ICAO Aircraft Type Designator: B430\nManufacturer: Bell\nModel: 430\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code B430 identifies the Bell 430, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "B430",
+      "manufacturer": "Bell",
+      "model": "430",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B505",
+    "title": "B505 - Bell 505",
+    "content": "ICAO Aircraft Type Designator: B505\nManufacturer: Bell\nModel: 505\nEngine count: Single engine\nEngine type: Helicopter\nAircraft type: Single engine helicopter\n\nThe ICAO code B505 identifies the Bell 505, which is a Single engine helicopter aircraft.",
+    "metadata": {
+      "code": "B505",
+      "manufacturer": "Bell",
+      "model": "505",
+      "type": "Helicopter",
+      "engineCount": "Single engine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "S76",
+    "title": "S76 - Sikorsky S-76",
+    "content": "ICAO Aircraft Type Designator: S76\nManufacturer: Sikorsky\nModel: S-76\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code S76 identifies the Sikorsky S-76, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "S76",
+      "manufacturer": "Sikorsky",
+      "model": "S-76",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "S92",
+    "title": "S92 - Sikorsky S-92",
+    "content": "ICAO Aircraft Type Designator: S92\nManufacturer: Sikorsky\nModel: S-92\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code S92 identifies the Sikorsky S-92, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "S92",
+      "manufacturer": "Sikorsky",
+      "model": "S-92",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "AS50",
+    "title": "AS50 - Airbus Helicopters AS350 Écureuil",
+    "content": "ICAO Aircraft Type Designator: AS50\nManufacturer: Airbus Helicopters\nModel: AS350 Écureuil\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code AS50 identifies the Airbus Helicopters AS350 Écureuil, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "AS50",
+      "manufacturer": "Airbus Helicopters",
+      "model": "AS350 Écureuil",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "AS55",
+    "title": "AS55 - Airbus Helicopters AS355 Écureuil 2",
+    "content": "ICAO Aircraft Type Designator: AS55\nManufacturer: Airbus Helicopters\nModel: AS355 Écureuil 2\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code AS55 identifies the Airbus Helicopters AS355 Écureuil 2, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "AS55",
+      "manufacturer": "Airbus Helicopters",
+      "model": "AS355 Écureuil 2",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "EC20",
+    "title": "EC20 - Airbus Helicopters EC120 Colibri",
+    "content": "ICAO Aircraft Type Designator: EC20\nManufacturer: Airbus Helicopters\nModel: EC120 Colibri\nEngine count: Single engine\nEngine type: Helicopter\nAircraft type: Single engine helicopter\n\nThe ICAO code EC20 identifies the Airbus Helicopters EC120 Colibri, which is a Single engine helicopter aircraft.",
+    "metadata": {
+      "code": "EC20",
+      "manufacturer": "Airbus Helicopters",
+      "model": "EC120 Colibri",
+      "type": "Helicopter",
+      "engineCount": "Single engine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "EC30",
+    "title": "EC30 - Airbus Helicopters EC130",
+    "content": "ICAO Aircraft Type Designator: EC30\nManufacturer: Airbus Helicopters\nModel: EC130\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code EC30 identifies the Airbus Helicopters EC130, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "EC30",
+      "manufacturer": "Airbus Helicopters",
+      "model": "EC130",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "EC35",
+    "title": "EC35 - Airbus Helicopters EC135",
+    "content": "ICAO Aircraft Type Designator: EC35\nManufacturer: Airbus Helicopters\nModel: EC135\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code EC35 identifies the Airbus Helicopters EC135, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "EC35",
+      "manufacturer": "Airbus Helicopters",
+      "model": "EC135",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "EC45",
+    "title": "EC45 - Airbus Helicopters EC145",
+    "content": "ICAO Aircraft Type Designator: EC45\nManufacturer: Airbus Helicopters\nModel: EC145\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code EC45 identifies the Airbus Helicopters EC145, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "EC45",
+      "manufacturer": "Airbus Helicopters",
+      "model": "EC145",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "EC55",
+    "title": "EC55 - Airbus Helicopters EC155",
+    "content": "ICAO Aircraft Type Designator: EC55\nManufacturer: Airbus Helicopters\nModel: EC155\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code EC55 identifies the Airbus Helicopters EC155, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "EC55",
+      "manufacturer": "Airbus Helicopters",
+      "model": "EC155",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "EC75",
+    "title": "EC75 - Airbus Helicopters EC175",
+    "content": "ICAO Aircraft Type Designator: EC75\nManufacturer: Airbus Helicopters\nModel: EC175\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code EC75 identifies the Airbus Helicopters EC175, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "EC75",
+      "manufacturer": "Airbus Helicopters",
+      "model": "EC175",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "EC25",
+    "title": "EC25 - Airbus Helicopters EC225",
+    "content": "ICAO Aircraft Type Designator: EC25\nManufacturer: Airbus Helicopters\nModel: EC225\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code EC25 identifies the Airbus Helicopters EC225, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "EC25",
+      "manufacturer": "Airbus Helicopters",
+      "model": "EC225",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "EC65",
+    "title": "EC65 - Airbus Helicopters EC265",
+    "content": "ICAO Aircraft Type Designator: EC65\nManufacturer: Airbus Helicopters\nModel: EC265\nEngine count: Multiengine\nEngine type: Helicopter\nAircraft type: Multiengine helicopter\n\nThe ICAO code EC65 identifies the Airbus Helicopters EC265, which is a Multiengine helicopter aircraft.",
+    "metadata": {
+      "code": "EC65",
+      "manufacturer": "Airbus Helicopters",
+      "model": "EC265",
+      "type": "Helicopter",
+      "engineCount": "Multiengine",
+      "engineType": "Helicopter",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "A36",
+    "title": "A36 - Beechcraft Bonanza A36",
+    "content": "ICAO Aircraft Type Designator: A36\nManufacturer: Beechcraft\nModel: Bonanza A36\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code A36 identifies the Beechcraft Bonanza A36, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "A36",
+      "manufacturer": "Beechcraft",
+      "model": "Bonanza A36",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "B58",
+    "title": "B58 - Beechcraft Baron 58",
+    "content": "ICAO Aircraft Type Designator: B58\nManufacturer: Beechcraft\nModel: Baron 58\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code B58 identifies the Beechcraft Baron 58, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "B58",
+      "manufacturer": "Beechcraft",
+      "model": "Baron 58",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C172",
+    "title": "C172 - Cessna 172 Skyhawk",
+    "content": "ICAO Aircraft Type Designator: C172\nManufacturer: Cessna\nModel: 172 Skyhawk\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code C172 identifies the Cessna 172 Skyhawk, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "C172",
+      "manufacturer": "Cessna",
+      "model": "172 Skyhawk",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C182",
+    "title": "C182 - Cessna 182 Skylane",
+    "content": "ICAO Aircraft Type Designator: C182\nManufacturer: Cessna\nModel: 182 Skylane\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code C182 identifies the Cessna 182 Skylane, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "C182",
+      "manufacturer": "Cessna",
+      "model": "182 Skylane",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C206",
+    "title": "C206 - Cessna 206 Stationair",
+    "content": "ICAO Aircraft Type Designator: C206\nManufacturer: Cessna\nModel: 206 Stationair\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code C206 identifies the Cessna 206 Stationair, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "C206",
+      "manufacturer": "Cessna",
+      "model": "206 Stationair",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C210",
+    "title": "C210 - Cessna 210 Centurion",
+    "content": "ICAO Aircraft Type Designator: C210\nManufacturer: Cessna\nModel: 210 Centurion\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code C210 identifies the Cessna 210 Centurion, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "C210",
+      "manufacturer": "Cessna",
+      "model": "210 Centurion",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C310",
+    "title": "C310 - Cessna 310",
+    "content": "ICAO Aircraft Type Designator: C310\nManufacturer: Cessna\nModel: 310\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code C310 identifies the Cessna 310, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "C310",
+      "manufacturer": "Cessna",
+      "model": "310",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C337",
+    "title": "C337 - Cessna 337 Skymaster",
+    "content": "ICAO Aircraft Type Designator: C337\nManufacturer: Cessna\nModel: 337 Skymaster\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code C337 identifies the Cessna 337 Skymaster, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "C337",
+      "manufacturer": "Cessna",
+      "model": "337 Skymaster",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C402",
+    "title": "C402 - Cessna 402 Businessliner",
+    "content": "ICAO Aircraft Type Designator: C402\nManufacturer: Cessna\nModel: 402 Businessliner\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code C402 identifies the Cessna 402 Businessliner, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "C402",
+      "manufacturer": "Cessna",
+      "model": "402 Businessliner",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C414",
+    "title": "C414 - Cessna 414 Chancellor",
+    "content": "ICAO Aircraft Type Designator: C414\nManufacturer: Cessna\nModel: 414 Chancellor\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code C414 identifies the Cessna 414 Chancellor, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "C414",
+      "manufacturer": "Cessna",
+      "model": "414 Chancellor",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C421",
+    "title": "C421 - Cessna 421 Golden Eagle",
+    "content": "ICAO Aircraft Type Designator: C421\nManufacturer: Cessna\nModel: 421 Golden Eagle\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code C421 identifies the Cessna 421 Golden Eagle, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "C421",
+      "manufacturer": "Cessna",
+      "model": "421 Golden Eagle",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C425",
+    "title": "C425 - Cessna 425 Corsair",
+    "content": "ICAO Aircraft Type Designator: C425\nManufacturer: Cessna\nModel: 425 Corsair\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code C425 identifies the Cessna 425 Corsair, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "C425",
+      "manufacturer": "Cessna",
+      "model": "425 Corsair",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "C441",
+    "title": "C441 - Cessna 441 Conquest II",
+    "content": "ICAO Aircraft Type Designator: C441\nManufacturer: Cessna\nModel: 441 Conquest II\nEngine count: Multiengine\nEngine type: Turboprop\nAircraft type: Multiengine turboprop\n\nThe ICAO code C441 identifies the Cessna 441 Conquest II, which is a Multiengine turboprop aircraft.",
+    "metadata": {
+      "code": "C441",
+      "manufacturer": "Cessna",
+      "model": "441 Conquest II",
+      "type": "Turboprop",
+      "engineCount": "Multiengine",
+      "engineType": "Turboprop",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P28A",
+    "title": "P28A - Piper Cherokee/Archer",
+    "content": "ICAO Aircraft Type Designator: P28A\nManufacturer: Piper\nModel: Cherokee/Archer\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code P28A identifies the Piper Cherokee/Archer, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "P28A",
+      "manufacturer": "Piper",
+      "model": "Cherokee/Archer",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P28B",
+    "title": "P28B - Piper Cherokee Warrior",
+    "content": "ICAO Aircraft Type Designator: P28B\nManufacturer: Piper\nModel: Cherokee Warrior\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code P28B identifies the Piper Cherokee Warrior, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "P28B",
+      "manufacturer": "Piper",
+      "model": "Cherokee Warrior",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P28R",
+    "title": "P28R - Piper Cherokee Arrow",
+    "content": "ICAO Aircraft Type Designator: P28R\nManufacturer: Piper\nModel: Cherokee Arrow\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code P28R identifies the Piper Cherokee Arrow, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "P28R",
+      "manufacturer": "Piper",
+      "model": "Cherokee Arrow",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P32R",
+    "title": "P32R - Piper Saratoga",
+    "content": "ICAO Aircraft Type Designator: P32R\nManufacturer: Piper\nModel: Saratoga\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code P32R identifies the Piper Saratoga, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "P32R",
+      "manufacturer": "Piper",
+      "model": "Saratoga",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P32T",
+    "title": "P32T - Piper Lance",
+    "content": "ICAO Aircraft Type Designator: P32T\nManufacturer: Piper\nModel: Lance\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code P32T identifies the Piper Lance, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "P32T",
+      "manufacturer": "Piper",
+      "model": "Lance",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P34T",
+    "title": "P34T - Piper Seneca",
+    "content": "ICAO Aircraft Type Designator: P34T\nManufacturer: Piper\nModel: Seneca\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code P34T identifies the Piper Seneca, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "P34T",
+      "manufacturer": "Piper",
+      "model": "Seneca",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P46T",
+    "title": "P46T - Piper Malibu Mirage",
+    "content": "ICAO Aircraft Type Designator: P46T\nManufacturer: Piper\nModel: Malibu Mirage\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code P46T identifies the Piper Malibu Mirage, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "P46T",
+      "manufacturer": "Piper",
+      "model": "Malibu Mirage",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P31T",
+    "title": "P31T - Piper Navajo",
+    "content": "ICAO Aircraft Type Designator: P31T\nManufacturer: Piper\nModel: Navajo\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code P31T identifies the Piper Navajo, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "P31T",
+      "manufacturer": "Piper",
+      "model": "Navajo",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P31P",
+    "title": "P31P - Piper Chieftain",
+    "content": "ICAO Aircraft Type Designator: P31P\nManufacturer: Piper\nModel: Chieftain\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code P31P identifies the Piper Chieftain, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "P31P",
+      "manufacturer": "Piper",
+      "model": "Chieftain",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P23T",
+    "title": "P23T - Piper Apache",
+    "content": "ICAO Aircraft Type Designator: P23T\nManufacturer: Piper\nModel: Apache\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code P23T identifies the Piper Apache, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "P23T",
+      "manufacturer": "Piper",
+      "model": "Apache",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P23U",
+    "title": "P23U - Piper Aztec",
+    "content": "ICAO Aircraft Type Designator: P23U\nManufacturer: Piper\nModel: Aztec\nEngine count: Multiengine\nEngine type: Piston\nAircraft type: Multiengine piston\n\nThe ICAO code P23U identifies the Piper Aztec, which is a Multiengine piston aircraft.",
+    "metadata": {
+      "code": "P23U",
+      "manufacturer": "Piper",
+      "model": "Aztec",
+      "type": "Piston",
+      "engineCount": "Multiengine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P24T",
+    "title": "P24T - Piper Comanche",
+    "content": "ICAO Aircraft Type Designator: P24T\nManufacturer: Piper\nModel: Comanche\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code P24T identifies the Piper Comanche, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "P24T",
+      "manufacturer": "Piper",
+      "model": "Comanche",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P18T",
+    "title": "P18T - Piper Super Cub",
+    "content": "ICAO Aircraft Type Designator: P18T\nManufacturer: Piper\nModel: Super Cub\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code P18T identifies the Piper Super Cub, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "P18T",
+      "manufacturer": "Piper",
+      "model": "Super Cub",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  },
+  {
+    "id": "P38T",
+    "title": "P38T - Piper Tomahawk",
+    "content": "ICAO Aircraft Type Designator: P38T\nManufacturer: Piper\nModel: Tomahawk\nEngine count: Single engine\nEngine type: Piston\nAircraft type: Single engine piston\n\nThe ICAO code P38T identifies the Piper Tomahawk, which is a Single engine piston aircraft.",
+    "metadata": {
+      "code": "P38T",
+      "manufacturer": "Piper",
+      "model": "Tomahawk",
+      "type": "Piston",
+      "engineCount": "Single engine",
+      "engineType": "Piston",
+      "category": "aircraft"
+    }
+  }
+]

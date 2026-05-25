@@ -1,22 +1,32 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import Logo from "../components/Logo";
 import ThemeToggle from "../components/ThemeToggle";
 import "../components/AuthPage.css";
 
-function RedirectToDashboard() {
+function RedirectAfterSignIn() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const nextPath = searchParams.get("next") || "/dashboard";
 
   useEffect(() => {
-    router.replace("/dashboard");
-  }, [router]);
+    router.replace(nextPath.startsWith("/") ? nextPath : "/dashboard");
+  }, [nextPath, router]);
 
   return null;
+}
+
+function AuthRedirect() {
+  return (
+    <Suspense fallback={null}>
+      <RedirectAfterSignIn />
+    </Suspense>
+  );
 }
 
 export default function AuthPage() {
@@ -28,11 +38,11 @@ export default function AuthPage() {
             <Logo showText={false} />
             <ThemeToggle />
           </div>
-          <span className="tag">Secure operator access</span>
+          <span className="tag">Secure access</span>
           <h1>Sign in to CrewLinkAI</h1>
           <p className="auth-tagline">
-            Use Cognito-backed authentication to access pilot search, requests,
-            matches, and map data.
+            Sign in to manage operator or pilot profiles, staffing requests,
+            matches, and messaging.
           </p>
         </div>
 
@@ -41,7 +51,7 @@ export default function AuthPage() {
           loginMechanisms={["email"]}
           signUpAttributes={["email"]}
         >
-          {() => <RedirectToDashboard />}
+          {() => <AuthRedirect />}
         </Authenticator>
 
         <p className="auth-footer fineprint">

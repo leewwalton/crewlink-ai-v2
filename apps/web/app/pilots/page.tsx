@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { pilots, searchPilots } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
 import DatePickerField from "../components/DatePickerField";
+import IcaoLookupField from "../components/IcaoLookupField";
 
 export default function PilotsPage() {
   const [aircraftType, setAircraftType] = useState("");
@@ -38,10 +39,12 @@ export default function PilotsPage() {
 
           <section className="card panel">
             <div className="filters">
-              <input
-                placeholder="Aircraft type (G650)"
+              <IcaoLookupField
+                kind="aircraft"
                 value={aircraftType}
-                onChange={(event) => setAircraftType(event.target.value)}
+                onChange={setAircraftType}
+                placeholder="Aircraft type (G650)"
+                aria-label="Aircraft type"
               />
               <input
                 placeholder="Type rating (G-VI)"

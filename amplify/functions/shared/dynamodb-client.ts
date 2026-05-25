@@ -4,6 +4,7 @@ import {
   GetCommand,
   PutCommand,
   QueryCommand,
+  ScanCommand,
 } from "@aws-sdk/lib-dynamodb";
 
 const doc = DynamoDBDocumentClient.from(new DynamoDBClient({}));
@@ -42,6 +43,36 @@ export async function operatorProfilePut(item: Record<string, unknown>): Promise
       Item: item,
     }),
   );
+}
+
+export async function pilotProfileGet(
+  id: string,
+): Promise<Record<string, unknown> | null> {
+  const res = await doc.send(
+    new GetCommand({
+      TableName: table("PILOT_PROFILES_TABLE_NAME"),
+      Key: { id },
+    }),
+  );
+  return (res.Item as Record<string, unknown> | undefined) ?? null;
+}
+
+export async function pilotProfilePut(item: Record<string, unknown>): Promise<void> {
+  await doc.send(
+    new PutCommand({
+      TableName: table("PILOT_PROFILES_TABLE_NAME"),
+      Item: item,
+    }),
+  );
+}
+
+export async function pilotProfilesScan(): Promise<Record<string, unknown>[]> {
+  const res = await doc.send(
+    new ScanCommand({
+      TableName: table("PILOT_PROFILES_TABLE_NAME"),
+    }),
+  );
+  return (res.Items as Record<string, unknown>[] | undefined) ?? [];
 }
 
 export async function staffingRequestPut(item: Record<string, unknown>): Promise<void> {

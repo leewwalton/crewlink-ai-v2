@@ -104,6 +104,28 @@ export function saveOperatorProfile(input: Partial<OperatorProfile>) {
   });
 }
 
+export async function loadPilotProfile(): Promise<PilotProfile | null> {
+  const baseUrl = getApiBaseUrl();
+  if (!baseUrl) throw new Error("CrewLinkAI API URL is not configured.");
+
+  const headers = await authHeaders();
+  const response = await fetch(`${baseUrl}pilot-profile`, { headers });
+  if (response.status === 404) return null;
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error((data as { message?: string }).message || response.statusText);
+  }
+  return (data as { profile: PilotProfile }).profile;
+}
+
+export function savePilotProfile(input: Partial<PilotProfile>) {
+  return requestJson<{ profile: PilotProfile }>("pilot-profile", {
+    method: "PUT",
+    body: JSON.stringify(input),
+  });
+}
+
 export function createStaffingRequest(input: Partial<StaffingRequest>) {
   return requestJson<{ request: StaffingRequest }>("requests", {
     method: "POST",

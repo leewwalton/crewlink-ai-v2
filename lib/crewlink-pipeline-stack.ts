@@ -207,7 +207,9 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/pilots-get/handler.ts",
       handler: "handler",
-      environment: {},
+      environment: {
+        PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
+      },
       timeout: cdk.Duration.seconds(10),
       memorySize: 256,
       bundling: LAMBDA_BUNDLING,
@@ -245,12 +247,25 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       },
     );
 
+    const pilotProfileFn = new lambdaNode.NodejsFunction(this, "PilotProfileFn", {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      entry: "amplify/functions/pilot-profile/handler.ts",
+      handler: "handler",
+      environment: {
+        PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
+      },
+      timeout: cdk.Duration.seconds(15),
+      memorySize: 256,
+      bundling: LAMBDA_BUNDLING,
+    });
+
     const matchesGetFn = new lambdaNode.NodejsFunction(this, "MatchesGetFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/matches-get/handler.ts",
       handler: "handler",
       environment: {
         STAFFING_REQUESTS_TABLE_NAME: tables.staffingRequests.tableName,
+        PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
         BEDROCK_MODEL_ID: bedrockModelId,
         DISABLE_BEDROCK: process.env.DISABLE_BEDROCK ?? "",
       },
@@ -294,8 +309,11 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     });
 
     tables.contactLeads.grantReadWriteData(contactSubmitFn);
+    tables.pilotProfiles.grantReadData(pilotsGetFn);
+    tables.pilotProfiles.grantReadWriteData(pilotProfileFn);
     tables.staffingRequests.grantReadWriteData(staffingRequestsFn);
     tables.staffingRequests.grantReadData(matchesGetFn);
+    tables.pilotProfiles.grantReadData(matchesGetFn);
     tables.operatorProfiles.grantReadWriteData(operatorProfileFn);
     for (const fn of [conversationsFn, messagesFn]) {
       tables.conversations.grantReadWriteData(fn);
@@ -371,6 +389,15 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "OperatorProfileIntegration",
         operatorProfileFn,
+      ),
+      authorizer: jwtAuthorizer,
+    });
+    httpApi.addRoutes({
+      path: "/pilot-profile",
+      methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.PUT],
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "PilotProfileIntegration",
+        pilotProfileFn,
       ),
       authorizer: jwtAuthorizer,
     });

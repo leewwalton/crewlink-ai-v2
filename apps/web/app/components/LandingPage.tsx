@@ -93,8 +93,8 @@ const personaContent: Record<Persona, PersonaContent> = {
     headline: "Get in front of the trips that fit your qualifications.",
     subhead:
       "CrewLinkAI keeps your profile, availability, and location visible to operators searching for qualified crew, then surfaces scored trip matches you can review and respond to directly.",
-    primaryCta: "View pilot matches",
-    primaryRoute: "/matches",
+    primaryCta: "Set up pilot profile",
+    primaryRoute: "/pilot/profile",
     secondaryCta: "See pilot workflow",
     fineprint:
       "Pilots control what they share on the network. Operators remain responsible for final hiring, compliance, and credential verification.",

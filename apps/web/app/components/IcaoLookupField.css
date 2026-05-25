@@ -1,0 +1,49 @@
+.icao-lookup-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.icao-lookup-wrap input {
+  width: 100%;
+}
+
+.icao-lookup-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: var(--brand-panel-solid, #0b1727);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: var(--shadow-sm, 0 15px 35px rgba(0, 0, 0, 0.24));
+  max-height: 240px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.icao-lookup-suggestions li {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+}
+
+.icao-lookup-suggestions li:last-child {
+  border-bottom: none;
+}
+
+.icao-lookup-suggestions li:hover {
+  background: rgba(30, 165, 240, 0.12);
+}
+
+.icao-lookup-suggestions li strong {
+  color: var(--brand-cyan);
+}
+
+[data-theme="light"] .icao-lookup-suggestions {
+  background: var(--brand-panel-solid, #ffffff);
+}

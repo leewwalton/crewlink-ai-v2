@@ -1,6 +1,7 @@
 import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
-import { pilots, rankPilotsForRequest, type StaffingRequest } from "../../../packages/domain/src";
+import { rankPilotsForRequest, type StaffingRequest } from "../../../packages/domain/src";
 import { staffingRequestGet } from "../shared/dynamodb-client";
+import { loadMarketplacePilots } from "../shared/marketplace-pilots";
 import { getCognitoSubFromEvent } from "../shared/get-cognito-sub";
 import { httpMethod, json } from "../shared/http";
 
@@ -59,7 +60,7 @@ export const handler = async (event: any) => {
       return json(404, { message: "Staffing request not found." });
     }
 
-    const matches = rankPilotsForRequest(request, pilots);
+    const matches = rankPilotsForRequest(request, await loadMarketplacePilots());
     const aiSummary =
       matches.length > 0
         ? await explainWithBedrock(
