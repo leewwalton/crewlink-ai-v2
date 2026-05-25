@@ -41,6 +41,7 @@ export default function RootLayout({
       <body>
         <AmplifyConfig />
         <ThemeProvider>{children}</ThemeProvider>
+        <div id="crewlink-datepicker-portal" />
       </body>
     </html>
   );

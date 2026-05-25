@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { OperatorProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
+import DatePickerField from "../components/DatePickerField";
 import {
   createStaffingRequest,
   listRequests,
@@ -14,6 +15,8 @@ export default function RequestsPage() {
   const [profile, setProfile] = useState<OperatorProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -113,6 +116,10 @@ export default function RequestsPage() {
                   setError("Set up your operator profile before creating requests.");
                   return;
                 }
+                if (!startDate || !endDate) {
+                  setError("Start and end dates are required.");
+                  return;
+                }
 
                 setSubmitting(true);
                 setError("");
@@ -125,8 +132,8 @@ export default function RequestsPage() {
                     aircraftType: String(data.get("aircraftType") || ""),
                     departureAirport: String(data.get("departureAirport") || ""),
                     arrivalAirport: String(data.get("arrivalAirport") || "") || undefined,
-                    startDate: String(data.get("startDate") || ""),
-                    endDate: String(data.get("endDate") || ""),
+                    startDate,
+                    endDate,
                     requiredRole: String(data.get("requiredRole") || "PIC") as StaffingRequest["requiredRole"],
                     urgency: String(data.get("urgency") || "standard") as StaffingRequest["urgency"],
                     requiredTypeRatings: String(data.get("requiredTypeRatings") || "")
@@ -140,6 +147,8 @@ export default function RequestsPage() {
                   setRequests((current) => [result.request, ...current]);
                   setSuccess(`Request saved: ${result.request.title}`);
                   event.currentTarget.reset();
+                  setStartDate("");
+                  setEndDate("");
                 } catch (err) {
                   setError(err instanceof Error ? err.message : "Failed to save request.");
                 } finally {
@@ -154,8 +163,22 @@ export default function RequestsPage() {
               <input name="aircraftType" required placeholder="Aircraft type" disabled={!profile || submitting} />
               <input name="departureAirport" required placeholder="Departure airport" disabled={!profile || submitting} />
               <input name="arrivalAirport" placeholder="Arrival airport" disabled={!profile || submitting} />
-              <input name="startDate" required type="date" disabled={!profile || submitting} />
-              <input name="endDate" required type="date" disabled={!profile || submitting} />
+              <DatePickerField
+                name="startDate"
+                value={startDate}
+                onChange={setStartDate}
+                placeholder="Start date"
+                aria-label="Start date"
+                disabled={!profile || submitting}
+              />
+              <DatePickerField
+                name="endDate"
+                value={endDate}
+                onChange={setEndDate}
+                placeholder="End date"
+                aria-label="End date"
+                disabled={!profile || submitting}
+              />
               <select name="requiredRole" defaultValue="PIC" disabled={!profile || submitting}>
                 <option>PIC</option>
                 <option>SIC</option>

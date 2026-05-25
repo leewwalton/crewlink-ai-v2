@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { pilots, searchPilots } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
+import DatePickerField from "../components/DatePickerField";
 
 export default function PilotsPage() {
   const [aircraftType, setAircraftType] = useState("");
@@ -52,15 +53,17 @@ export default function PilotsPage() {
                 value={certificate}
                 onChange={(event) => setCertificate(event.target.value)}
               />
-              <input
-                type="date"
+              <DatePickerField
                 value={availableStart}
-                onChange={(event) => setAvailableStart(event.target.value)}
+                onChange={setAvailableStart}
+                placeholder="Available from"
+                aria-label="Available from"
               />
-              <input
-                type="date"
+              <DatePickerField
                 value={availableEnd}
-                onChange={(event) => setAvailableEnd(event.target.value)}
+                onChange={setAvailableEnd}
+                placeholder="Available to"
+                aria-label="Available to"
               />
             </div>
 
