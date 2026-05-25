@@ -111,6 +111,21 @@ export async function staffingRequestsByOperator(
   return (res.Items as Record<string, unknown>[] | undefined) ?? [];
 }
 
+export async function staffingRequestsScanOpen(): Promise<Record<string, unknown>[]> {
+  const res = await doc.send(
+    new ScanCommand({
+      TableName: table("STAFFING_REQUESTS_TABLE_NAME"),
+      FilterExpression: "#status IN (:open, :reviewing)",
+      ExpressionAttributeNames: { "#status": "status" },
+      ExpressionAttributeValues: {
+        ":open": "open",
+        ":reviewing": "reviewing",
+      },
+    }),
+  );
+  return (res.Items as Record<string, unknown>[] | undefined) ?? [];
+}
+
 export async function conversationGet(id: string): Promise<Record<string, unknown> | null> {
   const res = await doc.send(
     new GetCommand({

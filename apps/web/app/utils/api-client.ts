@@ -133,6 +133,13 @@ export function createStaffingRequest(input: Partial<StaffingRequest>) {
   });
 }
 
+export function updateStaffingRequest(id: string, input: Partial<StaffingRequest>) {
+  return requestJson<{ request: StaffingRequest }>("requests", {
+    method: "PUT",
+    body: JSON.stringify({ ...input, id }),
+  });
+}
+
 export function getMatches(requestId: string) {
   return requestJson<{ request: StaffingRequest; matches: PilotMatch[] }>(
     `matches?requestId=${encodeURIComponent(requestId)}`,

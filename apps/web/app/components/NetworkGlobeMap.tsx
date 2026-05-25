@@ -301,7 +301,10 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
             Pilots on network
           </h3>
           <div className="network-map-list">
-            {pilots.map((pilot) => (
+            {pilots.length === 0 ? (
+              <p className="muted">No pilot profiles on the network yet.</p>
+            ) : (
+              pilots.map((pilot) => (
               <div className="network-map-list-item" key={pilot.id}>
                 <b>{pilot.name}</b>
                 <span>
@@ -312,7 +315,8 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
                   {pilot.currentLocation.longitude.toFixed(2)}°
                 </span>
               </div>
-            ))}
+              ))
+            )}
           </div>
         </section>
 
@@ -322,7 +326,10 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
             Open staffing requests
           </h3>
           <div className="network-map-list">
-            {requests.map((request) => (
+            {requests.length === 0 ? (
+              <p className="muted">No open staffing requests yet.</p>
+            ) : (
+              requests.map((request) => (
               <div className="network-map-list-item" key={request.id}>
                 <b>{request.departureAirport}</b>
                 <span>
@@ -333,7 +340,8 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
                   {request.location.longitude.toFixed(2)}° · {request.urgency}
                 </span>
               </div>
-            ))}
+              ))
+            )}
           </div>
         </section>
       </div>

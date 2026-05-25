@@ -1,4 +1,4 @@
-import { pilots, searchPilots } from "../../../packages/domain/src";
+import { searchPilots } from "../../../packages/domain/src";
 import { loadMarketplacePilots } from "../shared/marketplace-pilots";
 import { httpMethod, json } from "../shared/http";
 

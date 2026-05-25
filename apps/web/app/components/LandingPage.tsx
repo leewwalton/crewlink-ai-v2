@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { requests } from "@crewlink/domain";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { createContact, subscribeNewsletter } from "../utils/api-client";
@@ -81,9 +80,9 @@ const personaContent: Record<Persona, PersonaContent> = {
     networkCenter: "KTEB",
     networkPins: ["G650 PIC", "CL350 SIC", "PC-24 PIC"],
     networkStats: [
-      [`${requests.length}`, "open urgent requests"],
+      ["Live", "open staffing requests"],
       ["100%", "top match readiness"],
-      ["0 NM", "closest qualified pilot"],
+      ["ICAO", "airport-based map plotting"],
     ],
   },
   pilot: {

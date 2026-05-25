@@ -29,7 +29,7 @@ export const handler = async (event: any) => {
   }
 
   const email = getCognitoEmailFromEvent(event);
-  const currentUser = resolveUserProfile(userId, email);
+  const currentUser = await resolveUserProfile(userId, email);
 
   if (method === "GET") {
     const conversationId = event.queryStringParameters?.conversationId;

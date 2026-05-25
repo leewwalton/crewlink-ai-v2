@@ -1,4 +1,4 @@
-import { pilots, type PilotProfile } from "../../../packages/domain/src";
+import type { PilotProfile } from "../../../packages/domain/src";
 import { pilotProfilesScan } from "./dynamodb-client";
 
 function toPilotProfile(item: Record<string, unknown>): PilotProfile {
@@ -9,11 +9,8 @@ function toPilotProfile(item: Record<string, unknown>): PilotProfile {
 export async function loadMarketplacePilots(): Promise<PilotProfile[]> {
   try {
     const stored = await pilotProfilesScan();
-    const storedProfiles = stored.map(toPilotProfile);
-    const storedIds = new Set(storedProfiles.map((profile) => profile.id));
-    const seedProfiles = pilots.filter((profile) => !storedIds.has(profile.id));
-    return [...storedProfiles, ...seedProfiles];
+    return stored.map(toPilotProfile);
   } catch {
-    return pilots;
+    return [];
   }
 }

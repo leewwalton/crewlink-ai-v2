@@ -179,6 +179,8 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       CONVERSATIONS_TABLE_NAME: tables.conversations.tableName,
       MESSAGES_TABLE_NAME: tables.messages.tableName,
       USER_CONVERSATIONS_TABLE_NAME: tables.userConversations.tableName,
+      OPERATOR_PROFILES_TABLE_NAME: tables.operatorProfiles.tableName,
+      PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
     };
 
     // ==========================
@@ -278,7 +280,10 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       runtime: lambda.Runtime.NODEJS_20_X,
       entry: "amplify/functions/map-get/handler.ts",
       handler: "handler",
-      environment: {},
+      environment: {
+        STAFFING_REQUESTS_TABLE_NAME: tables.staffingRequests.tableName,
+        PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
+      },
       timeout: cdk.Duration.seconds(10),
       memorySize: 256,
       bundling: LAMBDA_BUNDLING,
@@ -314,11 +319,15 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     tables.staffingRequests.grantReadWriteData(staffingRequestsFn);
     tables.staffingRequests.grantReadData(matchesGetFn);
     tables.pilotProfiles.grantReadData(matchesGetFn);
+    tables.staffingRequests.grantReadData(mapGetFn);
+    tables.pilotProfiles.grantReadData(mapGetFn);
     tables.operatorProfiles.grantReadWriteData(operatorProfileFn);
     for (const fn of [conversationsFn, messagesFn]) {
       tables.conversations.grantReadWriteData(fn);
       tables.messages.grantReadWriteData(fn);
       tables.userConversations.grantReadWriteData(fn);
+      tables.operatorProfiles.grantReadData(fn);
+      tables.pilotProfiles.grantReadData(fn);
     }
 
     contactSubmitFn.addToRolePolicy(
@@ -376,7 +385,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     });
     httpApi.addRoutes({
       path: "/requests",
-      methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.POST],
+      methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.POST, apigwv2.HttpMethod.PUT],
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "RequestsIntegration",
         staffingRequestsFn,

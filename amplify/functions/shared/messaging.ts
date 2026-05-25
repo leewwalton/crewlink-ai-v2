@@ -1,7 +1,5 @@
 import {
   buildConversationId,
-  operators,
-  pilots,
   type Conversation,
   type CreateConversationInput,
   type Message,
@@ -12,6 +10,8 @@ import {
   conversationPut,
   messagePut,
   messagesQuery,
+  operatorProfileGet,
+  pilotProfileGet,
   userConversationPut,
   userConversationsQuery,
 } from "./dynamodb-client";
@@ -22,21 +22,53 @@ export type UserProfile = {
   role: "operator" | "pilot";
 };
 
-export function resolveUserProfile(userId: string, email?: string | null): UserProfile {
-  const operator = operators.find((entry) => entry.id === userId);
-  if (operator) {
-    return { id: operator.id, name: operator.organization, role: "operator" };
+export async function resolveUserProfile(
+  userId: string,
+  email?: string | null,
+): Promise<UserProfile> {
+  const [operatorRow, pilotRow] = await Promise.all([
+    operatorProfileGet(userId),
+    pilotProfileGet(userId),
+  ]);
+
+  if (operatorRow) {
+    return {
+      id: userId,
+      name: String(
+        operatorRow.organization || operatorRow.contactName || email?.split("@")[0] || "Operator",
+      ),
+      role: "operator",
+    };
   }
 
-  const pilot = pilots.find((entry) => entry.id === userId);
-  if (pilot) {
-    return { id: pilot.id, name: pilot.name, role: "pilot" };
+  if (pilotRow) {
+    return {
+      id: userId,
+      name: String(pilotRow.name || email?.split("@")[0] || "Pilot"),
+      role: "pilot",
+    };
   }
 
   return {
     id: userId,
     name: email?.split("@")[0] || "CrewLinkAI user",
     role: "operator",
+  };
+}
+
+export async function resolveParticipantProfile(
+  userId: string,
+  fallbackName: string,
+  fallbackRole: UserProfile["role"] = "pilot",
+): Promise<UserProfile> {
+  const profile = await resolveUserProfile(userId);
+  if (profile.name !== "CrewLinkAI user") {
+    return profile;
+  }
+  return {
+    id: userId,
+    name: fallbackName,
+    role: fallbackRole,
   };
 }
 
@@ -112,6 +144,12 @@ export async function createConversation(
     input.contextId,
   );
 
+  const recipient = await resolveParticipantProfile(
+    input.recipientId,
+    input.recipientName,
+    (input.recipientRole as UserProfile["role"]) || "pilot",
+  );
+
   const existing = await conversationGet(conversationId);
   if (existing) {
     const conversation = existing as Conversation;
@@ -134,11 +172,6 @@ export async function createConversation(
   }
 
   const now = new Date().toISOString();
-  const recipient = {
-    id: input.recipientId,
-    name: input.recipientName,
-    role: input.recipientRole || "pilot",
-  };
   const conversation: Conversation = {
     id: conversationId,
     participantIds: [currentUser.id, recipient.id].sort(),

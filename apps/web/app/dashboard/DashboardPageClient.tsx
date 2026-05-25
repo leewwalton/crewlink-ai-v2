@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { PilotMatch, PilotProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
 import { getMatches, listPilots, listRequests } from "../utils/api-client";
+import { buildMessagePilotHref } from "../utils/messaging-client";
 
 function pickActiveRequest(requests: StaffingRequest[]): StaffingRequest | null {
   if (requests.length === 0) return null;
@@ -152,6 +153,21 @@ export default function DashboardPageClient() {
                               <span className="score">{match.score}%</span>
                             </div>
                             <p className="muted">{match.explanation}</p>
+                            {activeRequest && (
+                              <div className="hero-actions" style={{ marginTop: 14 }}>
+                                <Link
+                                  className="btn primary"
+                                  href={buildMessagePilotHref({
+                                    pilotId: pilot.id,
+                                    pilotName: pilot.name,
+                                    requestTitle: activeRequest.title,
+                                    matchId: match.id,
+                                  })}
+                                >
+                                  Message pilot
+                                </Link>
+                              </div>
+                            )}
                           </article>
                         );
                       })}

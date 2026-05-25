@@ -1,17 +1,45 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { pilots, searchPilots } from "@crewlink/domain";
+import { useEffect, useMemo, useState } from "react";
+import { searchPilots, type PilotProfile } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
 import DatePickerField from "../components/DatePickerField";
 import IcaoLookupField from "../components/IcaoLookupField";
+import { listPilots } from "../utils/api-client";
 
 export default function PilotsPage() {
+  const [pilots, setPilots] = useState<PilotProfile[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
   const [aircraftType, setAircraftType] = useState("");
   const [rating, setRating] = useState("");
   const [certificate, setCertificate] = useState("");
   const [availableStart, setAvailableStart] = useState("");
   const [availableEnd, setAvailableEnd] = useState("");
+
+  useEffect(() => {
+    let active = true;
+
+    async function load() {
+      setLoading(true);
+      setError("");
+      try {
+        const result = await listPilots();
+        if (active) setPilots(result.pilots);
+      } catch (err) {
+        if (active) {
+          setError(err instanceof Error ? err.message : "Failed to load pilots.");
+        }
+      } finally {
+        if (active) setLoading(false);
+      }
+    }
+
+    load();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const filteredPilots = useMemo(
     () =>
@@ -22,7 +50,7 @@ export default function PilotsPage() {
         availableStart: availableStart || undefined,
         availableEnd: availableEnd || undefined,
       }),
-    [aircraftType, rating, certificate, availableStart, availableEnd],
+    [pilots, aircraftType, rating, certificate, availableStart, availableEnd],
   );
 
   return (
@@ -70,35 +98,43 @@ export default function PilotsPage() {
               />
             </div>
 
-            <div className="list">
-              {filteredPilots.map((pilot) => (
-                <article className="pilot-card" key={pilot.id}>
-                  <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
-                    <div>
-                      <h3>{pilot.name}</h3>
-                      <p className="meta">
-                        {pilot.role} · {pilot.homeBase} · {pilot.currentLocation.label} ·{" "}
-                        {pilot.totalTime.toLocaleString()} total hours
-                      </p>
+            {loading ? (
+              <p className="muted">Loading pilots...</p>
+            ) : error ? (
+              <p className="fineprint">{error}</p>
+            ) : filteredPilots.length === 0 ? (
+              <p className="muted">No pilots match these filters yet.</p>
+            ) : (
+              <div className="list">
+                {filteredPilots.map((pilot) => (
+                  <article className="pilot-card" key={pilot.id}>
+                    <div style={{ display: "flex", justifyContent: "space-between", gap: 12 }}>
+                      <div>
+                        <h3>{pilot.name}</h3>
+                        <p className="meta">
+                          {pilot.role} · {pilot.homeBase} · {pilot.currentLocation.label} ·{" "}
+                          {pilot.totalTime.toLocaleString()} total hours
+                        </p>
+                      </div>
+                      <span className="tag">{pilot.documentsStatus}</span>
                     </div>
-                    <span className="tag">{pilot.documentsStatus}</span>
-                  </div>
-                  <div className="chips">
-                    {[
-                      ...pilot.aircraftTypes,
-                      ...pilot.typeRatings,
-                      ...pilot.certificates,
-                      pilot.medicalClass,
-                      pilot.contractPreference,
-                    ].map((chip) => (
-                      <span className="pill" key={chip}>
-                        {chip}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
+                    <div className="chips">
+                      {[
+                        ...pilot.aircraftTypes,
+                        ...pilot.typeRatings,
+                        ...pilot.certificates,
+                        pilot.medicalClass,
+                        pilot.contractPreference,
+                      ].map((chip) => (
+                        <span className="pill" key={chip}>
+                          {chip}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
           </section>
         </div>
       </main>

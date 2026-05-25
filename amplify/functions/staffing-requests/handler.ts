@@ -1,5 +1,6 @@
 import type { StaffingRequest } from "../../../packages/domain/src";
 import {
+  staffingRequestGet,
   staffingRequestPut,
   staffingRequestsByOperator,
 } from "../shared/dynamodb-client";
@@ -45,8 +46,8 @@ function buildRequest(
     location: input.location || {
       id: `loc-${Date.now()}`,
       label: departureAirport,
-      latitude: 40.8501,
-      longitude: -74.0608,
+      latitude: 0,
+      longitude: 0,
       sourceTimestamp: new Date().toISOString(),
       precision: "airport",
     },
@@ -102,6 +103,42 @@ export const handler = async (event: any) => {
       return json(201, { request });
     } catch (err: any) {
       console.error(`${LOG_PREFIX} POST failed`, { error: err?.message });
+      return json(500, { message: "Internal server error" });
+    }
+  }
+
+  if (method === "PUT") {
+    try {
+      const body = safeParseBody(event.body) ?? {};
+      const requestId = body.id != null ? String(body.id).trim() : "";
+      if (!requestId) {
+        return json(400, { message: "id is required." });
+      }
+
+      const existingRow = await staffingRequestGet(requestId);
+      const existing = existingRow as StaffingRequest | null;
+      if (!existing || existing.operatorId !== operatorId) {
+        return json(404, { message: "Staffing request not found." });
+      }
+
+      const request = buildRequest(
+        {
+          ...existing,
+          ...(body as Partial<StaffingRequest>),
+          id: requestId,
+          operatorId,
+        },
+        operatorId,
+      );
+      const now = new Date().toISOString();
+      await staffingRequestPut({
+        ...(request as unknown as Record<string, unknown>),
+        createdAt: (existingRow?.createdAt as string | undefined) ?? now,
+        updatedAt: now,
+      });
+      return json(200, { request });
+    } catch (err: any) {
+      console.error(`${LOG_PREFIX} PUT failed`, { error: err?.message });
       return json(500, { message: "Internal server error" });
     }
   }

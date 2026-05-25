@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import type { PilotMatch, PilotProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
 import { getMatches, listPilots, listRequests } from "../utils/api-client";
+import { buildMessagePilotHref } from "../utils/messaging-client";
 
 export default function MatchesPageClient() {
   const searchParams = useSearchParams();
@@ -134,7 +135,12 @@ export default function MatchesPageClient() {
                   {matches.map((match) => {
                     const pilot = pilots.find((candidate) => candidate.id === match.pilotId);
                     if (!pilot) return null;
-                    const messageHref = `/messages?recipientId=${encodeURIComponent(pilot.id)}&recipientName=${encodeURIComponent(pilot.name)}&title=${encodeURIComponent(`${activeRequest.title} · ${pilot.name}`)}&contextId=${encodeURIComponent(match.id)}`;
+                    const messageHref = buildMessagePilotHref({
+                      pilotId: pilot.id,
+                      pilotName: pilot.name,
+                      requestTitle: activeRequest.title,
+                      matchId: match.id,
+                    });
                     return (
                       <article className="match-card" key={match.id}>
                         <div
