@@ -3,35 +3,14 @@
 import { useEffect, useMemo, useState } from "react";
 import type { PilotProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
-import NetworkGlobeMap from "../components/NetworkGlobeMap";
+import NetworkGlobeMap, { type MapRequestRoute } from "../components/NetworkGlobeMap";
 import { useAirportCoords } from "../hooks/useAirportCoords";
 import { getMapData } from "../utils/api-client";
-import {
-  airportToLocationSnapshot,
-  hasValidCoordinates,
-} from "../utils/airport-coords";
-
-function enrichRequest(
-  request: StaffingRequest,
-  resolveAirport: (code: string) => ReturnType<
-    ReturnType<typeof useAirportCoords>["resolveAirport"]
-  >,
-): StaffingRequest | null {
-  const airport = resolveAirport(request.departureAirport);
-  if (airport) {
-    return {
-      ...request,
-      location: airportToLocationSnapshot(airport, request.location?.id),
-    };
-  }
-  return hasValidCoordinates(request.location) ? request : null;
-}
+import { airportToLocationSnapshot, hasValidCoordinates } from "../utils/airport-coords";
 
 function enrichPilot(
   pilot: PilotProfile,
-  resolveAirport: (code: string) => ReturnType<
-    ReturnType<typeof useAirportCoords>["resolveAirport"]
-  >,
+  resolveAirport: ReturnType<typeof useAirportCoords>["resolveAirport"],
 ): PilotProfile | null {
   const airport = resolveAirport(pilot.homeBase);
   if (airport) {
@@ -41,6 +20,46 @@ function enrichPilot(
     };
   }
   return hasValidCoordinates(pilot.currentLocation) ? pilot : null;
+}
+
+function buildRequestRoute(
+  request: StaffingRequest,
+  resolveAirport: ReturnType<typeof useAirportCoords>["resolveAirport"],
+): MapRequestRoute | null {
+  const departureAirport = resolveAirport(request.departureAirport);
+  if (!departureAirport) {
+    return hasValidCoordinates(request.location)
+      ? {
+          request,
+          departure: {
+            lat: request.location.latitude,
+            long: request.location.longitude,
+          },
+        }
+      : null;
+  }
+
+  const departure = {
+    lat: departureAirport.latitude,
+    long: departureAirport.longitude,
+  };
+
+  const arrivalAirport = request.arrivalAirport
+    ? resolveAirport(request.arrivalAirport)
+    : null;
+
+  if (!arrivalAirport) {
+    return { request, departure };
+  }
+
+  return {
+    request,
+    departure,
+    arrival: {
+      lat: arrivalAirport.latitude,
+      long: arrivalAirport.longitude,
+    },
+  };
 }
 
 export default function MapPageClient() {
@@ -83,11 +102,11 @@ export default function MapPageClient() {
       .filter((pilot): pilot is PilotProfile => pilot != null);
   }, [airportsReady, pilots, resolveAirport]);
 
-  const plottedRequests = useMemo(() => {
+  const requestRoutes = useMemo(() => {
     if (!airportsReady) return [];
     return requests
-      .map((request) => enrichRequest(request, resolveAirport))
-      .filter((request): request is StaffingRequest => request != null);
+      .map((request) => buildRequestRoute(request, resolveAirport))
+      .filter((route): route is MapRequestRoute => route != null);
   }, [airportsReady, requests, resolveAirport]);
 
   return (
@@ -111,7 +130,7 @@ export default function MapPageClient() {
               <p className="fineprint">{error}</p>
             </section>
           ) : (
-            <NetworkGlobeMap pilots={plottedPilots} requests={plottedRequests} />
+            <NetworkGlobeMap pilots={plottedPilots} requestRoutes={requestRoutes} />
           )}
         </div>
       </main>

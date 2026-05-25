@@ -9,6 +9,7 @@ import {
 } from "react";
 import type { PilotProfile, StaffingRequest } from "@crewlink/domain";
 import {
+  buildGreatCircleRoute,
   clamp,
   drawProjectedLine,
   drawProjectedRing,
@@ -22,12 +23,21 @@ import {
 } from "./globe-projection";
 import "./NetworkGlobeMap.css";
 
-type NetworkGlobeMapProps = {
-  pilots: PilotProfile[];
-  requests: StaffingRequest[];
+export type MapRequestRoute = {
+  request: StaffingRequest;
+  departure: GeoPoint;
+  arrival?: GeoPoint;
 };
 
-export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapProps) {
+type NetworkGlobeMapProps = {
+  pilots: PilotProfile[];
+  requestRoutes: MapRequestRoute[];
+};
+
+const ROUTE_COLOR = "#f5a524";
+const ARRIVAL_COLOR = "#ffcf73";
+
+export default function NetworkGlobeMap({ pilots, requestRoutes }: NetworkGlobeMapProps) {
   const globeCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const globeDragRef = useRef<{
     x: number;
@@ -156,6 +166,21 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
         ctx.stroke();
       }
 
+      for (const route of requestRoutes) {
+        if (route.arrival) {
+          const path = buildGreatCircleRoute(route.departure, route.arrival);
+          if (path.length > 1) {
+            ctx.beginPath();
+            drawProjectedLine(ctx, path, globeView, centerX, centerY, radius);
+            ctx.lineWidth = 2.5;
+            ctx.strokeStyle = "rgba(245, 165, 36, 0.88)";
+            ctx.lineCap = "round";
+            ctx.lineJoin = "round";
+            ctx.stroke();
+          }
+        }
+      }
+
       const drawMarker = (
         lat: number,
         long: number,
@@ -185,13 +210,16 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
         ctx.fillText(label, projected.x + 9, projected.y - 7);
       };
 
-      for (const request of requests) {
-        drawMarker(
-          request.location.latitude,
-          request.location.longitude,
-          "#f5a524",
-          request.departureAirport,
-        );
+      for (const route of requestRoutes) {
+        drawMarker(route.departure.lat, route.departure.long, ROUTE_COLOR, route.request.departureAirport);
+        if (route.arrival && route.request.arrivalAirport) {
+          drawMarker(
+            route.arrival.lat,
+            route.arrival.long,
+            ARRIVAL_COLOR,
+            route.request.arrivalAirport,
+          );
+        }
       }
 
       for (const pilot of pilots) {
@@ -216,7 +244,7 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
     const resizeObserver = new ResizeObserver(draw);
     resizeObserver.observe(canvas);
     return () => resizeObserver.disconnect();
-  }, [globeView, landRings, pilots, requests]);
+  }, [globeView, landRings, pilots, requestRoutes]);
 
   const handleGlobePointerDown = (event: PointerEvent<HTMLCanvasElement>) => {
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -287,7 +315,7 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
               </div>
               <div className="map-status-badge">
                 {landStatus ||
-                  `${pilots.length} pilots · ${requests.length} open requests plotted`}
+                  `${pilots.length} pilots · ${requestRoutes.length} open requests plotted`}
               </div>
             </>
           )}
@@ -326,18 +354,26 @@ export default function NetworkGlobeMap({ pilots, requests }: NetworkGlobeMapPro
             Open staffing requests
           </h3>
           <div className="network-map-list">
-            {requests.length === 0 ? (
+            {requestRoutes.length === 0 ? (
               <p className="muted">No open staffing requests yet.</p>
             ) : (
-              requests.map((request) => (
-              <div className="network-map-list-item" key={request.id}>
-                <b>{request.departureAirport}</b>
+              requestRoutes.map((route) => (
+              <div className="network-map-list-item" key={route.request.id}>
+                <b>
+                  {route.request.departureAirport}
+                  {route.request.arrivalAirport
+                    ? ` → ${route.request.arrivalAirport}`
+                    : ""}
+                </b>
                 <span>
-                  {request.aircraftType} · {request.title}
+                  {route.request.aircraftType} · {route.request.title}
                 </span>
                 <span>
-                  {request.location.latitude.toFixed(2)}°,{" "}
-                  {request.location.longitude.toFixed(2)}° · {request.urgency}
+                  {route.departure.lat.toFixed(2)}°, {route.departure.long.toFixed(2)}°
+                  {route.arrival
+                    ? ` → ${route.arrival.lat.toFixed(2)}°, ${route.arrival.long.toFixed(2)}°`
+                    : ""}{" "}
+                  · {route.request.urgency}
                 </span>
               </div>
               ))

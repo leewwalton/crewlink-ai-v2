@@ -141,6 +141,46 @@ export function drawProjectedRing(
   return visiblePoints;
 }
 
+export function buildGreatCircleRoute(
+  start: GeoPoint,
+  end: GeoPoint,
+  segments = 72,
+): GeoPoint[] {
+  const lat1 = degreesToRadians(start.lat);
+  const lon1 = degreesToRadians(start.long);
+  const lat2 = degreesToRadians(end.lat);
+  const lon2 = degreesToRadians(end.long);
+
+  const d =
+    2 *
+    Math.asin(
+      Math.sqrt(
+        Math.sin((lat2 - lat1) / 2) ** 2 +
+          Math.cos(lat1) * Math.cos(lat2) * Math.sin((lon2 - lon1) / 2) ** 2,
+      ),
+    );
+
+  if (!Number.isFinite(d) || d < 1e-6) {
+    return [start, end];
+  }
+
+  const points: GeoPoint[] = [];
+  for (let index = 0; index <= segments; index += 1) {
+    const fraction = index / segments;
+    const a = Math.sin((1 - fraction) * d) / Math.sin(d);
+    const b = Math.sin(fraction * d) / Math.sin(d);
+    const x = a * Math.cos(lat1) * Math.cos(lon1) + b * Math.cos(lat2) * Math.cos(lon2);
+    const y = a * Math.cos(lat1) * Math.sin(lon1) + b * Math.cos(lat2) * Math.sin(lon2);
+    const z = a * Math.sin(lat1) + b * Math.sin(lat2);
+    points.push({
+      lat: (Math.atan2(z, Math.sqrt(x * x + y * y)) * 180) / Math.PI,
+      long: (Math.atan2(y, x) * 180) / Math.PI,
+    });
+  }
+
+  return points;
+}
+
 export function extractLandRings(collection: LandFeatureCollection): GeoPoint[][] {
   const rings: GeoPoint[][] = [];
 
