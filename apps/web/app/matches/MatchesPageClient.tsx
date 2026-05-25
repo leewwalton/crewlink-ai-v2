@@ -75,11 +75,7 @@ export default function MatchesPageClient() {
           <div className="page-header">
             <div>
               <span className="tag">Explainable matches</span>
-              <h1>Rank candidates by operational fit.</h1>
-              <p className="muted">
-                Match score stays deterministic for auditability. AI can be
-                layered on for natural-language summaries without owning the score.
-              </p>
+              <h1>Matches</h1>
             </div>
           </div>
 

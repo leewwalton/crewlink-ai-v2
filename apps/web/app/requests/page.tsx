@@ -46,21 +46,14 @@ export default function RequestsPage() {
           <div className="page-header">
             <div>
               <span className="tag">Staffing requests</span>
-              <h1>Capture mission requirements once.</h1>
-              <p className="muted">
-                Aircraft, dates, airports, qualifications, and urgency become
-                the inputs for search and match ranking.
-              </p>
+              <h1>Requests</h1>
             </div>
           </div>
 
           {!loading && !profile && (
             <section className="card panel" style={{ marginBottom: 18 }}>
-              <h2>Complete your operator profile first</h2>
-              <p className="muted">
-                Requests are saved to your signed-in operator account. Set up your
-                organization profile before creating the first request.
-              </p>
+              <h2>Complete your profile first</h2>
+              <p className="muted">Save your operator profile before creating requests.</p>
               <a className="btn primary" href="/profile">
                 Set up profile
               </a>
@@ -156,9 +149,6 @@ export default function RequestsPage() {
             >
               <div className="wide">
                 <h2 style={{ margin: 0 }}>Create request</h2>
-                <p className="muted">
-                  Saved to DynamoDB and linked to your operator account.
-                </p>
               </div>
               <input name="title" required placeholder="Trip title" disabled={!profile || submitting} />
               <input name="aircraftType" required placeholder="Aircraft type" disabled={!profile || submitting} />

@@ -120,11 +120,7 @@ export default function ProfilePageClient() {
           <div className="page-header">
             <div>
               <span className="tag">Operator profile</span>
-              <h1>{profile?.organization || "Set up your operator profile"}</h1>
-              <p className="muted">
-                Enter your organization details before creating staffing requests.
-                This profile is tied to your signed-in account.
-              </p>
+              <h1>Profile</h1>
             </div>
             {profile && (
               <a className="btn primary page-header-action" href="/requests">
@@ -142,9 +138,6 @@ export default function ProfilePageClient() {
               <form className="card panel request-form" style={{ gridColumn: "span 7" }} onSubmit={handleSubmit}>
                 <div className="wide">
                   <h2 style={{ margin: 0 }}>Organization details</h2>
-                  <p className="muted">
-                    Fleet types and operating regions help CrewLinkAI filter pilot fit.
-                  </p>
                 </div>
                 <input
                   required
@@ -193,15 +186,15 @@ export default function ProfilePageClient() {
               </form>
 
               <div className="card panel" style={{ gridColumn: "span 5" }}>
-                <h2>What happens next</h2>
+                <h2>Next steps</h2>
                 <div className="list">
-                  <p>1. Save your operator profile.</p>
-                  <p>2. Create staffing requests with aircraft, dates, and requirements.</p>
-                  <p>3. Review ranked pilot matches and start outreach.</p>
+                  <p>1. Save profile</p>
+                  <p>2. Create requests</p>
+                  <p>3. Review matches</p>
                 </div>
                 {profile && (
                   <>
-                    <h2 style={{ marginTop: 24 }}>Current profile</h2>
+                    <h2 style={{ marginTop: 24 }}>Saved</h2>
                     <div className="chips">
                       {[...profile.fleetTypes, ...profile.operatingRegions].map((chip) => (
                         <span className="pill" key={chip}>

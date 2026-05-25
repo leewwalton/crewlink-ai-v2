@@ -11,12 +11,7 @@ export default function MapPage() {
           <div className="page-header">
             <div>
               <span className="tag">Live network map</span>
-              <h1>See pilot supply around active demand.</h1>
-              <p className="muted">
-                Rotate and zoom the globe to explore pilot locations and open
-                staffing requests. Green markers are available crew; amber
-                markers are operator demand.
-              </p>
+              <h1>Map</h1>
             </div>
           </div>
 

@@ -72,11 +72,14 @@ export class CrewLinkPipelineStack extends cdk.Stack {
         "https://crewlink-ai.com/",
         "https://d1vpvwi7yc942a.amplifyapp.com/dashboard",
         "https://d1vpvwi7yc942a.amplifyapp.com/",
+        "https://main.d1vpvwi7yc942a.amplifyapp.com/dashboard",
+        "https://main.d1vpvwi7yc942a.amplifyapp.com/",
       ]);
       const logoutUrls = parseCsv(process.env.COGNITO_LOGOUT_URLS, [
         "http://localhost:3000/",
         "https://crewlink-ai.com/",
         "https://d1vpvwi7yc942a.amplifyapp.com/",
+        "https://main.d1vpvwi7yc942a.amplifyapp.com/",
       ]);
 
       userPoolClient = new cognito.UserPoolClient(this, "UserPoolClient", {
@@ -474,10 +477,13 @@ function parseCsv(value: string | undefined, defaults: string[]): string[] {
 }
 
 function corsOrigins(): string[] {
+  const amplifyAppId = process.env.AMPLIFY_APP_ID || "d1vpvwi7yc942a";
+  const amplifyBranch = process.env.AMPLIFY_BRANCH_NAME || "main";
   const defaults = [
     "http://localhost:3000",
     "https://crewlink-ai.com",
-    "https://d1vpvwi7yc942a.amplifyapp.com",
+    `https://${amplifyAppId}.amplifyapp.com`,
+    `https://${amplifyBranch}.${amplifyAppId}.amplifyapp.com`,
   ];
   const extra = parseCsv(process.env.CORS_ORIGINS, []);
   return [...new Set([...defaults, ...extra])];

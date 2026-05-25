@@ -31,11 +31,7 @@ export default function PilotsPage() {
           <div className="page-header">
             <div>
               <span className="tag">Pilot discovery</span>
-              <h1>Search by readiness, not just a resume.</h1>
-              <p className="muted">
-                Filter the live crew network by type, certificate, availability,
-                location readiness, and contract preference.
-              </p>
+              <h1>Pilots</h1>
             </div>
           </div>
 

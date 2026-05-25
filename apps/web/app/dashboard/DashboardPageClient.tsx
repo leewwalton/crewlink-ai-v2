@@ -71,11 +71,7 @@ export default function DashboardPageClient() {
           <div className="page-header">
             <div>
               <span className="tag">Operator cockpit</span>
-              <h1>Staffing demand, live readiness, and candidate fit.</h1>
-              <p className="muted">
-                Monitor urgent requests and identify qualified pilots before
-                dispatch pressure turns into a scramble.
-              </p>
+              <h1>Dashboard</h1>
             </div>
             <a className="btn primary page-header-action" href="/requests">
               Create request

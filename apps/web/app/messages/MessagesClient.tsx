@@ -131,11 +131,7 @@ export default function MessagesClient() {
           <div className="page-header">
             <div>
               <span className="tag">Direct messaging</span>
-              <h1>Message operators and pilots.</h1>
-              <p className="muted">
-                Start threads from matches or continue staffing conversations in one
-                inbox. Switch demo personas to preview both sides locally.
-              </p>
+              <h1>Messages</h1>
             </div>
           </div>
 
