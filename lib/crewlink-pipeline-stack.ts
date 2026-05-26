@@ -16,6 +16,12 @@ const LAMBDA_BUNDLING = {
   externalModules: ["@aws-sdk/*"],
 };
 
+const PRODUCTION_WEB_ORIGINS = [
+  "https://crewlink-ai.com",
+  "https://crew-link-ai.com",
+  "https://www.crew-link-ai.com",
+];
+
 export class CrewLinkPipelineStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
@@ -69,8 +75,10 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       const callbackUrls = parseCsv(process.env.COGNITO_CALLBACK_URLS, [
         "http://localhost:3000/dashboard",
         "http://localhost:3000/",
-        "https://crewlink-ai.com/dashboard",
-        "https://crewlink-ai.com/",
+        ...PRODUCTION_WEB_ORIGINS.flatMap((origin) => [
+          `${origin}/dashboard`,
+          `${origin}/`,
+        ]),
         "https://d1vpvwi7yc942a.amplifyapp.com/dashboard",
         "https://d1vpvwi7yc942a.amplifyapp.com/",
         "https://main.d1vpvwi7yc942a.amplifyapp.com/dashboard",
@@ -78,7 +86,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       ]);
       const logoutUrls = parseCsv(process.env.COGNITO_LOGOUT_URLS, [
         "http://localhost:3000/",
-        "https://crewlink-ai.com/",
+        ...PRODUCTION_WEB_ORIGINS.map((origin) => `${origin}/`),
         "https://d1vpvwi7yc942a.amplifyapp.com/",
         "https://main.d1vpvwi7yc942a.amplifyapp.com/",
       ]);
@@ -543,7 +551,7 @@ function corsOrigins(): string[] {
   const amplifyBranch = process.env.AMPLIFY_BRANCH_NAME || "main";
   const defaults = [
     "http://localhost:3000",
-    "https://crewlink-ai.com",
+    ...PRODUCTION_WEB_ORIGINS,
     `https://${amplifyAppId}.amplifyapp.com`,
     `https://${amplifyBranch}.${amplifyAppId}.amplifyapp.com`,
   ];
