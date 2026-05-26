@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
+import SignOutButton from "./SignOutButton";
 import ThemeToggle from "./ThemeToggle";
+import { useOptionalAccount } from "../contexts/AccountContext";
 import { createContact, subscribeNewsletter } from "../utils/api-client";
 import {
   CREWLINK_AI_LEGAL_NAME,
@@ -167,6 +169,7 @@ const personaContent: Record<Persona, PersonaContent> = {
 
 export default function LandingPage() {
   const router = useRouter();
+  const account = useOptionalAccount();
   const [persona, setPersona] = useState<Persona>("operator");
   const content = personaContent[persona];
   const [form, setForm] = useState({
@@ -196,15 +199,19 @@ export default function LandingPage() {
               <a href="#newsletter">Newsletter</a>
               <a href="#contact">Demo</a>
               <ThemeToggle />
-              <button
-                className="btn primary"
-                type="button"
-                disabled
-                aria-disabled="true"
-                title="Sign in is temporarily unavailable"
-              >
-                Sign in
-              </button>
+              {!account?.loading && account?.authenticated ? (
+                <SignOutButton className="btn" />
+              ) : (
+                <button
+                  className="btn primary"
+                  type="button"
+                  disabled
+                  aria-disabled="true"
+                  title="Sign in is temporarily unavailable"
+                >
+                  Sign in
+                </button>
+              )}
             </div>
           </nav>
         </div>

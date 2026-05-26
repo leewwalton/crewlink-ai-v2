@@ -1,4 +1,15 @@
 export type AccountRole = "operator" | "pilot" | "admin";
+export type { AccountType, UserAccount } from "./roles";
+export {
+  accountTypeLabel,
+  canAccessOperatorArea,
+  canAccessPilotArea,
+  canAccessSharedArea,
+  getAccountType,
+  isAdmin,
+  normalizeRoles,
+  rolesFromAccountType,
+} from "./roles";
 export type PilotRole = "PIC" | "SIC" | "Relief Pilot";
 export type StaffingRequestStatus = "draft" | "open" | "reviewing" | "filled" | "cancelled";
 export type MatchAction = "new" | "shortlist" | "contacted" | "declined";
@@ -21,6 +32,9 @@ export interface AvailabilityWindow {
 export interface PilotProfile {
   id: string;
   name: string;
+  email: string;
+  phone?: string;
+  alternatePhone?: string;
   role: PilotRole;
   homeBase: string;
   currentLocation: LocationSnapshot;

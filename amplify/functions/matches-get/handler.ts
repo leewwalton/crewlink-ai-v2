@@ -1,6 +1,7 @@
 import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
 import { rankPilotsForRequest, type StaffingRequest } from "../../../packages/domain/src";
 import { staffingRequestGet } from "../shared/dynamodb-client";
+import { requireOperatorAccess } from "../shared/account-access";
 import { loadMarketplacePilots } from "../shared/marketplace-pilots";
 import { getCognitoSubFromEvent } from "../shared/get-cognito-sub";
 import { httpMethod, json } from "../shared/http";
@@ -46,6 +47,11 @@ export const handler = async (event: any) => {
   const operatorId = getCognitoSubFromEvent(event);
   if (!operatorId) {
     return json(401, { message: "Authentication required." });
+  }
+
+  const access = await requireOperatorAccess(operatorId);
+  if (!access.ok) {
+    return json(403, { message: access.message });
   }
 
   const requestId = event.queryStringParameters?.requestId;

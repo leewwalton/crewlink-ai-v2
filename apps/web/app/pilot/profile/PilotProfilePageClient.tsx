@@ -4,13 +4,15 @@ import { useEffect, useState } from "react";
 import type { PilotProfile, PilotRole } from "@crewlink/domain";
 import { fetchUserAttributes } from "aws-amplify/auth";
 import AppNav from "../../components/AppNav";
-import DatePickerField from "../../components/DatePickerField";
 import IcaoLookupField from "../../components/IcaoLookupField";
-import RequireAuth from "../../components/RequireAuth";
+import AppAccess from "../../components/AppAccess";
 import { loadPilotProfile, savePilotProfile } from "../../utils/api-client";
 
 type FormState = {
   name: string;
+  email: string;
+  phone: string;
+  alternatePhone: string;
   role: PilotRole;
   homeBase: string;
   aircraftTypes: string;
@@ -22,13 +24,13 @@ type FormState = {
   sicTime: string;
   contractPreference: PilotProfile["contractPreference"];
   travelRegions: string;
-  availabilityStart: string;
-  availabilityEnd: string;
-  availabilityStatus: PilotProfile["availability"][number]["status"];
 };
 
 const emptyForm: FormState = {
   name: "",
+  email: "",
+  phone: "",
+  alternatePhone: "",
   role: "PIC",
   homeBase: "",
   aircraftTypes: "",
@@ -40,15 +42,14 @@ const emptyForm: FormState = {
   sicTime: "",
   contractPreference: "either",
   travelRegions: "",
-  availabilityStart: "",
-  availabilityEnd: "",
-  availabilityStatus: "available",
 };
 
 function toForm(profile: PilotProfile): FormState {
-  const availability = profile.availability[0];
   return {
     name: profile.name,
+    email: profile.email,
+    phone: profile.phone ?? "",
+    alternatePhone: profile.alternatePhone ?? "",
     role: profile.role,
     homeBase: profile.homeBase,
     aircraftTypes: profile.aircraftTypes.join(", "),
@@ -60,9 +61,6 @@ function toForm(profile: PilotProfile): FormState {
     sicTime: String(profile.sicTime || ""),
     contractPreference: profile.contractPreference,
     travelRegions: profile.travelRegions.join(", "),
-    availabilityStart: availability?.startDate ?? "",
-    availabilityEnd: availability?.endDate ?? "",
-    availabilityStatus: availability?.status ?? "available",
   };
 }
 
@@ -102,9 +100,14 @@ export default function PilotProfilePageClient() {
             "name" in attributes && typeof attributes.name === "string"
               ? attributes.name
               : "";
+          const email =
+            "email" in attributes && typeof attributes.email === "string"
+              ? attributes.email
+              : "";
           setForm((current) => ({
             ...current,
             name: name || current.name,
+            email: email || current.email,
           }));
         }
       } catch (err) {
@@ -129,19 +132,11 @@ export default function PilotProfilePageClient() {
     setSavedMessage("");
 
     try {
-      const availability =
-        form.availabilityStart && form.availabilityEnd
-          ? [
-              {
-                startDate: form.availabilityStart,
-                endDate: form.availabilityEnd,
-                status: form.availabilityStatus,
-              },
-            ]
-          : [];
-
       const result = await savePilotProfile({
         name: form.name.trim(),
+        email: form.email.trim(),
+        phone: form.phone.trim() || undefined,
+        alternatePhone: form.alternatePhone.trim() || undefined,
         role: form.role,
         homeBase: form.homeBase.trim(),
         aircraftTypes: parseList(form.aircraftTypes),
@@ -153,7 +148,7 @@ export default function PilotProfilePageClient() {
         sicTime: Number(form.sicTime || 0),
         contractPreference: form.contractPreference,
         travelRegions: parseList(form.travelRegions),
-        availability,
+        availability: [],
         documentsStatus: profile?.documentsStatus || "review",
         currentLocation: profile?.currentLocation,
       });
@@ -168,7 +163,7 @@ export default function PilotProfilePageClient() {
   }
 
   return (
-    <RequireAuth loadingMessage="Sign in to manage your pilot profile.">
+    <AppAccess area="pilot" authMessage="Sign in to manage your pilot profile.">
       <div className="app-shell">
         <AppNav />
         <main className="app-main">
@@ -307,36 +302,36 @@ export default function PilotProfilePageClient() {
                       setForm((current) => ({ ...current, travelRegions: event.target.value }))
                     }
                   />
-                  <DatePickerField
-                    value={form.availabilityStart}
-                    onChange={(value) =>
-                      setForm((current) => ({ ...current, availabilityStart: value }))
-                    }
-                    placeholder="Available from"
-                    aria-label="Available from"
-                  />
-                  <DatePickerField
-                    value={form.availabilityEnd}
-                    onChange={(value) =>
-                      setForm((current) => ({ ...current, availabilityEnd: value }))
-                    }
-                    placeholder="Available to"
-                    aria-label="Available to"
-                  />
-                  <select
-                    value={form.availabilityStatus}
+
+                  <div className="wide">
+                    <h2 style={{ margin: "8px 0 0" }}>Contact information</h2>
+                  </div>
+                  <input
+                    required
+                    type="email"
+                    placeholder="Email"
+                    value={form.email}
                     onChange={(event) =>
-                      setForm((current) => ({
-                        ...current,
-                        availabilityStatus: event.target
-                          .value as FormState["availabilityStatus"],
-                      }))
+                      setForm((current) => ({ ...current, email: event.target.value }))
                     }
-                  >
-                    <option value="available">Available</option>
-                    <option value="standby">Standby</option>
-                    <option value="limited">Limited</option>
-                  </select>
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Phone"
+                    value={form.phone}
+                    onChange={(event) =>
+                      setForm((current) => ({ ...current, phone: event.target.value }))
+                    }
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Alternate phone"
+                    value={form.alternatePhone}
+                    onChange={(event) =>
+                      setForm((current) => ({ ...current, alternatePhone: event.target.value }))
+                    }
+                  />
+
                   <button className="btn primary wide" type="submit" disabled={saving}>
                     {saving ? "Saving..." : profile ? "Update profile" : "Save profile"}
                   </button>
@@ -348,7 +343,7 @@ export default function PilotProfilePageClient() {
                   <h2>Next steps</h2>
                   <div className="list">
                     <p>1. Save your pilot profile</p>
-                    <p>2. Keep availability current</p>
+                    <p>2. Keep contact details current</p>
                     <p>3. Respond to operator outreach</p>
                   </div>
                   {profile && (
@@ -367,6 +362,12 @@ export default function PilotProfilePageClient() {
                         ))}
                       </div>
                       <p className="meta" style={{ marginTop: 16 }}>
+                        Email: {profile.email}
+                      </p>
+                      {profile.phone && (
+                        <p className="meta">Phone: {profile.phone}</p>
+                      )}
+                      <p className="meta" style={{ marginTop: profile.phone ? 0 : 16 }}>
                         Documents: {profile.documentsStatus}
                       </p>
                     </>
@@ -377,6 +378,6 @@ export default function PilotProfilePageClient() {
           </div>
         </main>
       </div>
-    </RequireAuth>
+    </AppAccess>
   );
 }

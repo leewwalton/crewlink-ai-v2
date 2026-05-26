@@ -38,6 +38,8 @@ const samplePilots: PilotProfile[] = [
   {
     id: "pilot-001",
     name: "Avery Collins",
+    email: "avery@example.com",
+    phone: "+1 555-0101",
     role: "PIC",
     homeBase: "KTEB",
     currentLocation: {
@@ -64,6 +66,7 @@ const samplePilots: PilotProfile[] = [
   {
     id: "pilot-002",
     name: "Jordan Patel",
+    email: "jordan@example.com",
     role: "SIC",
     homeBase: "KDAL",
     currentLocation: {

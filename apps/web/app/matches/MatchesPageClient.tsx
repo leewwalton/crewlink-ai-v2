@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { PilotMatch, PilotProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
+import AppAccess from "../components/AppAccess";
 import { getMatches, listPilots, listRequests } from "../utils/api-client";
 import { buildMessagePilotHref } from "../utils/messaging-client";
 
@@ -69,6 +70,7 @@ export default function MatchesPageClient() {
   }, [requestedId]);
 
   return (
+    <AppAccess area="operator" authMessage="Sign in to review pilot matches.">
     <div className="app-shell">
       <AppNav />
       <main className="app-main">
@@ -183,5 +185,6 @@ export default function MatchesPageClient() {
         </div>
       </main>
     </div>
+    </AppAccess>
   );
 }

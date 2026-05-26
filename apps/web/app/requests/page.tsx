@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { OperatorProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
+import AppAccess from "../components/AppAccess";
 import DatePickerField from "../components/DatePickerField";
 import IcaoLookupField from "../components/IcaoLookupField";
 import {
@@ -184,6 +185,7 @@ export default function RequestsPage() {
   }
 
   return (
+    <AppAccess area="operator" authMessage="Sign in to manage staffing requests.">
     <div className="app-shell">
       <AppNav />
       <main className="app-main">
@@ -414,5 +416,6 @@ export default function RequestsPage() {
         </div>
       </main>
     </div>
+    </AppAccess>
   );
 }

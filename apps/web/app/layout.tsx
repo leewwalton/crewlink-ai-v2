@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AmplifyConfig } from "./components/AmplifyConfig";
+import { AccountProvider } from "./contexts/AccountContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { themeInitScript } from "./utils/theme-storage";
 import "./globals.css";
@@ -40,7 +41,9 @@ export default function RootLayout({
       </head>
       <body>
         <AmplifyConfig />
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <AccountProvider>{children}</AccountProvider>
+        </ThemeProvider>
         <div id="crewlink-datepicker-portal" />
       </body>
     </html>

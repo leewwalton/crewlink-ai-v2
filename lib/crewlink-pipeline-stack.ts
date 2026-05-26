@@ -204,6 +204,12 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
     };
 
+    const accountEnvironment = {
+      USERS_TABLE_NAME: tables.users.tableName,
+      OPERATOR_PROFILES_TABLE_NAME: tables.operatorProfiles.tableName,
+      PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
+    };
+
     // ==========================
     // Lambdas
     // ==========================
@@ -246,6 +252,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
         entry: "amplify/functions/staffing-requests/handler.ts",
         handler: "handler",
         environment: {
+          ...accountEnvironment,
           STAFFING_REQUESTS_TABLE_NAME: tables.staffingRequests.tableName,
         },
         timeout: cdk.Duration.seconds(15),
@@ -262,6 +269,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
         entry: "amplify/functions/operator-profile/handler.ts",
         handler: "handler",
         environment: {
+          ...accountEnvironment,
           OPERATOR_PROFILES_TABLE_NAME: tables.operatorProfiles.tableName,
         },
         timeout: cdk.Duration.seconds(15),
@@ -275,6 +283,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       entry: "amplify/functions/pilot-profile/handler.ts",
       handler: "handler",
       environment: {
+        ...accountEnvironment,
         PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
       },
       timeout: cdk.Duration.seconds(15),
@@ -287,6 +296,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       entry: "amplify/functions/matches-get/handler.ts",
       handler: "handler",
       environment: {
+        ...accountEnvironment,
         STAFFING_REQUESTS_TABLE_NAME: tables.staffingRequests.tableName,
         PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
         BEDROCK_MODEL_ID: bedrockModelId,
@@ -334,6 +344,16 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       bundling: LAMBDA_BUNDLING,
     });
 
+    const accountFn = new lambdaNode.NodejsFunction(this, "AccountFn", {
+      runtime: lambda.Runtime.NODEJS_20_X,
+      entry: "amplify/functions/account/handler.ts",
+      handler: "handler",
+      environment: accountEnvironment,
+      timeout: cdk.Duration.seconds(10),
+      memorySize: 256,
+      bundling: LAMBDA_BUNDLING,
+    });
+
     tables.contactLeads.grantReadWriteData(contactSubmitFn);
     tables.pilotProfiles.grantReadData(pilotsGetFn);
     tables.pilotProfiles.grantReadWriteData(pilotProfileFn);
@@ -343,6 +363,19 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     tables.staffingRequests.grantReadData(mapGetFn);
     tables.pilotProfiles.grantReadData(mapGetFn);
     tables.operatorProfiles.grantReadWriteData(operatorProfileFn);
+    tables.users.grantReadWriteData(accountFn);
+    tables.users.grantReadData(operatorProfileFn);
+    tables.users.grantReadData(pilotProfileFn);
+    tables.users.grantReadData(staffingRequestsFn);
+    tables.users.grantReadData(matchesGetFn);
+    tables.pilotProfiles.grantReadData(operatorProfileFn);
+    tables.operatorProfiles.grantReadData(pilotProfileFn);
+    tables.operatorProfiles.grantReadData(staffingRequestsFn);
+    tables.operatorProfiles.grantReadData(matchesGetFn);
+    tables.pilotProfiles.grantReadData(staffingRequestsFn);
+    tables.pilotProfiles.grantReadData(matchesGetFn);
+    tables.operatorProfiles.grantReadData(accountFn);
+    tables.pilotProfiles.grantReadData(accountFn);
     for (const fn of [conversationsFn, messagesFn]) {
       tables.conversations.grantReadWriteData(fn);
       tables.messages.grantReadWriteData(fn);
@@ -410,6 +443,15 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "RequestsIntegration",
         staffingRequestsFn,
+      ),
+      authorizer: jwtAuthorizer,
+    });
+    httpApi.addRoutes({
+      path: "/account",
+      methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.PUT],
+      integration: new apigwv2Integrations.HttpLambdaIntegration(
+        "AccountIntegration",
+        accountFn,
       ),
       authorizer: jwtAuthorizer,
     });

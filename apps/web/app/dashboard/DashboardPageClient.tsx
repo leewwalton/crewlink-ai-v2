@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { PilotMatch, PilotProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
+import AppAccess from "../components/AppAccess";
 import { getMatches, listPilots, listRequests } from "../utils/api-client";
 import { buildMessagePilotHref } from "../utils/messaging-client";
 
@@ -65,6 +66,7 @@ export default function DashboardPageClient() {
   }, []);
 
   return (
+    <AppAccess area="operator" authMessage="Sign in to open the operator dashboard.">
     <div className="app-shell">
       <AppNav />
       <main className="app-main">
@@ -212,5 +214,6 @@ export default function DashboardPageClient() {
         </div>
       </main>
     </div>
+    </AppAccess>
   );
 }

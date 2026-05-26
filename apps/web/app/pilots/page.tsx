@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { searchPilots, type PilotProfile } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
+import AppAccess from "../components/AppAccess";
 import DatePickerField from "../components/DatePickerField";
 import IcaoLookupField from "../components/IcaoLookupField";
 import { listPilots } from "../utils/api-client";
@@ -54,6 +55,7 @@ export default function PilotsPage() {
   );
 
   return (
+    <AppAccess area="operator" authMessage="Sign in to search the pilot network.">
     <div className="app-shell">
       <AppNav />
       <main className="app-main">
@@ -139,5 +141,6 @@ export default function PilotsPage() {
         </div>
       </main>
     </div>
+    </AppAccess>
   );
 }

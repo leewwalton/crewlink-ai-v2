@@ -4,6 +4,7 @@ import {
   staffingRequestPut,
   staffingRequestsByOperator,
 } from "../shared/dynamodb-client";
+import { requireOperatorAccess } from "../shared/account-access";
 import { getCognitoSubFromEvent } from "../shared/get-cognito-sub";
 import { httpMethod, json, safeParseBody } from "../shared/http";
 
@@ -74,6 +75,11 @@ export const handler = async (event: any) => {
   const operatorId = getCognitoSubFromEvent(event);
   if (!operatorId) {
     return json(401, { message: "Authentication required." });
+  }
+
+  const access = await requireOperatorAccess(operatorId);
+  if (!access.ok) {
+    return json(403, { message: access.message });
   }
 
   if (method === "GET") {

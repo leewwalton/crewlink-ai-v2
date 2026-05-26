@@ -24,6 +24,25 @@ export async function contactLeadPut(item: Record<string, unknown>): Promise<voi
   );
 }
 
+export async function userGet(id: string): Promise<Record<string, unknown> | null> {
+  const res = await doc.send(
+    new GetCommand({
+      TableName: table("USERS_TABLE_NAME"),
+      Key: { id },
+    }),
+  );
+  return (res.Item as Record<string, unknown> | undefined) ?? null;
+}
+
+export async function userPut(item: Record<string, unknown>): Promise<void> {
+  await doc.send(
+    new PutCommand({
+      TableName: table("USERS_TABLE_NAME"),
+      Item: item,
+    }),
+  );
+}
+
 export async function operatorProfileGet(
   id: string,
 ): Promise<Record<string, unknown> | null> {

@@ -1,9 +1,11 @@
 import { fetchAuthSession } from "aws-amplify/auth";
 import type {
+  AccountType,
   OperatorProfile,
   PilotMatch,
   PilotProfile,
   StaffingRequest,
+  UserAccount,
 } from "@crewlink/domain";
 
 export function getApiBaseUrl(): string {
@@ -123,6 +125,31 @@ export function savePilotProfile(input: Partial<PilotProfile>) {
   return requestJson<{ profile: PilotProfile }>("pilot-profile", {
     method: "PUT",
     body: JSON.stringify(input),
+  });
+}
+
+export async function loadAccount(): Promise<{
+  account: UserAccount;
+  accountType: AccountType;
+} | null> {
+  const baseUrl = getApiBaseUrl();
+  if (!baseUrl) throw new Error("CrewLinkAI API URL is not configured.");
+
+  const headers = await authHeaders();
+  const response = await fetch(`${baseUrl}account`, { headers });
+  if (response.status === 404) return null;
+
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    throw new Error((data as { message?: string }).message || response.statusText);
+  }
+  return data as { account: UserAccount; accountType: AccountType };
+}
+
+export function saveAccountType(accountType: AccountType) {
+  return requestJson<{ account: UserAccount; accountType: AccountType }>("account", {
+    method: "PUT",
+    body: JSON.stringify({ accountType }),
   });
 }
 

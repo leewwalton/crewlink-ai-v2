@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import type { Conversation, Message } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
-import RequireAuth from "../components/RequireAuth";
+import AppAccess from "../components/AppAccess";
 import {
   createConversation,
   getConversationThread,
@@ -125,7 +125,7 @@ export default function MessagesClient() {
   }, [activeConversationId, refreshConversations, refreshThread]);
 
   return (
-    <RequireAuth loadingMessage="Sign in to view your messages.">
+    <AppAccess area="shared" authMessage="Sign in to view your messages.">
       <div className="app-shell">
         <AppNav />
         <main className="app-main">
@@ -263,6 +263,6 @@ export default function MessagesClient() {
           </div>
         </main>
       </div>
-    </RequireAuth>
+    </AppAccess>
   );
 }

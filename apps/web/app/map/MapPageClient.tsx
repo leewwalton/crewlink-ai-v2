@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import type { PilotProfile, StaffingRequest } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
+import AppAccess from "../components/AppAccess";
 import NetworkGlobeMap, { type MapRequestRoute } from "../components/NetworkGlobeMap";
 import { useAirportCoords } from "../hooks/useAirportCoords";
 import { getMapData } from "../utils/api-client";
@@ -110,6 +111,7 @@ export default function MapPageClient() {
   }, [airportsReady, requests, resolveAirport]);
 
   return (
+    <AppAccess area="shared" authMessage="Sign in to view the live network map.">
     <div className="app-shell">
       <AppNav />
       <main className="app-main">
@@ -135,5 +137,6 @@ export default function MapPageClient() {
         </div>
       </main>
     </div>
+    </AppAccess>
   );
 }

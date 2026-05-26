@@ -5,7 +5,11 @@ import type {
   PilotRole,
 } from "../../../packages/domain/src";
 import { pilotProfileGet, pilotProfilePut } from "../shared/dynamodb-client";
-import { getCognitoSubFromEvent } from "../shared/get-cognito-sub";
+import { requirePilotAccess } from "../shared/account-access";
+import {
+  getCognitoEmailFromEvent,
+  getCognitoSubFromEvent,
+} from "../shared/get-cognito-sub";
 import { httpMethod, json, safeParseBody } from "../shared/http";
 
 const LOG_PREFIX = "[PILOT-PROFILE]";
@@ -123,6 +127,9 @@ function parseProfileInput(
   return {
     id: userId,
     name,
+    email,
+    phone: parseOptionalString(body.phone),
+    alternatePhone: parseOptionalString(body.alternatePhone),
     role: normalizedRole,
     homeBase,
     currentLocation: parseLocation(body, userId, homeBase, now),
@@ -167,6 +174,11 @@ export const handler = async (event: any) => {
     return json(401, { message: "Authentication required." });
   }
 
+  const access = await requirePilotAccess(userId);
+  if (!access.ok) {
+    return json(403, { message: access.message });
+  }
+
   if (method === "GET") {
     try {
       const profile = await pilotProfileGet(userId);
@@ -180,10 +192,12 @@ export const handler = async (event: any) => {
     }
   }
 
+  const email = getCognitoEmailFromEvent(event);
+
   if (method === "PUT") {
-    const input = parseProfileInput(safeParseBody(event.body), userId);
+    const input = parseProfileInput(safeParseBody(event.body), userId, email);
     if (!input) {
-      return json(400, { message: "name and homeBase are required." });
+      return json(400, { message: "name, homeBase, and email are required." });
     }
 
     try {

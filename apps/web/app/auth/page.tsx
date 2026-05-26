@@ -9,14 +9,37 @@ import Logo from "../components/Logo";
 import ThemeToggle from "../components/ThemeToggle";
 import "../components/AuthPage.css";
 
+import { loadAccount } from "../utils/api-client";
+import { defaultHomePath } from "../utils/account-access";
+
 function RedirectAfterSignIn() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const nextPath = searchParams.get("next") || "/dashboard";
 
   useEffect(() => {
-    router.replace(nextPath.startsWith("/") ? nextPath : "/dashboard");
-  }, [nextPath, router]);
+    let active = true;
+
+    async function redirect() {
+      const requestedNext = searchParams.get("next");
+      if (requestedNext?.startsWith("/")) {
+        router.replace(requestedNext);
+        return;
+      }
+
+      try {
+        const account = await loadAccount();
+        if (!active) return;
+        router.replace(defaultHomePath(account?.accountType ?? null));
+      } catch {
+        if (active) router.replace("/onboarding");
+      }
+    }
+
+    redirect();
+    return () => {
+      active = false;
+    };
+  }, [router, searchParams]);
 
   return null;
 }

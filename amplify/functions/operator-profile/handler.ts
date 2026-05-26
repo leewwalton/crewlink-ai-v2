@@ -1,4 +1,5 @@
 import type { OperatorProfile } from "../../../packages/domain/src";
+import { requireOperatorAccess } from "../shared/account-access";
 import { operatorProfileGet, operatorProfilePut } from "../shared/dynamodb-client";
 import {
   getCognitoEmailFromEvent,
@@ -66,6 +67,11 @@ export const handler = async (event: any) => {
   const userId = getCognitoSubFromEvent(event);
   if (!userId) {
     return json(401, { message: "Authentication required." });
+  }
+
+  const access = await requireOperatorAccess(userId);
+  if (!access.ok) {
+    return json(403, { message: access.message });
   }
 
   const email = getCognitoEmailFromEvent(event);
