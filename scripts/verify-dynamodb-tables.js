@@ -81,7 +81,14 @@ function main() {
     }
   }
 
-  const allTables = awsJson("aws dynamodb list-tables --output json").TableNames ?? [];
+  const allTables = (() => {
+    try {
+      return awsJson("aws dynamodb list-tables --output json").TableNames ?? [];
+    } catch (error) {
+      console.warn("Skipping legacy table listing (dynamodb:ListTables not allowed).");
+      return [];
+    }
+  })();
   const legacyTables = allTables.filter(
     (name) =>
       (name.startsWith("CrewLinkPipelineStack-") || name.startsWith("CrewLinkStack-")) &&

@@ -25,7 +25,7 @@ applications:
               echo "Using REPO_ROOT=$REPO_ROOT"
               test -f cdk.json
             - npm ci --cache .npm --prefer-offline
-            - npm run cdk:deploy
+            - npm run cdk:deploy:amplify
             - echo "Auth user_pool_id=$(node -p "require('./amplify_outputs.json').auth.user_pool_id")"
 
     frontend:

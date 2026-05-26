@@ -180,7 +180,17 @@ async function copyTable(sourceName, targetName, dryRun) {
 
 async function main() {
   const dryRun = process.argv.includes("--dry-run");
-  const allTables = await listAllTables();
+  let allTables;
+  try {
+    allTables = await listAllTables();
+  } catch (error) {
+    if (error.name === "AccessDeniedException") {
+      console.warn("Skipping migration (dynamodb:ListTables not allowed).");
+      console.warn("Run `npm run cdk:migrate-tables` locally after one-time schema changes.");
+      return;
+    }
+    throw error;
+  }
   const stackTables = getStackTableNames();
   let totalCopied = 0;
 

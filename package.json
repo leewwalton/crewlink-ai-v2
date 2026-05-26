@@ -14,6 +14,7 @@
     "test": "npm run test -w @crewlink/domain",
     "cdk": "npx cdk",
     "cdk:deploy": "npx cdk deploy CrewLinkPipelineStack --require-approval never --outputs-file cdk-deploy-outputs.json && node scripts/migrate-dynamodb-tables.js && node scripts/verify-dynamodb-tables.js && node scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json",
+    "cdk:deploy:amplify": "npx cdk deploy CrewLinkPipelineStack --require-approval never --outputs-file cdk-deploy-outputs.json && node scripts/generate-outputs-from-cdk.js cdk-deploy-outputs.json",
     "cdk:migrate-tables": "node scripts/migrate-dynamodb-tables.js",
     "cdk:verify-tables": "node scripts/verify-dynamodb-tables.js",
     "cdk:synth": "npx cdk synth",

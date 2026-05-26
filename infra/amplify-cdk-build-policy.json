@@ -66,6 +66,28 @@
         "arn:aws:cloudformation:us-west-2:450545962167:stack/CrewLinkPipelineStack/*",
         "arn:aws:cloudformation:us-west-2:450545962167:stack/CDKToolkit/*"
       ]
+    },
+    {
+      "Sid": "CrewLinkLambdaRead",
+      "Effect": "Allow",
+      "Action": ["lambda:GetFunctionConfiguration"],
+      "Resource": "arn:aws:lambda:us-west-2:450545962167:function:CrewLinkPipelineStack-*"
+    },
+    {
+      "Sid": "CrewLinkDynamoDbList",
+      "Effect": "Allow",
+      "Action": ["dynamodb:ListTables"],
+      "Resource": "*"
+    },
+    {
+      "Sid": "CrewLinkDynamoDbMigrate",
+      "Effect": "Allow",
+      "Action": ["dynamodb:DescribeTable", "dynamodb:Scan", "dynamodb:BatchWriteItem"],
+      "Resource": [
+        "arn:aws:dynamodb:us-west-2:450545962167:table/crewlink-*",
+        "arn:aws:dynamodb:us-west-2:450545962167:table/CrewLinkPipelineStack-*",
+        "arn:aws:dynamodb:us-west-2:450545962167:table/CrewLinkStack-*"
+      ]
     }
   ]
 }
