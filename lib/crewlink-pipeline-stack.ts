@@ -9,6 +9,7 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambdaNode from "aws-cdk-lib/aws-lambda-nodejs";
+import { DYNAMODB_TABLE_NAMES } from "./dynamodb-table-names";
 
 const LAMBDA_BUNDLING = {
   forceDockerBundling: false,
@@ -150,17 +151,29 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     // DynamoDB tables
     // ==========================
     const tables = {
-      users: this.table("Users"),
-      pilotProfiles: this.table("PilotProfiles"),
-      operatorProfiles: this.table("OperatorProfiles"),
-      staffingRequests: this.staffingRequestsTable("StaffingRequests"),
-      matches: this.table("Matches"),
-      availability: this.table("Availability"),
-      locations: this.table("Locations"),
-      contactLeads: this.table("ContactLeads"),
-      conversations: this.table("Conversations"),
-      messages: this.messagesTable("Messages"),
-      userConversations: this.userConversationsTable("UserConversations"),
+      users: this.table("Users", DYNAMODB_TABLE_NAMES.users),
+      pilotProfiles: this.table("PilotProfiles", DYNAMODB_TABLE_NAMES.pilotProfiles),
+      operatorProfiles: this.table(
+        "OperatorProfiles",
+        DYNAMODB_TABLE_NAMES.operatorProfiles,
+      ),
+      staffingRequests: this.staffingRequestsTable(
+        "StaffingRequests",
+        DYNAMODB_TABLE_NAMES.staffingRequests,
+      ),
+      matches: this.table("Matches", DYNAMODB_TABLE_NAMES.matches),
+      availability: this.table("Availability", DYNAMODB_TABLE_NAMES.availability),
+      locations: this.table("Locations", DYNAMODB_TABLE_NAMES.locations),
+      contactLeads: this.table("ContactLeads", DYNAMODB_TABLE_NAMES.contactLeads),
+      conversations: this.table(
+        "Conversations",
+        DYNAMODB_TABLE_NAMES.conversations,
+      ),
+      messages: this.messagesTable("Messages", DYNAMODB_TABLE_NAMES.messages),
+      userConversations: this.userConversationsTable(
+        "UserConversations",
+        DYNAMODB_TABLE_NAMES.userConversations,
+      ),
     };
 
     const contactNotifyEmail =
@@ -458,18 +471,29 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     new cdk.CfnOutput(this, "CognitoDomain", { value: cognitoDomainName });
     new cdk.CfnOutput(this, "HttpApiUrl", { value: httpApi.apiEndpoint });
     new cdk.CfnOutput(this, "AwsRegion", { value: this.region });
+    new cdk.CfnOutput(this, "PilotProfilesTableName", {
+      value: tables.pilotProfiles.tableName,
+    });
+    new cdk.CfnOutput(this, "OperatorProfilesTableName", {
+      value: tables.operatorProfiles.tableName,
+    });
+    new cdk.CfnOutput(this, "StaffingRequestsTableName", {
+      value: tables.staffingRequests.tableName,
+    });
   }
 
-  private table(id: string) {
+  private table(id: string, tableName: string) {
     return new dynamodb.Table(this, id, {
+      tableName,
       partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
     });
   }
 
-  private staffingRequestsTable(id: string) {
+  private staffingRequestsTable(id: string, tableName: string) {
     const table = new dynamodb.Table(this, id, {
+      tableName,
       partitionKey: { name: "id", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
@@ -482,8 +506,9 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     return table;
   }
 
-  private messagesTable(id: string) {
+  private messagesTable(id: string, tableName: string) {
     return new dynamodb.Table(this, id, {
+      tableName,
       partitionKey: {
         name: "conversationId",
         type: dynamodb.AttributeType.STRING,
@@ -494,8 +519,9 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     });
   }
 
-  private userConversationsTable(id: string) {
+  private userConversationsTable(id: string, tableName: string) {
     return new dynamodb.Table(this, id, {
+      tableName,
       partitionKey: { name: "userId", type: dynamodb.AttributeType.STRING },
       sortKey: { name: "sk", type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,

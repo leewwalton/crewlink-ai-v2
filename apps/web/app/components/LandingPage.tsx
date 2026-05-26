@@ -5,7 +5,10 @@ import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { createContact, subscribeNewsletter } from "../utils/api-client";
-import { CREWLINK_AI_LEGAL_NAME, AVIATION_AI_SOLUTIONS_URL } from "../utils/legal";
+import {
+  CREWLINK_AI_LEGAL_NAME,
+  AVIATION_AI_SOLUTIONS_URL,
+} from "../utils/legal";
 import "./LandingPage.css";
 
 type Persona = "operator" | "pilot";
@@ -41,7 +44,7 @@ const personaContent: Record<Persona, PersonaContent> = {
     label: "Operator",
     pills: ["Flight departments", "Charter operators", "Live staffing"],
     eyebrow: "Operator workflow · live staffing",
-    headline: "Find qualified flight crew before the trip goes sideways.",
+    headline: "Find qualified flight crews before the trip goes sideways.",
     subhead:
       "CrewLinkAI helps flight departments discover pilots by aircraft type, availability, verification status, and proximity, then explains why each match is operationally ready.",
     primaryCta: "Open operator cockpit",
@@ -70,12 +73,25 @@ const personaContent: Record<Persona, PersonaContent> = {
       },
     ],
     featuresTitle: "Built for aircraft operators.",
-    featuresIntro: "Focus on readiness signals that matter when staffing changes fast.",
+    featuresIntro:
+      "Focus on readiness signals that matter when staffing changes fast.",
     capabilities: [
-      ["Pilot discovery", "Search qualified pilots by aircraft, rating, medical, documents, and region."],
-      ["Live network map", "See proximity to the departure airport, standby clusters, and open trip demand."],
-      ["Explainable matching", "Rank candidates with availability, qualification, distance, and experience signals."],
-      ["Instant Pilot Mode", "Launch urgent staffing requests and shortlist crews from one cockpit."],
+      [
+        "Pilot discovery",
+        "Search qualified pilots by aircraft, rating, medical, documents, and region.",
+      ],
+      [
+        "Live network map",
+        "See proximity to the departure airport, standby clusters, and open trip demand.",
+      ],
+      [
+        "Explainable matching",
+        "Rank candidates with availability, qualification, distance, and experience signals.",
+      ],
+      [
+        "Instant Pilot Mode",
+        "Launch urgent staffing requests and shortlist crews from one cockpit.",
+      ],
     ],
     networkCenter: "KTEB",
     networkPins: ["G650 PIC", "CL350 SIC", "PC-24 PIC"],
@@ -119,12 +135,25 @@ const personaContent: Record<Persona, PersonaContent> = {
       },
     ],
     featuresTitle: "Built for contract pilots.",
-    featuresIntro: "Make your readiness visible without giving up control of how you work.",
+    featuresIntro:
+      "Make your readiness visible without giving up control of how you work.",
     capabilities: [
-      ["Live profile", "Keep ratings, medical status, documents, and home base current in one place."],
-      ["Scored trip feed", "Review open requests ranked by aircraft fit, availability overlap, and proximity."],
-      ["Direct messaging", "Chat with operators about trip details without leaving the platform."],
-      ["Network visibility", "See where demand is clustering and when your standby window puts you closest."],
+      [
+        "Live profile",
+        "Keep ratings, medical status, documents, and home base current in one place.",
+      ],
+      [
+        "Scored trip feed",
+        "Review open requests ranked by aircraft fit, availability overlap, and proximity.",
+      ],
+      [
+        "Direct messaging",
+        "Chat with operators about trip details without leaving the platform.",
+      ],
+      [
+        "Network visibility",
+        "See where demand is clustering and when your standby window puts you closest.",
+      ],
     ],
     networkCenter: "YOU",
     networkPins: ["G650 PIC · 94%", "TEB rotation", "Reply pending"],
@@ -167,7 +196,13 @@ export default function LandingPage() {
               <a href="#newsletter">Newsletter</a>
               <a href="#contact">Demo</a>
               <ThemeToggle />
-              <button className="btn primary" type="button" disabled aria-disabled="true">
+              <button
+                className="btn primary"
+                type="button"
+                disabled
+                aria-disabled="true"
+                title="Sign in is temporarily unavailable"
+              >
                 Sign in
               </button>
             </div>
@@ -178,7 +213,11 @@ export default function LandingPage() {
       <main className="hero">
         <div className="container hero-grid">
           <section className="card hero-copy">
-            <div className="persona-toggle" role="tablist" aria-label="Choose workflow perspective">
+            <div
+              className="persona-toggle"
+              role="tablist"
+              aria-label="Choose workflow perspective"
+            >
               {(Object.keys(personaContent) as Persona[]).map((key) => (
                 <button
                   key={key}
@@ -217,8 +256,13 @@ export default function LandingPage() {
             <p className="fineprint">{content.fineprint}</p>
           </section>
 
-          <section className="card network-card" aria-label="Live network preview">
-            <div className={`radar${persona === "pilot" ? " radar-pilot" : ""}`}>
+          <section
+            className="card network-card"
+            aria-label="Live network preview"
+          >
+            <div
+              className={`radar${persona === "pilot" ? " radar-pilot" : ""}`}
+            >
               <span className="ring ring-one" />
               <span className="ring ring-two" />
               <span className="airport">{content.networkCenter}</span>
@@ -241,7 +285,11 @@ export default function LandingPage() {
       <section className="section" id="workflow">
         <div className="container">
           <div className="section-title">
-            <div className="persona-toggle persona-toggle-inline" role="tablist" aria-label="Choose workflow perspective">
+            <div
+              className="persona-toggle persona-toggle-inline"
+              role="tablist"
+              aria-label="Choose workflow perspective"
+            >
               {(Object.keys(personaContent) as Persona[]).map((key) => (
                 <button
                   key={key}
@@ -295,8 +343,8 @@ export default function LandingPage() {
               <span className="tag">Stay in the loop</span>
               <h2>Join our newsletter</h2>
               <p>
-                Get product updates, staffing workflow tips, and aviation
-                hiring insights from the CrewLinkAI team. No spam — unsubscribe
+                Get product updates, staffing workflow tips, and aviation hiring
+                insights from the CrewLinkAI team. No spam — unsubscribe
                 anytime.
               </p>
             </div>
@@ -371,8 +419,8 @@ export default function LandingPage() {
           <div className="section-title">
             <h2>Request a CrewLinkAI demo.</h2>
             <p>
-              Tell us about your fleet, staffing workflow, and the pilot coverage
-              gaps you want CrewLinkAI to solve.
+              Tell us about your fleet, staffing workflow, and the pilot
+              coverage gaps you want CrewLinkAI to solve.
             </p>
           </div>
           <form
@@ -397,24 +445,32 @@ export default function LandingPage() {
               required
               placeholder="Name"
               value={form.name}
-              onChange={(event) => setForm({ ...form, name: event.target.value })}
+              onChange={(event) =>
+                setForm({ ...form, name: event.target.value })
+              }
             />
             <input
               required
               type="email"
               placeholder="Email"
               value={form.email}
-              onChange={(event) => setForm({ ...form, email: event.target.value })}
+              onChange={(event) =>
+                setForm({ ...form, email: event.target.value })
+              }
             />
             <input
               placeholder="Operator / flight department"
               value={form.organization}
-              onChange={(event) => setForm({ ...form, organization: event.target.value })}
+              onChange={(event) =>
+                setForm({ ...form, organization: event.target.value })
+              }
             />
             <textarea
               placeholder="Fleet types, hiring volume, urgent coverage needs..."
               value={form.message}
-              onChange={(event) => setForm({ ...form, message: event.target.value })}
+              onChange={(event) =>
+                setForm({ ...form, message: event.target.value })
+              }
             />
             <button className="btn primary" type="submit">
               Send
@@ -436,8 +492,7 @@ export default function LandingPage() {
           <p className="fineprint">
             © {new Date().getFullYear()} {CREWLINK_AI_LEGAL_NAME}. All rights
             reserved.
-            <br />
-            A product of{" "}
+            <br />A product of{" "}
             <a className="parent-link" href={AVIATION_AI_SOLUTIONS_URL}>
               Aviation AI Solutions
             </a>{" "}

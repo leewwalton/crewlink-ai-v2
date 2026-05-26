@@ -71,6 +71,21 @@
   transform: translateY(-1px);
 }
 
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn.primary:disabled,
+.btn.primary[aria-disabled="true"] {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--muted);
+}
+
 .btn.primary {
   border-color: rgba(30, 165, 240, 0.58);
   background: linear-gradient(135deg, #0d6efd, var(--brand-cyan));
