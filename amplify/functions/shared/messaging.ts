@@ -1,6 +1,9 @@
 import {
   buildConversationId,
+  isConversationUnread,
+  totalUnreadCount,
   type Conversation,
+  type ConversationInboxItem,
   type CreateConversationInput,
   type Message,
   type SendMessageInput,
@@ -12,9 +15,11 @@ import {
   messagesQuery,
   operatorProfileGet,
   pilotProfileGet,
+  userConversationGet,
   userConversationPut,
   userConversationsQuery,
 } from "./dynamodb-client";
+import { notifyMessageRecipients } from "./message-notifications";
 
 export type UserProfile = {
   id: string;
@@ -72,18 +77,109 @@ export async function resolveParticipantProfile(
   };
 }
 
-export async function listConversationsForUser(userId: string): Promise<Conversation[]> {
+export async function listConversationsForUser(userId: string): Promise<ConversationInboxItem[]> {
   const indexItems = await userConversationsQuery(userId);
-  const conversations: Conversation[] = [];
+  const conversations: ConversationInboxItem[] = [];
 
   for (const item of indexItems) {
     const row = await conversationGet(String(item.conversationId));
-    if (row) conversations.push(row as Conversation);
+    if (!row) continue;
+
+    const conversation = row as Conversation;
+    if (!conversation.lastMessageSenderId && item.lastMessageSenderId) {
+      conversation.lastMessageSenderId = String(item.lastMessageSenderId);
+    }
+
+    const enriched = await enrichConversationSender(conversation);
+    conversations.push(buildInboxItem(enriched, item, userId));
   }
 
   return conversations.sort(
     (a, b) => new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime(),
   );
+}
+
+async function enrichConversationSender(conversation: Conversation): Promise<Conversation> {
+  if (conversation.lastMessageSenderId) return conversation;
+  const messages = await listMessages(conversation.id);
+  const lastMessage = messages.at(-1);
+  if (!lastMessage) return conversation;
+  return { ...conversation, lastMessageSenderId: lastMessage.senderId };
+}
+
+export async function markConversationRead(
+  userId: string,
+  conversationId: string,
+  readAt?: string,
+): Promise<ConversationInboxItem | null> {
+  const conversationRow = await conversationGet(conversationId);
+  if (!conversationRow) return null;
+
+  const conversation = conversationRow as Conversation;
+  if (!conversation.participantIds.includes(userId)) return null;
+
+  const indexItem = await userConversationGet(userId, conversationId);
+  if (!indexItem) return null;
+
+  const readTimestamp = readAt ?? new Date().toISOString();
+  const other = conversation.participants.find((participant) => participant.id !== userId);
+
+  await userConversationPut({
+    ...indexItem,
+    userId,
+    sk: conversationId,
+    conversationId,
+    title: conversation.title,
+    preview: conversation.lastMessagePreview,
+    otherParticipantId: other?.id ?? "",
+    otherParticipantName: other?.name ?? "Participant",
+    lastMessageSenderId: conversation.lastMessageSenderId,
+    lastReadAt: readTimestamp,
+    unreadCount: 0,
+  });
+
+  return buildInboxItem(conversation, {
+    ...indexItem,
+    lastReadAt: readTimestamp,
+    unreadCount: 0,
+  }, userId);
+}
+
+function buildInboxItem(
+  conversation: Conversation,
+  indexItem: Record<string, unknown>,
+  userId: string,
+): ConversationInboxItem {
+  const lastReadAt =
+    indexItem.lastReadAt != null ? String(indexItem.lastReadAt) : undefined;
+  let unreadCount = Number(indexItem.unreadCount ?? 0);
+
+  if (
+    unreadCount === 0 &&
+    isConversationUnread(conversation, userId, lastReadAt)
+  ) {
+    unreadCount = 1;
+  }
+
+  return {
+    ...conversation,
+    lastReadAt,
+    unreadCount,
+    isUnread: unreadCount > 0,
+  };
+}
+
+async function inboxItemForUser(
+  userId: string,
+  conversation: Conversation,
+): Promise<ConversationInboxItem> {
+  const indexItem = await userConversationGet(userId, conversation.id);
+  const enriched = await enrichConversationSender(conversation);
+  return buildInboxItem(enriched, indexItem ?? {}, userId);
+}
+
+export function inboxUnreadCount(conversations: ConversationInboxItem[]): number {
+  return totalUnreadCount(conversations);
 }
 
 export async function listMessages(conversationId: string): Promise<Message[]> {
@@ -96,7 +192,9 @@ async function upsertUserConversation(
   conversation: Conversation,
   otherParticipantId: string,
   otherParticipantName: string,
+  readState?: { lastReadAt?: string; unreadCount?: number },
 ) {
+  const existing = await userConversationGet(userId, conversation.id);
   await userConversationPut({
     userId,
     sk: conversation.id,
@@ -105,6 +203,11 @@ async function upsertUserConversation(
     preview: conversation.lastMessagePreview,
     otherParticipantId,
     otherParticipantName,
+    lastMessageSenderId: conversation.lastMessageSenderId,
+    lastReadAt: readState?.lastReadAt ?? existing?.lastReadAt,
+    unreadCount:
+      readState?.unreadCount ??
+      (existing?.unreadCount != null ? Number(existing.unreadCount) : 0),
   });
 }
 
@@ -119,25 +222,45 @@ export async function saveMessage(
     ...conversation,
     lastMessageAt: message.createdAt,
     lastMessagePreview: message.body.slice(0, 160),
+    lastMessageSenderId: message.senderId,
   };
 
   await conversationPut(updatedConversation);
 
   for (const participant of conversation.participants) {
     const other = conversation.participants.find((entry) => entry.id !== participant.id);
+    const existing = await userConversationGet(participant.id, conversation.id);
+    const isSender = participant.id === senderId;
+    const unreadCount = isSender
+      ? 0
+      : Number(existing?.unreadCount ?? 0) + 1;
+
     await upsertUserConversation(
       participant.id,
       updatedConversation,
       other?.id ?? senderId,
       other?.name ?? "Participant",
+      isSender
+        ? { lastReadAt: message.createdAt, unreadCount: 0 }
+        : { unreadCount },
     );
+  }
+
+  try {
+    await notifyMessageRecipients(updatedConversation, message);
+  } catch (err: unknown) {
+    console.error("[MESSAGING] Message notification failed", {
+      conversationId: conversation.id,
+      messageId: message.id,
+      error: err instanceof Error ? err.message : String(err),
+    });
   }
 }
 
 export async function createConversation(
   currentUser: UserProfile,
   input: CreateConversationInput,
-): Promise<{ conversation: Conversation; messages: Message[]; created: boolean }> {
+): Promise<{ conversation: ConversationInboxItem; messages: Message[]; created: boolean }> {
   const conversationId = buildConversationId(
     currentUser.id,
     input.recipientId,
@@ -164,14 +287,16 @@ export async function createConversation(
       };
       await saveMessage(conversation, message, currentUser.id);
     }
+    const refreshed = (await conversationGet(conversationId)) as Conversation;
     return {
-      conversation,
+      conversation: await inboxItemForUser(currentUser.id, refreshed ?? conversation),
       messages: await listMessages(conversationId),
       created: false,
     };
   }
 
   const now = new Date().toISOString();
+  const initialMessage = input.initialMessage?.trim();
   const conversation: Conversation = {
     id: conversationId,
     participantIds: [currentUser.id, recipient.id].sort(),
@@ -180,13 +305,19 @@ export async function createConversation(
     contextType: input.contextType,
     contextId: input.contextId,
     lastMessageAt: now,
-    lastMessagePreview: input.initialMessage?.trim() || "Conversation started.",
+    lastMessagePreview: initialMessage || "Conversation started.",
+    lastMessageSenderId: initialMessage ? currentUser.id : undefined,
     createdAt: now,
   };
 
   await conversationPut(conversation);
-  await upsertUserConversation(currentUser.id, conversation, recipient.id, recipient.name);
-  await upsertUserConversation(recipient.id, conversation, currentUser.id, currentUser.name);
+  await upsertUserConversation(currentUser.id, conversation, recipient.id, recipient.name, {
+    lastReadAt: initialMessage ? now : undefined,
+    unreadCount: 0,
+  });
+  await upsertUserConversation(recipient.id, conversation, currentUser.id, currentUser.name, {
+    unreadCount: initialMessage ? 1 : 0,
+  });
 
   if (input.initialMessage?.trim()) {
     const message: Message = {
@@ -200,8 +331,9 @@ export async function createConversation(
     await saveMessage(conversation, message, currentUser.id);
   }
 
+  const refreshed = (await conversationGet(conversationId)) as Conversation;
   return {
-    conversation,
+    conversation: await inboxItemForUser(currentUser.id, refreshed ?? conversation),
     messages: await listMessages(conversationId),
     created: true,
   };

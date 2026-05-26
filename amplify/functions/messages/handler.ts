@@ -6,6 +6,7 @@ import { conversationGet } from "../shared/dynamodb-client";
 import { httpMethod, json, safeParseBody } from "../shared/http";
 import {
   listMessages,
+  markConversationRead,
   parseSendMessageInput,
   resolveUserProfile,
   sendMessage,
@@ -45,7 +46,9 @@ export const handler = async (event: any) => {
       }
 
       const messages = await listMessages(conversationId);
-      return json(200, { conversation, messages, currentUser });
+      const inboxConversation =
+        (await markConversationRead(currentUser.id, conversationId)) ?? conversation;
+      return json(200, { conversation: inboxConversation, messages, currentUser });
     } catch (err: any) {
       console.error(`${LOG_PREFIX} GET failed`, { error: err?.message });
       return json(500, { message: "Internal server error" });

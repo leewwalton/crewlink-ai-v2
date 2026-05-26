@@ -5,6 +5,7 @@ import {
 import { httpMethod, json, safeParseBody } from "../shared/http";
 import {
   createConversation,
+  inboxUnreadCount,
   listConversationsForUser,
   parseCreateConversationInput,
   resolveUserProfile,
@@ -32,7 +33,8 @@ export const handler = async (event: any) => {
   if (method === "GET") {
     try {
       const conversations = await listConversationsForUser(currentUser.id);
-      return json(200, { conversations, currentUser });
+      const unreadCount = inboxUnreadCount(conversations);
+      return json(200, { conversations, currentUser, unreadCount });
     } catch (err: any) {
       console.error(`${LOG_PREFIX} GET failed`, { error: err?.message });
       return json(500, { message: "Internal server error" });

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import type { Conversation, Message } from "@crewlink/domain";
+import { isMessageUnread, type ConversationInboxItem, type Message } from "@crewlink/domain";
 import AppNav from "../components/AppNav";
 import AppAccess from "../components/AppAccess";
 import {
@@ -13,6 +13,7 @@ import {
   sendMessage,
   type MessagingUser,
 } from "../utils/messaging-client";
+import { useUnreadMessageCount } from "../hooks/useUnreadMessageCount";
 import "../components/Messages.css";
 
 function formatTime(value: string) {
@@ -27,8 +28,9 @@ function formatTime(value: string) {
 export default function MessagesClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { refreshUnreadCount } = useUnreadMessageCount(true);
   const [currentUser, setCurrentUser] = useState<MessagingUser | null>(null);
-  const [conversations, setConversations] = useState<Conversation[]>([]);
+  const [conversations, setConversations] = useState<ConversationInboxItem[]>([]);
   const [activeConversationId, setActiveConversationId] = useState<string | null>(
     searchParams.get("conversationId"),
   );
@@ -46,8 +48,9 @@ export default function MessagesClient() {
     const result = await listConversations();
     setCurrentUser(result.currentUser);
     setConversations(result.conversations);
+    await refreshUnreadCount();
     return result;
-  }, []);
+  }, [refreshUnreadCount]);
 
   const refreshThread = useCallback(async (conversationId: string) => {
     const thread = await getConversationThread(conversationId);
@@ -60,8 +63,9 @@ export default function MessagesClient() {
           new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime(),
       );
     });
+    await refreshUnreadCount();
     return thread;
-  }, []);
+  }, [refreshUnreadCount]);
 
   useEffect(() => {
     let cancelled = false;
@@ -167,13 +171,22 @@ export default function MessagesClient() {
                         type="button"
                         className={`conversation-item${
                           conversation.id === activeConversationId ? " active" : ""
-                        }`}
+                        }${conversation.isUnread ? " unread" : ""}`}
                         onClick={() => {
                           setActiveConversationId(conversation.id);
                           router.replace(`/messages?conversationId=${conversation.id}`);
                         }}
                       >
-                        <strong>{other?.name ?? conversation.title}</strong>
+                        <div className="conversation-item-header">
+                          <strong>{other?.name ?? conversation.title}</strong>
+                          {conversation.isUnread && (
+                            <span className="conversation-unread-badge">
+                              {conversation.unreadCount > 99
+                                ? "99+"
+                                : conversation.unreadCount}
+                            </span>
+                          )}
+                        </div>
                         <span>{conversation.lastMessagePreview}</span>
                         <time dateTime={conversation.lastMessageAt}>
                           {formatTime(conversation.lastMessageAt)}
@@ -199,22 +212,30 @@ export default function MessagesClient() {
                     </div>
 
                     <div className="message-list">
-                      {messages.map((message) => (
-                        <article
-                          key={message.id}
-                          className={`message-bubble${
-                            message.senderId === currentUser?.id ? " own" : ""
-                          }`}
-                        >
-                          <header>
-                            <strong>{message.senderName}</strong>
-                            <time dateTime={message.createdAt}>
-                              {formatTime(message.createdAt)}
-                            </time>
-                          </header>
-                          <p>{message.body}</p>
-                        </article>
-                      ))}
+                      {messages.map((message) => {
+                        const unread = isMessageUnread(
+                          message,
+                          currentUser?.id ?? "",
+                          activeConversation.lastReadAt,
+                        );
+                        return (
+                          <article
+                            key={message.id}
+                            className={`message-bubble${
+                              message.senderId === currentUser?.id ? " own" : ""
+                            }${unread ? " unread" : " read"}`}
+                          >
+                            <header>
+                              <strong>{message.senderName}</strong>
+                              {unread && <span className="message-status">Unread</span>}
+                              <time dateTime={message.createdAt}>
+                                {formatTime(message.createdAt)}
+                              </time>
+                            </header>
+                            <p>{message.body}</p>
+                          </article>
+                        );
+                      })}
                       {messages.length === 0 && (
                         <p className="messages-empty">No messages yet. Say hello below.</p>
                       )}

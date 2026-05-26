@@ -192,6 +192,8 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       process.env.CONTACT_TO_EMAIL ??
       "";
     const contactSesSourceArn = process.env.CONTACT_SES_SOURCE_ARN ?? "";
+    const messageWebBaseUrl =
+      process.env.MESSAGE_WEB_BASE_URL ?? "https://crewlink-ai.com";
     const bedrockModelId =
       process.env.BEDROCK_MODEL_ID ||
       "anthropic.claude-3-5-sonnet-20241022-v2:0";
@@ -202,6 +204,9 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       USER_CONVERSATIONS_TABLE_NAME: tables.userConversations.tableName,
       OPERATOR_PROFILES_TABLE_NAME: tables.operatorProfiles.tableName,
       PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
+      MESSAGE_FROM_EMAIL: contactFromEmail,
+      MESSAGE_SES_SOURCE_ARN: contactSesSourceArn,
+      MESSAGE_WEB_BASE_URL: messageWebBaseUrl,
     };
 
     const accountEnvironment = {
@@ -390,6 +395,21 @@ export class CrewLinkPipelineStack extends cdk.Stack {
         resources: ["*"],
       }),
     );
+
+    for (const fn of [conversationsFn, messagesFn]) {
+      fn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["ses:SendEmail", "ses:SendRawEmail"],
+          resources: ["*"],
+        }),
+      );
+      fn.addToRolePolicy(
+        new iam.PolicyStatement({
+          actions: ["sns:Publish"],
+          resources: ["*"],
+        }),
+      );
+    }
 
     matchesGetFn.addToRolePolicy(
       new iam.PolicyStatement({

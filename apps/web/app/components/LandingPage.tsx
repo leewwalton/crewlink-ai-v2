@@ -3,9 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Logo from "./Logo";
-import SignOutButton from "./SignOutButton";
 import ThemeToggle from "./ThemeToggle";
-import { useOptionalAccount } from "../contexts/AccountContext";
 import { createContact, subscribeNewsletter } from "../utils/api-client";
 import {
   CREWLINK_AI_LEGAL_NAME,
@@ -169,7 +167,6 @@ const personaContent: Record<Persona, PersonaContent> = {
 
 export default function LandingPage() {
   const router = useRouter();
-  const account = useOptionalAccount();
   const [persona, setPersona] = useState<Persona>("operator");
   const content = personaContent[persona];
   const [form, setForm] = useState({
@@ -193,25 +190,31 @@ export default function LandingPage() {
           <nav aria-label="Primary navigation">
             <Logo />
             <div className="menu">
-              <a href={AVIATION_AI_SOLUTIONS_URL}>Aviation AI Solutions</a>
-              <a href="#workflow">Workflow</a>
-              <a href="#features">Features</a>
-              <a href="#newsletter">Newsletter</a>
-              <a href="#contact">Demo</a>
+              <a className="nav-pill" href={AVIATION_AI_SOLUTIONS_URL}>
+                Aviation AI Solutions
+              </a>
+              <a className="nav-pill" href="#workflow">
+                Workflow
+              </a>
+              <a className="nav-pill" href="#features">
+                Features
+              </a>
+              <a className="nav-pill" href="#newsletter">
+                Newsletter
+              </a>
+              <a className="nav-pill" href="#contact">
+                Demo
+              </a>
               <ThemeToggle />
-              {!account?.loading && account?.authenticated ? (
-                <SignOutButton className="btn" />
-              ) : (
-                <button
-                  className="btn primary"
-                  type="button"
-                  disabled
-                  aria-disabled="true"
-                  title="Sign in is temporarily unavailable"
-                >
-                  Sign in
-                </button>
-              )}
+              <button
+                className="nav-pill nav-pill-primary"
+                type="button"
+                disabled
+                aria-disabled="true"
+                title="Sign in is temporarily unavailable"
+              >
+                Sign in
+              </button>
             </div>
           </nav>
         </div>

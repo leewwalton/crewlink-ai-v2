@@ -173,6 +173,19 @@ export async function userConversationPut(item: Record<string, unknown>): Promis
   );
 }
 
+export async function userConversationGet(
+  userId: string,
+  conversationId: string,
+): Promise<Record<string, unknown> | null> {
+  const res = await doc.send(
+    new GetCommand({
+      TableName: table("USER_CONVERSATIONS_TABLE_NAME"),
+      Key: { userId, sk: conversationId },
+    }),
+  );
+  return (res.Item as Record<string, unknown> | undefined) ?? null;
+}
+
 export async function userConversationsQuery(userId: string): Promise<Record<string, unknown>[]> {
   const res = await doc.send(
     new QueryCommand({

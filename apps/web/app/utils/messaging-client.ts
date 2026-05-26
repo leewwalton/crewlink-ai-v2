@@ -1,13 +1,15 @@
 import { fetchAuthSession } from "aws-amplify/auth";
 import type {
-  Conversation,
+  ConversationInboxItem,
   ConversationParticipant,
   CreateConversationInput,
   Message,
 } from "@crewlink/domain";
+import { isConversationUnread, totalUnreadCount } from "@crewlink/domain";
 import { getApiBaseUrl } from "./api-client";
 
 export type MessagingUser = ConversationParticipant;
+export type InboxConversation = ConversationInboxItem;
 
 async function authHeaders(): Promise<Record<string, string>> {
   const session = await fetchAuthSession();
@@ -42,14 +44,32 @@ async function apiRequest<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export async function listConversations() {
-  return apiRequest<{ conversations: Conversation[]; currentUser: MessagingUser }>(
-    "conversations",
-  );
+  return apiRequest<{
+    conversations: ConversationInboxItem[];
+    currentUser: MessagingUser;
+    unreadCount?: number;
+  }>("conversations");
+}
+
+export async function resolveUnreadCount(
+  conversations: ConversationInboxItem[],
+  userId: string,
+): Promise<number> {
+  if (conversations.every((conversation) => conversation.unreadCount != null)) {
+    return totalUnreadCount(conversations);
+  }
+
+  return conversations.reduce((sum, conversation) => {
+    const unreadCount =
+      conversation.unreadCount ??
+      (isConversationUnread(conversation, userId, conversation.lastReadAt) ? 1 : 0);
+    return sum + unreadCount;
+  }, 0);
 }
 
 export async function getConversationThread(conversationId: string) {
   return apiRequest<{
-    conversation: Conversation;
+    conversation: ConversationInboxItem;
     messages: Message[];
     currentUser: MessagingUser;
   }>(`messages?conversationId=${encodeURIComponent(conversationId)}`);
@@ -57,7 +77,7 @@ export async function getConversationThread(conversationId: string) {
 
 export async function createConversation(input: CreateConversationInput) {
   return apiRequest<{
-    conversation: Conversation;
+    conversation: ConversationInboxItem;
     messages: Message[];
     created: boolean;
     currentUser?: MessagingUser;

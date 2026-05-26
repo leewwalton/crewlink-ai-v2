@@ -4,6 +4,7 @@ import Logo from "./Logo";
 import SignOutButton from "./SignOutButton";
 import ThemeToggle from "./ThemeToggle";
 import { useAccount } from "../contexts/AccountContext";
+import { useUnreadMessageCount } from "../hooks/useUnreadMessageCount";
 import { setActivePersona, type ActivePersona } from "../utils/account-access";
 
 const sharedLinks = [
@@ -24,6 +25,7 @@ const pilotLinks = [["Pilot profile", "/pilot/profile"]] as const;
 export default function AppNav() {
   const { loading, authenticated, accountType, canOperator, canPilot, isAdmin, activePersona, setPersona, label } =
     useAccount();
+  const { unreadCount } = useUnreadMessageCount(!loading && authenticated);
 
   const showOperatorNav = isAdmin || canOperator;
   const showPilotNav = isAdmin || canPilot;
@@ -41,21 +43,21 @@ export default function AppNav() {
           <Logo />
           <div className="menu">
             {!loading && accountType && (
-              <span className="pill" title="Account type">
+              <span className="pill nav-pill nav-pill-static" title="Account type">
                 {label}
               </span>
             )}
             {showPersonaToggle && (
               <>
                 <button
-                  className={`btn small${activePersona === "operator" ? " primary" : ""}`}
+                  className={`nav-pill${activePersona === "operator" ? " is-active" : ""}`}
                   type="button"
                   onClick={() => switchPersona("operator")}
                 >
                   Operator view
                 </button>
                 <button
-                  className={`btn small${activePersona === "pilot" ? " primary" : ""}`}
+                  className={`nav-pill${activePersona === "pilot" ? " is-active" : ""}`}
                   type="button"
                   onClick={() => switchPersona("pilot")}
                 >
@@ -63,25 +65,49 @@ export default function AppNav() {
                 </button>
               </>
             )}
-            {sharedLinks.map(([labelText, href]) => (
-              <a href={href} key={href}>
-                {labelText}
-              </a>
-            ))}
+            {sharedLinks.map(([labelText, href]) => {
+              if (href === "/messages") {
+                const badgeLabel = unreadCount > 99 ? "99+" : String(unreadCount);
+                const hasUnread = unreadCount > 0;
+                return (
+                  <a
+                    href={href}
+                    key={href}
+                    className={`nav-pill nav-messages-pill${hasUnread ? " has-unread" : ""}`}
+                    aria-label={
+                      hasUnread ? `Messages, ${unreadCount} unread` : "Messages"
+                    }
+                  >
+                    {labelText}
+                    {hasUnread && (
+                      <span className="nav-message-count" aria-hidden="true">
+                        {badgeLabel}
+                      </span>
+                    )}
+                  </a>
+                );
+              }
+
+              return (
+                <a href={href} key={href} className="nav-pill">
+                  {labelText}
+                </a>
+              );
+            })}
             {showOperatorNav &&
               operatorLinks.map(([labelText, href]) => (
-                <a href={href} key={href} className="nav-link-operator">
+                <a href={href} key={href} className="nav-pill nav-link-operator">
                   {labelText}
                 </a>
               ))}
             {showPilotNav &&
               pilotLinks.map(([labelText, href]) => (
-                <a href={href} key={href} className="nav-link-pilot">
+                <a href={href} key={href} className="nav-pill nav-link-pilot">
                   {labelText}
                 </a>
               ))}
             <ThemeToggle />
-            {!loading && authenticated && <SignOutButton />}
+            {!loading && authenticated && <SignOutButton className="nav-pill" />}
           </div>
         </nav>
       </div>
