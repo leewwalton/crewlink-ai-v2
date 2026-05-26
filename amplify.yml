@@ -7,7 +7,7 @@ applications:
         preBuild:
           commands:
             - |
-              set -euo pipefail
+              set -eo pipefail
               if [ -f "$CODEBUILD_SRC_DIR/crewlink-ai-v2/cdk.json" ]; then
                 export REPO_ROOT="$CODEBUILD_SRC_DIR/crewlink-ai-v2"
               elif [ -f "$CODEBUILD_SRC_DIR/cdk.json" ]; then
@@ -29,7 +29,7 @@ applications:
         build:
           commands:
             - |
-              set -euo pipefail
+              set -eo pipefail
               if [ -f "$CODEBUILD_SRC_DIR/crewlink-ai-v2/cdk.json" ]; then
                 export REPO_ROOT="$CODEBUILD_SRC_DIR/crewlink-ai-v2"
               elif [ -f "$CODEBUILD_SRC_DIR/cdk.json" ]; then
