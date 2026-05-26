@@ -1,92 +1,57 @@
 version: 1
 applications:
   - appRoot: apps/web
-    backend:
-      phases:
-        build:
-          commands:
-            - |
-              set -e
-              if [ -f "$CODEBUILD_SRC_DIR/cdk.json" ]; then
-                export REPO_ROOT="$CODEBUILD_SRC_DIR"
-              elif [ -f "$CODEBUILD_SRC_DIR/crewlink-ai-v2/cdk.json" ]; then
-                export REPO_ROOT="$CODEBUILD_SRC_DIR/crewlink-ai-v2"
-              elif [ -f "cdk.json" ]; then
-                export REPO_ROOT="$PWD"
-              elif [ -f "../cdk.json" ]; then
-                export REPO_ROOT="$(cd .. && pwd)"
-              elif [ -f "../../cdk.json" ]; then
-                export REPO_ROOT="$(cd ../.. && pwd)"
-              else
-                echo "ERROR: could not locate cdk.json from PWD=$PWD CODEBUILD_SRC_DIR=$CODEBUILD_SRC_DIR"
-                exit 1
-              fi
-              cd "$REPO_ROOT"
-              echo "Using REPO_ROOT=$REPO_ROOT"
-              test -f cdk.json
-            - npm ci --cache .npm --prefer-offline
-            - npm run cdk:deploy:amplify
-            - echo "Auth user_pool_id=$(node -p "require('./amplify_outputs.json').auth.user_pool_id")"
-
     frontend:
-      buildPath: apps/web
+      buildPath: /
       phases:
         preBuild:
           commands:
             - |
-              set -e
-              if [ -f "$CODEBUILD_SRC_DIR/cdk.json" ]; then
-                export REPO_ROOT="$CODEBUILD_SRC_DIR"
-              elif [ -f "$CODEBUILD_SRC_DIR/crewlink-ai-v2/cdk.json" ]; then
+              set -euo pipefail
+              if [ -f "$CODEBUILD_SRC_DIR/crewlink-ai-v2/cdk.json" ]; then
                 export REPO_ROOT="$CODEBUILD_SRC_DIR/crewlink-ai-v2"
+              elif [ -f "$CODEBUILD_SRC_DIR/cdk.json" ]; then
+                export REPO_ROOT="$CODEBUILD_SRC_DIR"
+              elif [ -f "crewlink-ai-v2/cdk.json" ]; then
+                export REPO_ROOT="$(pwd)/crewlink-ai-v2"
               elif [ -f "cdk.json" ]; then
-                export REPO_ROOT="$PWD"
-              elif [ -f "../cdk.json" ]; then
-                export REPO_ROOT="$(cd .. && pwd)"
-              elif [ -f "../../cdk.json" ]; then
-                export REPO_ROOT="$(cd ../.. && pwd)"
+                export REPO_ROOT="$(pwd)"
               else
-                echo "ERROR: could not locate cdk.json from PWD=$PWD CODEBUILD_SRC_DIR=$CODEBUILD_SRC_DIR"
+                echo "ERROR: could not locate cdk.json from PWD=$PWD CODEBUILD_SRC_DIR=${CODEBUILD_SRC_DIR:-unset}"
                 exit 1
               fi
               cd "$REPO_ROOT"
-              echo "Using REPO_ROOT=$REPO_ROOT"
-            - |
-              if [ ! -f amplify_outputs.json ]; then
-                echo "amplify_outputs.json not found; fetching from stack outputs"
-                node scripts/generate-outputs-from-cdk.js || true
-              fi
-            - npm ci --cache .npm --prefer-offline
-            - npm run build -w @crewlink/domain
+              echo "REPO_ROOT=$REPO_ROOT"
+              test -f cdk.json
+              npm ci --cache .npm --prefer-offline
+              npm run cdk:deploy:amplify
+              npm run build -w @crewlink/domain
         build:
           commands:
             - |
-              set -e
-              if [ -f "$CODEBUILD_SRC_DIR/cdk.json" ]; then
-                export REPO_ROOT="$CODEBUILD_SRC_DIR"
-              elif [ -f "$CODEBUILD_SRC_DIR/crewlink-ai-v2/cdk.json" ]; then
+              set -euo pipefail
+              if [ -f "$CODEBUILD_SRC_DIR/crewlink-ai-v2/cdk.json" ]; then
                 export REPO_ROOT="$CODEBUILD_SRC_DIR/crewlink-ai-v2"
+              elif [ -f "$CODEBUILD_SRC_DIR/cdk.json" ]; then
+                export REPO_ROOT="$CODEBUILD_SRC_DIR"
+              elif [ -f "crewlink-ai-v2/cdk.json" ]; then
+                export REPO_ROOT="$(pwd)/crewlink-ai-v2"
               elif [ -f "cdk.json" ]; then
-                export REPO_ROOT="$PWD"
-              elif [ -f "../cdk.json" ]; then
-                export REPO_ROOT="$(cd .. && pwd)"
-              elif [ -f "../../cdk.json" ]; then
-                export REPO_ROOT="$(cd ../.. && pwd)"
+                export REPO_ROOT="$(pwd)"
               else
-                echo "ERROR: could not locate cdk.json from PWD=$PWD CODEBUILD_SRC_DIR=$CODEBUILD_SRC_DIR"
+                echo "ERROR: could not locate cdk.json from PWD=$PWD CODEBUILD_SRC_DIR=${CODEBUILD_SRC_DIR:-unset}"
                 exit 1
               fi
               cd "$REPO_ROOT/apps/web"
-              echo "Using REPO_ROOT=$REPO_ROOT"
-            - npm run build
+              echo "REPO_ROOT=$REPO_ROOT"
+              npm run build
       artifacts:
-        baseDirectory: .next
+        baseDirectory: apps/web/.next
         files:
           - "**/*"
       cache:
         paths:
-          - .next/cache/**/*
+          - .npm/**/*
           - node_modules/**/*
-          - ../../.npm/**/*
-          - ../../node_modules/**/*
-          - ../../packages/domain/dist/**/*
+          - apps/web/.next/cache/**/*
+          - packages/domain/dist/**/*
