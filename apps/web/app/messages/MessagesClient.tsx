@@ -16,6 +16,15 @@ import {
 import { useUnreadMessageCount } from "../hooks/useUnreadMessageCount";
 import "../components/Messages.css";
 
+const inflightConversationStarts = new Set<string>();
+
+function conversationStartKey(input: {
+  recipientId: string;
+  contextId?: string | null;
+}) {
+  return `${input.recipientId}:${input.contextId ?? ""}`;
+}
+
 function formatTime(value: string) {
   return new Intl.DateTimeFormat(undefined, {
     month: "short",
@@ -82,20 +91,30 @@ export default function MessagesClient() {
         const contextId = searchParams.get("contextId");
 
         if (recipientId && recipientName) {
-          const created = await createConversation({
-            recipientId,
-            recipientName,
-            recipientRole: "pilot",
-            title: title ?? undefined,
-            contextType: contextId ? "match" : undefined,
-            contextId: contextId ?? undefined,
-            initialMessage: `Hi ${recipientName}, we'd like to connect about staffing coverage.`,
-          });
-          if (!cancelled) {
-            setActiveConversationId(created.conversation.id);
-            setMessages(created.messages);
-            await refreshConversations();
-            router.replace(`/messages?conversationId=${created.conversation.id}`);
+          const startKey = conversationStartKey({ recipientId, contextId });
+          if (inflightConversationStarts.has(startKey)) {
+            return;
+          }
+          inflightConversationStarts.add(startKey);
+
+          try {
+            const created = await createConversation({
+              recipientId,
+              recipientName,
+              recipientRole: "pilot",
+              title: title ?? undefined,
+              contextType: contextId ? "match" : undefined,
+              contextId: contextId ?? undefined,
+              initialMessage: `Hi ${recipientName}, we'd like to connect about staffing coverage.`,
+            });
+            if (!cancelled) {
+              setActiveConversationId(created.conversation.id);
+              setMessages(created.messages);
+              await refreshConversations();
+              router.replace(`/messages?conversationId=${created.conversation.id}`);
+            }
+          } finally {
+            inflightConversationStarts.delete(startKey);
           }
           return;
         }

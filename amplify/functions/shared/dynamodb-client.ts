@@ -164,6 +164,32 @@ export async function conversationPut(item: Record<string, unknown>): Promise<vo
   );
 }
 
+export async function conversationPutIfNotExists(
+  item: Record<string, unknown>,
+): Promise<boolean> {
+  try {
+    await doc.send(
+      new PutCommand({
+        TableName: table("CONVERSATIONS_TABLE_NAME"),
+        Item: item,
+        ConditionExpression: "attribute_not_exists(#id)",
+        ExpressionAttributeNames: { "#id": "id" },
+      }),
+    );
+    return true;
+  } catch (err: unknown) {
+    if (
+      err &&
+      typeof err === "object" &&
+      "name" in err &&
+      err.name === "ConditionalCheckFailedException"
+    ) {
+      return false;
+    }
+    throw err;
+  }
+}
+
 export async function userConversationPut(item: Record<string, unknown>): Promise<void> {
   await doc.send(
     new PutCommand({

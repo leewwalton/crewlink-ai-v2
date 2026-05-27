@@ -11,6 +11,7 @@ import {
 import {
   conversationGet,
   conversationPut,
+  conversationPutIfNotExists,
   messagePut,
   messagesQuery,
   operatorProfileGet,
@@ -275,22 +276,8 @@ export async function createConversation(
 
   const existing = await conversationGet(conversationId);
   if (existing) {
-    const conversation = existing as Conversation;
-    if (input.initialMessage?.trim()) {
-      const message: Message = {
-        id: `msg-${Date.now()}`,
-        conversationId,
-        senderId: currentUser.id,
-        senderName: currentUser.name,
-        body: input.initialMessage.trim(),
-        createdAt: new Date().toISOString(),
-      };
-      await saveMessage(conversation, message, currentUser.id);
-    }
-    const refreshed = (await conversationGet(conversationId)) as Conversation;
     return {
-      conversation: await inboxItemForUser(currentUser.id, refreshed ?? conversation),
-      messages: await listMessages(conversationId),
+      ...(await loadConversationResult(currentUser.id, existing as Conversation)),
       created: false,
     };
   }
@@ -310,7 +297,18 @@ export async function createConversation(
     createdAt: now,
   };
 
-  await conversationPut(conversation);
+  const created = await conversationPutIfNotExists(conversation);
+  if (!created) {
+    const raced = await conversationGet(conversationId);
+    if (!raced) {
+      throw new Error("Conversation create conflict without record.");
+    }
+    return {
+      ...(await loadConversationResult(currentUser.id, raced as Conversation)),
+      created: false,
+    };
+  }
+
   await upsertUserConversation(currentUser.id, conversation, recipient.id, recipient.name, {
     lastReadAt: initialMessage ? now : undefined,
     unreadCount: 0,
@@ -319,13 +317,13 @@ export async function createConversation(
     unreadCount: initialMessage ? 1 : 0,
   });
 
-  if (input.initialMessage?.trim()) {
+  if (initialMessage) {
     const message: Message = {
       id: `msg-${Date.now()}`,
       conversationId,
       senderId: currentUser.id,
       senderName: currentUser.name,
-      body: input.initialMessage.trim(),
+      body: initialMessage,
       createdAt: now,
     };
     await saveMessage(conversation, message, currentUser.id);
@@ -333,9 +331,19 @@ export async function createConversation(
 
   const refreshed = (await conversationGet(conversationId)) as Conversation;
   return {
-    conversation: await inboxItemForUser(currentUser.id, refreshed ?? conversation),
-    messages: await listMessages(conversationId),
+    ...(await loadConversationResult(currentUser.id, refreshed ?? conversation)),
     created: true,
+  };
+}
+
+async function loadConversationResult(
+  userId: string,
+  conversation: Conversation,
+): Promise<{ conversation: ConversationInboxItem; messages: Message[] }> {
+  const messages = await listMessages(conversation.id);
+  return {
+    conversation: await inboxItemForUser(userId, conversation),
+    messages,
   };
 }
 
