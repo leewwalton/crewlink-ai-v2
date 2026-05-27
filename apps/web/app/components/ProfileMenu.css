@@ -1,0 +1,122 @@
+.profile-menu {
+  position: relative;
+}
+
+.profile-menu-trigger {
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  justify-content: center;
+}
+
+.profile-menu-trigger svg {
+  width: 18px;
+  height: 18px;
+}
+
+.profile-menu-icon-large svg {
+  width: 28px;
+  height: 28px;
+}
+
+.profile-menu-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 60;
+  min-width: 240px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: var(--brand-panel-solid, var(--brand-panel));
+  box-shadow: var(--shadow-sm), 0 18px 40px rgba(0, 0, 0, 0.18);
+}
+
+.profile-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(30, 165, 240, 0.08);
+}
+
+.profile-menu-header strong {
+  display: block;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.profile-menu-header span {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  color: var(--muted);
+  word-break: break-word;
+}
+
+.profile-menu-section {
+  padding: 10px 10px 0;
+}
+
+.profile-menu-label {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--brand-cyan-2);
+}
+
+.profile-menu-persona {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.profile-menu-persona button {
+  min-height: 34px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+
+.profile-menu-links {
+  display: grid;
+  gap: 4px;
+  padding: 10px 0 4px;
+}
+
+.profile-menu-links a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.profile-menu-links a:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.profile-menu-logout {
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.profile-menu-logout:hover {
+  border-color: rgba(255, 107, 67, 0.45);
+  background: rgba(255, 107, 67, 0.1);
+  color: #ff6b43;
+}

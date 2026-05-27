@@ -1,11 +1,10 @@
 "use client";
 
 import Logo from "./Logo";
-import SignOutButton from "./SignOutButton";
+import ProfileMenu from "./ProfileMenu";
 import ThemeToggle from "./ThemeToggle";
 import { useAccount } from "../contexts/AccountContext";
 import { useUnreadMessageCount } from "../hooks/useUnreadMessageCount";
-import { setActivePersona, type ActivePersona } from "../utils/account-access";
 
 const sharedLinks = [
   ["Map", "/map"],
@@ -17,24 +16,13 @@ const operatorLinks = [
   ["Requests", "/requests"],
   ["Matches", "/matches"],
   ["Pilots", "/pilots"],
-  ["Operator", "/profile"],
 ] as const;
 
-const pilotLinks = [["Pilot profile", "/pilot/profile"]] as const;
-
 export default function AppNav() {
-  const { loading, authenticated, accountType, canOperator, canPilot, isAdmin, activePersona, setPersona, label } =
-    useAccount();
+  const { loading, authenticated, canOperator, isAdmin } = useAccount();
   const { unreadCount } = useUnreadMessageCount(!loading && authenticated);
 
   const showOperatorNav = isAdmin || canOperator;
-  const showPilotNav = isAdmin || canPilot;
-  const showPersonaToggle = accountType === "both";
-
-  function switchPersona(persona: ActivePersona) {
-    setPersona(persona);
-    setActivePersona(persona);
-  }
 
   return (
     <header className="topbar">
@@ -42,29 +30,6 @@ export default function AppNav() {
         <nav className="nav" aria-label="Application navigation">
           <Logo />
           <div className="menu">
-            {!loading && accountType && (
-              <span className="pill nav-pill nav-pill-static" title="Account type">
-                {label}
-              </span>
-            )}
-            {showPersonaToggle && (
-              <>
-                <button
-                  className={`nav-pill${activePersona === "operator" ? " is-active" : ""}`}
-                  type="button"
-                  onClick={() => switchPersona("operator")}
-                >
-                  Operator view
-                </button>
-                <button
-                  className={`nav-pill${activePersona === "pilot" ? " is-active" : ""}`}
-                  type="button"
-                  onClick={() => switchPersona("pilot")}
-                >
-                  Pilot view
-                </button>
-              </>
-            )}
             {sharedLinks.map(([labelText, href]) => {
               if (href === "/messages") {
                 const badgeLabel = unreadCount > 99 ? "99+" : String(unreadCount);
@@ -100,14 +65,8 @@ export default function AppNav() {
                   {labelText}
                 </a>
               ))}
-            {showPilotNav &&
-              pilotLinks.map(([labelText, href]) => (
-                <a href={href} key={href} className="nav-pill nav-link-pilot">
-                  {labelText}
-                </a>
-              ))}
             <ThemeToggle />
-            {!loading && authenticated && <SignOutButton className="nav-pill" />}
+            <ProfileMenu />
           </div>
         </nav>
       </div>
