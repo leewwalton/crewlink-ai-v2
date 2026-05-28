@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { Suspense, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import Logo from "../components/Logo";
 import ThemeToggle from "../components/ThemeToggle";
-import { isAppleAuthEnabled, runAmplifyConfig } from "../config/amplify";
+import { isAppleAuthEnabled, readConfiguredOauthDomain, runAmplifyConfig } from "../config/amplify";
 import { loadAccount } from "../utils/api-client";
 import { defaultHomePath } from "../utils/account-access";
 import "../components/AuthPage.css";
@@ -59,11 +58,8 @@ export default function AuthPage() {
 
   useLayoutEffect(() => {
     runAmplifyConfig();
-    const cfg = Amplify.getConfig();
-    const domain =
-      (cfg as { Auth?: { Cognito?: { loginWith?: { oauth?: { domain?: string } } } } })
-        ?.Auth?.Cognito?.loginWith?.oauth?.domain ?? "";
-    setOauthConfigured(typeof domain === "string" && domain.trim().length > 0);
+    const domain = readConfiguredOauthDomain();
+    setOauthConfigured(domain.length > 0);
     setAuthenticatorReady(true);
   }, []);
 

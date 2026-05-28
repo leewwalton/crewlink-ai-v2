@@ -41,7 +41,7 @@ function buildAmplifyOutputs(outputs) {
   const userPoolId = getOutputValue(outputs, "UserPoolId");
   const userPoolClientId = getOutputValue(outputs, "UserPoolClientId");
   const identityPoolId = getOutputValue(outputs, "IdentityPoolId");
-  const cognitoDomain = getOutputValue(outputs, "CognitoDomain");
+  const cognitoDomainRaw = getOutputValue(outputs, "CognitoDomain");
   const region =
     getOutputValue(outputs, "AwsRegion") ||
     process.env.AWS_REGION ||
@@ -54,12 +54,13 @@ function buildAmplifyOutputs(outputs) {
     aws_region: region,
   };
 
-  if (cognitoDomain) {
-    const domain = cognitoDomain.startsWith("https://")
-      ? cognitoDomain
-      : `https://${cognitoDomain}`;
+  const cognitoDomainHost = cognitoDomainRaw
+    ? cognitoDomainRaw.replace(/^https?:\/\//, "").replace(/\/$/, "")
+    : undefined;
+
+  if (cognitoDomainHost) {
     auth.oauth = {
-      domain: domain.replace(/\/$/, ""),
+      domain: `https://${cognitoDomainHost}`,
       scopes: ["email", "openid", "profile"],
       redirect_sign_in_uri: "https://crew-link-ai.com/auth",
       redirect_sign_out_uri: "https://crew-link-ai.com/",
@@ -67,11 +68,15 @@ function buildAmplifyOutputs(outputs) {
     };
   }
 
+  const appleAuthEnabled = getOutputValue(outputs, "AppleAuthEnabled") === "true";
+
   return {
     version: "1",
     auth,
     custom: {
       httpApiUrl: getOutputValue(outputs, "HttpApiUrl"),
+      ...(cognitoDomainHost ? { cognitoDomain: cognitoDomainHost } : {}),
+      appleAuthEnabled,
     },
   };
 }
