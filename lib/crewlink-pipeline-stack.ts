@@ -9,7 +9,60 @@ import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as lambdaNode from "aws-cdk-lib/aws-lambda-nodejs";
+import * as secretsmanager from "aws-cdk-lib/aws-secretsmanager";
 import { DYNAMODB_TABLE_NAMES } from "./dynamodb-table-names";
+
+/** Apple Sign in with Apple rejects redirect hostnames longer than ~50 characters. */
+const APPLE_MAX_COGNITO_HOSTNAME_LEN = 50;
+
+function cognitoHostedUiHostname(prefix: string, region: string): string {
+  return `${prefix}.auth.${region}.amazoncognito.com`;
+}
+
+function resolveCognitoDomainPrefix(
+  scope: Construct,
+  account: string,
+  region: string,
+): string {
+  const fromContext = scope.node.tryGetContext("cognitoDomainPrefix") as
+    | string
+    | undefined;
+  if (fromContext?.trim()) {
+    return fromContext.trim().toLowerCase();
+  }
+  if (process.env.COGNITO_DOMAIN_PREFIX?.trim()) {
+    return process.env.COGNITO_DOMAIN_PREFIX.trim().toLowerCase();
+  }
+  // clai-54596217 (13) + .auth.us-west-2.amazoncognito.com (32) = 45 chars (Apple limit ~50)
+  const suffix = account.slice(-8);
+  const prefix = `clai-${suffix}`;
+  const hostname = cognitoHostedUiHostname(prefix, region);
+  if (hostname.length <= APPLE_MAX_COGNITO_HOSTNAME_LEN) {
+    return prefix;
+  }
+  return `cl-${suffix}`;
+}
+
+function contextFlag(
+  scope: Construct,
+  key: string,
+  defaultValue: boolean,
+): boolean {
+  const value = scope.node.tryGetContext(key);
+  if (value === true || value === "true") return true;
+  if (value === false || value === "false") return false;
+  return defaultValue;
+}
+
+function contextString(
+  scope: Construct,
+  key: string,
+  fallback: string,
+): string {
+  const value = scope.node.tryGetContext(key);
+  if (typeof value === "string" && value.trim()) return value.trim();
+  return fallback;
+}
 
 const LAMBDA_BUNDLING = {
   forceDockerBundling: false,
@@ -17,7 +70,7 @@ const LAMBDA_BUNDLING = {
 };
 
 const PRODUCTION_WEB_ORIGINS = [
-  "https://crewlink-ai.com",
+  "https://crew-link-ai.com",
   "https://crew-link-ai.com",
   "https://www.crew-link-ai.com",
 ];
@@ -39,6 +92,9 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     let userPoolClient: cognito.IUserPoolClient;
     let cognitoDomainName: string;
     let identityPoolIdOutput: string;
+    let appleAuthEnabled = false;
+    let cognitoHostedUiHost = "";
+    let cognitoDomainUrl = "";
 
     if (useExistingAuth) {
       userPool = cognito.UserPool.fromUserPoolId(
@@ -54,6 +110,9 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       cognitoDomainName =
         existingAuth.cognitoDomain || `crewlink-${this.account}`;
       identityPoolIdOutput = existingAuth.identityPoolId || "";
+      cdk.Annotations.of(this).addWarning(
+        "Using existing Cognito pool (COGNITO_USER_POOL_ID). Google and Apple identity providers must be configured manually in the Cognito console.",
+      );
     } else {
       const createdPool = new cognito.UserPool(this, "UserPool", {
         userPoolName: "crewlink-user-pool",
@@ -72,15 +131,140 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       });
       userPool = createdPool;
 
+      const googleAuthEnabled = contextFlag(this, "googleAuthEnabled", true);
+      appleAuthEnabled = contextFlag(this, "appleAuthEnabled", false);
+
+      const googleClientIdSecretName = contextString(
+        this,
+        "googleClientIdSecretName",
+        "crewlinkai/google/clientId",
+      );
+      const googleClientSecretSecretName = contextString(
+        this,
+        "googleClientSecretSecretName",
+        "crewlinkai/google/clientSecret",
+      );
+
+      const supportedProviders: cognito.UserPoolClientIdentityProvider[] = [
+        cognito.UserPoolClientIdentityProvider.COGNITO,
+      ];
+      let googleIdP: cognito.UserPoolIdentityProviderGoogle | undefined;
+      if (googleAuthEnabled) {
+        const googleClientIdSecret = secretsmanager.Secret.fromSecretNameV2(
+          this,
+          "GoogleClientId",
+          googleClientIdSecretName,
+        );
+        const googleClientSecretSecret = secretsmanager.Secret.fromSecretNameV2(
+          this,
+          "GoogleClientSecret",
+          googleClientSecretSecretName,
+        );
+        googleIdP = new cognito.UserPoolIdentityProviderGoogle(
+          this,
+          "GoogleIdP",
+          {
+            userPool: createdPool,
+            clientId: googleClientIdSecret
+              .secretValueFromJson("value")
+              .unsafeUnwrap(),
+            clientSecretValue:
+              googleClientSecretSecret.secretValueFromJson("value"),
+            scopes: ["email", "profile", "openid"],
+            attributeMapping: {
+              email: cognito.ProviderAttribute.GOOGLE_EMAIL,
+              fullname: cognito.ProviderAttribute.GOOGLE_NAME,
+            },
+          },
+        );
+        supportedProviders.push(cognito.UserPoolClientIdentityProvider.GOOGLE);
+      }
+
+      let appleIdP: cognito.UserPoolIdentityProviderApple | undefined;
+      if (appleAuthEnabled) {
+        const appleClientIdSecretName = contextString(
+          this,
+          "appleClientIdSecretName",
+          "crewlinkai/apple/clientId",
+        );
+        const appleTeamIdSecretName = contextString(
+          this,
+          "appleTeamIdSecretName",
+          "crewlinkai/apple/teamId",
+        );
+        const appleKeyIdSecretName = contextString(
+          this,
+          "appleKeyIdSecretName",
+          "crewlinkai/apple/keyId",
+        );
+        const applePrivateKeySecretName = contextString(
+          this,
+          "applePrivateKeySecretName",
+          "crewlinkai/apple/p8",
+        );
+        const applePrivateKeyJsonKey = contextString(
+          this,
+          "applePrivateKeyJsonKey",
+          applePrivateKeySecretName,
+        );
+        const appleClientIdSecret = secretsmanager.Secret.fromSecretNameV2(
+          this,
+          "AppleClientId",
+          appleClientIdSecretName,
+        );
+        const appleTeamIdSecret = secretsmanager.Secret.fromSecretNameV2(
+          this,
+          "AppleTeamId",
+          appleTeamIdSecretName,
+        );
+        const appleKeyIdSecret = secretsmanager.Secret.fromSecretNameV2(
+          this,
+          "AppleKeyId",
+          appleKeyIdSecretName,
+        );
+        const applePrivateKeySecret = secretsmanager.Secret.fromSecretNameV2(
+          this,
+          "ApplePrivateKey",
+          applePrivateKeySecretName,
+        );
+        appleIdP = new cognito.UserPoolIdentityProviderApple(
+          this,
+          "AppleIdP",
+          {
+            userPool: createdPool,
+            clientId: appleClientIdSecret
+              .secretValueFromJson("value")
+              .unsafeUnwrap(),
+            teamId: appleTeamIdSecret
+              .secretValueFromJson("value")
+              .unsafeUnwrap(),
+            keyId: appleKeyIdSecret
+              .secretValueFromJson("value")
+              .unsafeUnwrap(),
+            privateKeyValue:
+              applePrivateKeySecret.secretValueFromJson(applePrivateKeyJsonKey),
+            scopes: ["email", "name"],
+            attributeMapping: {
+              email: cognito.ProviderAttribute.APPLE_EMAIL,
+            },
+          },
+        );
+        supportedProviders.push(cognito.UserPoolClientIdentityProvider.APPLE);
+      }
+
       const callbackUrls = parseCsv(process.env.COGNITO_CALLBACK_URLS, [
+        "http://localhost:3000/auth",
         "http://localhost:3000/dashboard",
         "http://localhost:3000/",
         ...PRODUCTION_WEB_ORIGINS.flatMap((origin) => [
+          `${origin}/auth`,
           `${origin}/dashboard`,
           `${origin}/`,
         ]),
+        "https://d1vpvwi7yc942a.amplifyapp.com/auth",
         "https://d1vpvwi7yc942a.amplifyapp.com/dashboard",
         "https://d1vpvwi7yc942a.amplifyapp.com/",
+        "https://main.d1vpvwi7yc942a.amplifyapp.com/auth",
         "https://main.d1vpvwi7yc942a.amplifyapp.com/dashboard",
         "https://main.d1vpvwi7yc942a.amplifyapp.com/",
       ]);
@@ -91,8 +275,9 @@ export class CrewLinkPipelineStack extends cdk.Stack {
         "https://main.d1vpvwi7yc942a.amplifyapp.com/",
       ]);
 
-      userPoolClient = new cognito.UserPoolClient(this, "UserPoolClient", {
-        userPool: createdPool,
+      userPoolClient = createdPool.addClient("UserPoolClient", {
+        userPoolClientName: "crewlink-web-client",
+        supportedIdentityProviders: supportedProviders,
         authFlows: {
           userPassword: true,
           userSrp: true,
@@ -109,10 +294,22 @@ export class CrewLinkPipelineStack extends cdk.Stack {
         },
         generateSecret: false,
       });
+      if (googleIdP) userPoolClient.node.addDependency(googleIdP);
+      if (appleIdP) userPoolClient.node.addDependency(appleIdP);
 
-      const domainPrefix =
-        process.env.COGNITO_DOMAIN_PREFIX || `crewlink-${this.account}`;
-      const userPoolDomain = createdPool.addDomain("UserPoolDomain", {
+      const domainPrefix = resolveCognitoDomainPrefix(
+        this,
+        this.account,
+        this.region,
+      );
+      cognitoHostedUiHost = cognitoHostedUiHostname(domainPrefix, this.region);
+      if (cognitoHostedUiHost.length > APPLE_MAX_COGNITO_HOSTNAME_LEN) {
+        cdk.Annotations.of(this).addWarning(
+          `Cognito Hosted UI hostname (${cognitoHostedUiHost.length} chars) exceeds Apple's ~${APPLE_MAX_COGNITO_HOSTNAME_LEN} char limit for Sign in with Apple. Set -c cognitoDomainPrefix=shorter-name before deploy.`,
+        );
+      }
+      cognitoDomainUrl = `https://${cognitoHostedUiHost}`;
+      const userPoolDomain = createdPool.addDomain("CrewLinkCognitoDomain", {
         cognitoDomain: { domainPrefix },
       });
       cognitoDomainName = userPoolDomain.domainName;
@@ -160,7 +357,10 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     // ==========================
     const tables = {
       users: this.table("Users", DYNAMODB_TABLE_NAMES.users),
-      pilotProfiles: this.table("PilotProfiles", DYNAMODB_TABLE_NAMES.pilotProfiles),
+      pilotProfiles: this.table(
+        "PilotProfiles",
+        DYNAMODB_TABLE_NAMES.pilotProfiles,
+      ),
       operatorProfiles: this.table(
         "OperatorProfiles",
         DYNAMODB_TABLE_NAMES.operatorProfiles,
@@ -170,9 +370,15 @@ export class CrewLinkPipelineStack extends cdk.Stack {
         DYNAMODB_TABLE_NAMES.staffingRequests,
       ),
       matches: this.table("Matches", DYNAMODB_TABLE_NAMES.matches),
-      availability: this.table("Availability", DYNAMODB_TABLE_NAMES.availability),
+      availability: this.table(
+        "Availability",
+        DYNAMODB_TABLE_NAMES.availability,
+      ),
       locations: this.table("Locations", DYNAMODB_TABLE_NAMES.locations),
-      contactLeads: this.table("ContactLeads", DYNAMODB_TABLE_NAMES.contactLeads),
+      contactLeads: this.table(
+        "ContactLeads",
+        DYNAMODB_TABLE_NAMES.contactLeads,
+      ),
       conversations: this.table(
         "Conversations",
         DYNAMODB_TABLE_NAMES.conversations,
@@ -193,7 +399,7 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       "";
     const contactSesSourceArn = process.env.CONTACT_SES_SOURCE_ARN ?? "";
     const messageWebBaseUrl =
-      process.env.MESSAGE_WEB_BASE_URL ?? "https://crewlink-ai.com";
+      process.env.MESSAGE_WEB_BASE_URL ?? "https://crew-link-ai.com";
     const bedrockModelId =
       process.env.BEDROCK_MODEL_ID ||
       "anthropic.claude-3-5-sonnet-20241022-v2:0";
@@ -283,18 +489,22 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       },
     );
 
-    const pilotProfileFn = new lambdaNode.NodejsFunction(this, "PilotProfileFn", {
-      runtime: lambda.Runtime.NODEJS_20_X,
-      entry: "amplify/functions/pilot-profile/handler.ts",
-      handler: "handler",
-      environment: {
-        ...accountEnvironment,
-        PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
+    const pilotProfileFn = new lambdaNode.NodejsFunction(
+      this,
+      "PilotProfileFn",
+      {
+        runtime: lambda.Runtime.NODEJS_20_X,
+        entry: "amplify/functions/pilot-profile/handler.ts",
+        handler: "handler",
+        environment: {
+          ...accountEnvironment,
+          PILOT_PROFILES_TABLE_NAME: tables.pilotProfiles.tableName,
+        },
+        timeout: cdk.Duration.seconds(15),
+        memorySize: 256,
+        bundling: LAMBDA_BUNDLING,
       },
-      timeout: cdk.Duration.seconds(15),
-      memorySize: 256,
-      bundling: LAMBDA_BUNDLING,
-    });
+    );
 
     const matchesGetFn = new lambdaNode.NodejsFunction(this, "MatchesGetFn", {
       runtime: lambda.Runtime.NODEJS_20_X,
@@ -459,7 +669,11 @@ export class CrewLinkPipelineStack extends cdk.Stack {
     });
     httpApi.addRoutes({
       path: "/requests",
-      methods: [apigwv2.HttpMethod.GET, apigwv2.HttpMethod.POST, apigwv2.HttpMethod.PUT],
+      methods: [
+        apigwv2.HttpMethod.GET,
+        apigwv2.HttpMethod.POST,
+        apigwv2.HttpMethod.PUT,
+      ],
       integration: new apigwv2Integrations.HttpLambdaIntegration(
         "RequestsIntegration",
         staffingRequestsFn,
@@ -538,7 +752,27 @@ export class CrewLinkPipelineStack extends cdk.Stack {
       value: userPoolClient.userPoolClientId,
     });
     new cdk.CfnOutput(this, "IdentityPoolId", { value: identityPoolIdOutput });
-    new cdk.CfnOutput(this, "CognitoDomain", { value: cognitoDomainName });
+    new cdk.CfnOutput(this, "CognitoDomain", {
+      value: cognitoDomainUrl || cognitoDomainName,
+      description: "Cognito Hosted UI domain URL",
+    });
+    new cdk.CfnOutput(this, "AppleAuthEnabled", {
+      value: appleAuthEnabled ? "true" : "false",
+      description:
+        "Sign in with Apple on the user pool client (requires deploy with appleAuthEnabled and Apple secrets)",
+    });
+    if (appleAuthEnabled && cognitoDomainUrl) {
+      new cdk.CfnOutput(this, "AppleOAuthRedirectUrl", {
+        value: `${cognitoDomainUrl}/oauth2/idpresponse`,
+        description:
+          "Add this exact Return URL on your Apple Services ID (Sign in with Apple → Configure)",
+      });
+      new cdk.CfnOutput(this, "AppleOAuthDomain", {
+        value: cognitoHostedUiHost,
+        description:
+          "Add this Domains and Subdomains entry on your Apple Services ID web configuration",
+      });
+    }
     new cdk.CfnOutput(this, "HttpApiUrl", { value: httpApi.apiEndpoint });
     new cdk.CfnOutput(this, "AwsRegion", { value: this.region });
     new cdk.CfnOutput(this, "PilotProfilesTableName", {

@@ -1,16 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useLayoutEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Amplify } from "aws-amplify";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import Logo from "../components/Logo";
 import ThemeToggle from "../components/ThemeToggle";
-import "../components/AuthPage.css";
-
+import { isAppleAuthEnabled, runAmplifyConfig } from "../config/amplify";
 import { loadAccount } from "../utils/api-client";
 import { defaultHomePath } from "../utils/account-access";
+import "../components/AuthPage.css";
 
 function RedirectAfterSignIn() {
   const router = useRouter();
@@ -53,6 +54,28 @@ function AuthRedirect() {
 }
 
 export default function AuthPage() {
+  const [authenticatorReady, setAuthenticatorReady] = useState(false);
+  const [oauthConfigured, setOauthConfigured] = useState(false);
+
+  useLayoutEffect(() => {
+    runAmplifyConfig();
+    const cfg = Amplify.getConfig();
+    const domain =
+      (cfg as { Auth?: { Cognito?: { loginWith?: { oauth?: { domain?: string } } } } })
+        ?.Auth?.Cognito?.loginWith?.oauth?.domain ?? "";
+    setOauthConfigured(typeof domain === "string" && domain.trim().length > 0);
+    setAuthenticatorReady(true);
+  }, []);
+
+  const socialProviders = useMemo(() => {
+    if (!oauthConfigured) return [] as const;
+    const providers: ("google" | "apple")[] = ["google"];
+    if (isAppleAuthEnabled()) {
+      providers.push("apple");
+    }
+    return providers;
+  }, [oauthConfigured]);
+
   return (
     <main className="auth-page">
       <div className="auth-container">
@@ -69,13 +92,20 @@ export default function AuthPage() {
           </p>
         </div>
 
-        <Authenticator
-          hideSignUp={false}
-          loginMechanisms={["email"]}
-          signUpAttributes={["email"]}
-        >
-          {() => <AuthRedirect />}
-        </Authenticator>
+        {!authenticatorReady ? (
+          <div style={{ padding: "2rem", textAlign: "center", color: "var(--muted)" }}>
+            Loading sign-in…
+          </div>
+        ) : (
+          <Authenticator
+            hideSignUp={false}
+            loginMechanisms={["email"]}
+            signUpAttributes={["email"]}
+            socialProviders={socialProviders as ("google" | "apple")[]}
+          >
+            {() => <AuthRedirect />}
+          </Authenticator>
+        )}
 
         <p className="auth-footer fineprint">
           <Link href="/">Back to CrewLinkAI home</Link>

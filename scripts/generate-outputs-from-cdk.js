@@ -61,8 +61,8 @@ function buildAmplifyOutputs(outputs) {
     auth.oauth = {
       domain: domain.replace(/\/$/, ""),
       scopes: ["email", "openid", "profile"],
-      redirect_sign_in_uri: "https://crewlink-ai.com/dashboard",
-      redirect_sign_out_uri: "https://crewlink-ai.com/",
+      redirect_sign_in_uri: "https://crew-link-ai.com/auth",
+      redirect_sign_out_uri: "https://crew-link-ai.com/",
       response_type: "code",
     };
   }
@@ -96,6 +96,7 @@ function buildCdkOutputs(outputs) {
     custom: {
       httpApiUrl: getOutputValue(outputs, "HttpApiUrl"),
       ...(cognitoDomain ? { cognitoDomain } : {}),
+      appleAuthEnabled: getOutputValue(outputs, "AppleAuthEnabled") === "true",
     },
   };
 }

@@ -49,7 +49,7 @@ export const handler = async (event: any) => {
 
   if (isNewsletter) {
     if (!name) name = "Newsletter subscriber";
-    if (!message) message = "Newsletter signup from crewlink-ai.com";
+    if (!message) message = "Newsletter signup from crew-link-ai.com";
   } else if (!name) {
     console.warn(`${LOG_PREFIX} Validation failed: missing name`);
     return json(400, { message: "name and email are required" });

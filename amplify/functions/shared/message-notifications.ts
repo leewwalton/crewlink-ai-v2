@@ -14,9 +14,11 @@ const MESSAGE_FROM_EMAIL =
   process.env.CONTACT_NOTIFY_EMAIL ||
   "";
 const MESSAGE_SES_SOURCE_ARN =
-  process.env.MESSAGE_SES_SOURCE_ARN || process.env.CONTACT_SES_SOURCE_ARN || "";
+  process.env.MESSAGE_SES_SOURCE_ARN ||
+  process.env.CONTACT_SES_SOURCE_ARN ||
+  "";
 const MESSAGE_WEB_BASE_URL =
-  process.env.MESSAGE_WEB_BASE_URL || "https://crewlink-ai.com";
+  process.env.MESSAGE_WEB_BASE_URL || "https://crew-link-ai.com";
 
 export type ParticipantContact = {
   email?: string;
@@ -43,7 +45,9 @@ export function normalizePhoneNumber(value: string): string | null {
   return null;
 }
 
-export async function resolveParticipantContact(userId: string): Promise<ParticipantContact> {
+export async function resolveParticipantContact(
+  userId: string,
+): Promise<ParticipantContact> {
   const [operatorRow, pilotRow] = await Promise.all([
     operatorProfileGet(userId),
     pilotProfileGet(userId),
@@ -52,7 +56,10 @@ export async function resolveParticipantContact(userId: string): Promise<Partici
   const phones: string[] = [];
   const email = trim(operatorRow?.email) || trim(pilotRow?.email) || undefined;
 
-  for (const rawPhone of [trim(pilotRow?.phone), trim(pilotRow?.alternatePhone)]) {
+  for (const rawPhone of [
+    trim(pilotRow?.phone),
+    trim(pilotRow?.alternatePhone),
+  ]) {
     if (!rawPhone) continue;
     const normalized = normalizePhoneNumber(rawPhone);
     if (normalized && !phones.includes(normalized)) {
@@ -82,7 +89,9 @@ async function sendMessageEmail(input: {
   conversationId: string;
 }) {
   if (!MESSAGE_FROM_EMAIL) {
-    console.warn(`${LOG_PREFIX} Email skipped: MESSAGE_FROM_EMAIL not configured`);
+    console.warn(
+      `${LOG_PREFIX} Email skipped: MESSAGE_FROM_EMAIL not configured`,
+    );
     return;
   }
 

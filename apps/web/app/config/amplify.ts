@@ -13,6 +13,7 @@ type AppOutputs = {
   auth?: AuthOutputs;
   custom?: {
     cognitoDomain?: string;
+    appleAuthEnabled?: boolean | string;
   };
 };
 
@@ -26,6 +27,16 @@ function loadOutputs(): AppOutputs | null {
       return null;
     }
   }
+}
+
+/** True when Sign in with Apple is configured on the Cognito app client. */
+export function isAppleAuthEnabled(): boolean {
+  if (process.env.NEXT_PUBLIC_APPLE_AUTH_ENABLED === "true") {
+    return true;
+  }
+  const outputs = loadOutputs();
+  const flag = outputs?.custom?.appleAuthEnabled;
+  return flag === true || flag === "true";
 }
 
 export function runAmplifyConfig(): void {
@@ -51,7 +62,7 @@ export function runAmplifyConfig(): void {
           oauth: {
             domain: oauthDomain,
             scopes: ["openid", "email", "profile"],
-            redirectSignIn: [`${origin}/dashboard`],
+            redirectSignIn: [`${origin}/auth`, `${origin}/dashboard`],
             redirectSignOut: [`${origin}/`],
             responseType: "code" as const,
           },
