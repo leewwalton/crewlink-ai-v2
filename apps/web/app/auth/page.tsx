@@ -222,11 +222,15 @@ function AuthPageContent() {
               socialProviders={[]}
               components={{
                 Header() {
-                  return null;
+                  return <></>;
                 },
               }}
             >
-              {() => null}
+              {() => (
+                <div className="auth-sign-in-loading" aria-live="polite">
+                  Signing in…
+                </div>
+              )}
             </Authenticator>
           </div>
         )}
