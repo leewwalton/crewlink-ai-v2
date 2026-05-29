@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Logo from "./Logo";
 import ThemeToggle from "./ThemeToggle";
 import { createContact, subscribeNewsletter } from "../utils/api-client";
@@ -166,7 +165,6 @@ const personaContent: Record<Persona, PersonaContent> = {
 };
 
 export default function LandingPage() {
-  const router = useRouter();
   const [persona, setPersona] = useState<Persona>("operator");
   const content = personaContent[persona];
   const [form, setForm] = useState({
@@ -255,7 +253,9 @@ export default function LandingPage() {
               <button
                 className="btn primary"
                 type="button"
-                onClick={() => router.push(content.primaryRoute)}
+                disabled
+                aria-disabled="true"
+                title="App access is temporarily unavailable"
               >
                 {content.primaryCta}
               </button>
