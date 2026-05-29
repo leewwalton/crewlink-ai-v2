@@ -1,76 +1,173 @@
 "use client";
 
 import Link from "next/link";
-import { Suspense, useEffect, useLayoutEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useLayoutEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { fetchAuthSession, signInWithRedirect } from "aws-amplify/auth";
+import { Hub } from "aws-amplify/utils";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import Logo from "../components/Logo";
 import ThemeToggle from "../components/ThemeToggle";
-import { isAppleAuthEnabled, readConfiguredOauthDomain, runAmplifyConfig } from "../config/amplify";
+import {
+  isAppleAuthEnabled,
+  readConfiguredOauthDomain,
+  runAmplifyConfig,
+} from "../config/amplify";
 import { loadAccount } from "../utils/api-client";
 import { defaultHomePath } from "../utils/account-access";
 import "../components/AuthPage.css";
 
-function RedirectAfterSignIn() {
+async function hasAuthSession(): Promise<boolean> {
+  try {
+    const session = await fetchAuthSession({ forceRefresh: true });
+    return Boolean(
+      session.tokens?.idToken?.toString() ||
+        session.tokens?.accessToken?.toString(),
+    );
+  } catch {
+    return false;
+  }
+}
+
+function usePostAuthRedirect() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [completingOAuth, setCompletingOAuth] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let active = true;
+    const isOAuthCallback =
+      searchParams.has("code") && searchParams.has("state");
 
-    async function redirect() {
+    if (isOAuthCallback) {
+      setCompletingOAuth(true);
+    }
+
+    async function redirectSignedInUser() {
+      if (!active || !(await hasAuthSession())) return false;
+
       const requestedNext = searchParams.get("next");
       if (requestedNext?.startsWith("/")) {
         router.replace(requestedNext);
-        return;
+        return true;
       }
 
       try {
         const account = await loadAccount();
-        if (!active) return;
+        if (!active) return true;
         router.replace(defaultHomePath(account?.accountType ?? null));
       } catch {
         if (active) router.replace("/onboarding");
       }
+      return true;
     }
 
-    redirect();
+    const unsubscribe = Hub.listen("auth", ({ payload }) => {
+      if (
+        payload.event === "signInWithRedirect" ||
+        payload.event === "signedIn"
+      ) {
+        void redirectSignedInUser();
+      }
+    });
+
+    async function bootstrap() {
+      runAmplifyConfig();
+
+      if (await redirectSignedInUser()) return;
+
+      if (!isOAuthCallback) {
+        if (active) setCompletingOAuth(false);
+        return;
+      }
+
+      const deadline = Date.now() + 15000;
+      while (active && Date.now() < deadline) {
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        if (await redirectSignedInUser()) return;
+      }
+
+      if (active) setCompletingOAuth(false);
+    }
+
+    void bootstrap();
+
     return () => {
       active = false;
+      unsubscribe();
     };
   }, [router, searchParams]);
 
-  return null;
+  return completingOAuth;
 }
 
-function AuthRedirect() {
+type SocialProvider = "Google" | "Apple";
+
+function SocialSignInPanel({
+  showApple,
+  onSignIn,
+  redirecting,
+}: {
+  showApple: boolean;
+  onSignIn: (provider: SocialProvider) => void;
+  redirecting: SocialProvider | null;
+}) {
   return (
-    <Suspense fallback={null}>
-      <RedirectAfterSignIn />
-    </Suspense>
+    <div className="auth-social-panel">
+      <button
+        type="button"
+        className="auth-social-button auth-social-button--google"
+        disabled={redirecting !== null}
+        onClick={() => onSignIn("Google")}
+      >
+        {redirecting === "Google" ? "Redirecting…" : "Continue with Google"}
+      </button>
+      {showApple && (
+        <button
+          type="button"
+          className="auth-social-button auth-social-button--apple"
+          disabled={redirecting !== null}
+          onClick={() => onSignIn("Apple")}
+        >
+          {redirecting === "Apple" ? "Redirecting…" : "Continue with Apple"}
+        </button>
+      )}
+    </div>
   );
 }
 
-export default function AuthPage() {
-  const [authenticatorReady, setAuthenticatorReady] = useState(false);
+function AuthPageContent() {
+  const completingOAuth = usePostAuthRedirect();
+  const [authReady, setAuthReady] = useState(false);
   const [oauthConfigured, setOauthConfigured] = useState(false);
+  const [showCredentialLogin, setShowCredentialLogin] = useState(false);
+  const [socialRedirecting, setSocialRedirecting] = useState<SocialProvider | null>(
+    null,
+  );
 
   useLayoutEffect(() => {
     runAmplifyConfig();
-    const domain = readConfiguredOauthDomain();
-    setOauthConfigured(domain.length > 0);
-    setAuthenticatorReady(true);
+    setOauthConfigured(readConfiguredOauthDomain().length > 0);
+    setAuthReady(true);
   }, []);
 
-  const socialProviders = useMemo(() => {
-    if (!oauthConfigured) return [] as const;
-    const providers: ("google" | "apple")[] = ["google"];
-    if (isAppleAuthEnabled()) {
-      providers.push("apple");
+  const showApple = isAppleAuthEnabled();
+  const hasSocialLogin = oauthConfigured;
+  const showSocialPrimary = hasSocialLogin && !showCredentialLogin;
+
+  const handleSocialSignIn = useCallback(async (provider: SocialProvider) => {
+    setSocialRedirecting(provider);
+    try {
+      runAmplifyConfig();
+      await signInWithRedirect({ provider });
+    } catch (err) {
+      console.error("Social sign-in failed", err);
+      setSocialRedirecting(null);
     }
-    return providers;
-  }, [oauthConfigured]);
+  }, []);
+
+  const showLoading = !authReady || completingOAuth;
 
   return (
     <main className="auth-page">
@@ -88,19 +185,50 @@ export default function AuthPage() {
           </p>
         </div>
 
-        {!authenticatorReady ? (
-          <div style={{ padding: "2rem", textAlign: "center", color: "var(--muted)" }}>
-            Loading sign-in…
+        {showLoading ? (
+          <div className="auth-sign-in-loading">
+            {completingOAuth ? "Completing sign-in…" : "Loading sign-in…"}
+          </div>
+        ) : showSocialPrimary ? (
+          <div className="auth-sign-in-options">
+            <SocialSignInPanel
+              showApple={showApple}
+              onSignIn={handleSocialSignIn}
+              redirecting={socialRedirecting}
+            />
+            <button
+              type="button"
+              className="auth-credential-toggle"
+              onClick={() => setShowCredentialLogin(true)}
+            >
+              Sign in with email and password
+            </button>
           </div>
         ) : (
-          <Authenticator
-            hideSignUp={false}
-            loginMechanisms={["email"]}
-            signUpAttributes={["email"]}
-            socialProviders={socialProviders as ("google" | "apple")[]}
-          >
-            {() => <AuthRedirect />}
-          </Authenticator>
+          <div className="auth-sign-in-options">
+            {hasSocialLogin && (
+              <button
+                type="button"
+                className="auth-credential-toggle auth-credential-toggle--back"
+                onClick={() => setShowCredentialLogin(false)}
+              >
+                Back to Google or Apple sign-in
+              </button>
+            )}
+            <Authenticator
+              hideSignUp={false}
+              loginMechanisms={["email"]}
+              signUpAttributes={["email"]}
+              socialProviders={[]}
+              components={{
+                Header() {
+                  return null;
+                },
+              }}
+            >
+              {() => null}
+            </Authenticator>
+          </div>
         )}
 
         <p className="auth-footer fineprint">
@@ -110,5 +238,21 @@ export default function AuthPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense
+      fallback={
+        <main className="auth-page">
+          <div className="auth-container">
+            <div className="auth-sign-in-loading">Loading sign-in…</div>
+          </div>
+        </main>
+      }
+    >
+      <AuthPageContent />
+    </Suspense>
   );
 }

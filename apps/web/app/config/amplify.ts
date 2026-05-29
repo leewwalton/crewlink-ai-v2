@@ -91,7 +91,7 @@ export function runAmplifyConfig(): void {
           oauth: {
             domain: oauthDomain,
             scopes: ["openid", "email", "profile"],
-            redirectSignIn: [`${origin}/auth`, `${origin}/dashboard`],
+            redirectSignIn: [`${origin}/auth`],
             redirectSignOut: [`${origin}/`],
             responseType: "code" as const,
           },
