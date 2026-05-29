@@ -100,17 +100,26 @@ function toPilotProfile(item: Record<string, unknown>): PilotProfile {
   return profile as PilotProfile;
 }
 
+function parseOptionalString(value: unknown): string | undefined {
+  if (value == null) return undefined;
+  const trimmed = String(value).trim();
+  return trimmed || undefined;
+}
+
 function parseProfileInput(
   body: Record<string, unknown> | null,
   userId: string,
+  fallbackEmail?: string,
 ): PilotProfile | null {
   if (!body) return null;
 
   const name = body.name != null ? String(body.name).trim() : "";
   const homeBase = body.homeBase != null ? String(body.homeBase).trim() : "";
+  const email =
+    (body.email != null ? String(body.email).trim() : "") || fallbackEmail || "";
   const role = body.role != null ? String(body.role) : "PIC";
 
-  if (!name || !homeBase) {
+  if (!name || !homeBase || !email) {
     return null;
   }
 
